@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import { usePathname } from "next/navigation";
 
 import ScrollTopToBottom from "../components/buttons/ScrollTopToBottom";
 // import ChatBot from "../ai/ChatBot"
@@ -12,12 +13,15 @@ import { store } from "../redux/store";
 const AppProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const pathname = usePathname();
+  const shouldShowScrollToTop = pathname !== "/brochure";
+
   return (
     <>
       <Provider store={store}>
         <Suspense>
           {children}
-          <ScrollTopToBottom />
+          {shouldShowScrollToTop && <ScrollTopToBottom />}
           <BrochureButton />
           <ReviewModal />
         </Suspense>

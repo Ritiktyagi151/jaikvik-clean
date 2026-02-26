@@ -1,0 +1,204 @@
+{
+  "aboutPage": {
+    "heroSection": {
+      "title": "About Jaikvik Technology",
+      "subtitle": "Empowering Businesses Through Digital Innovation Since 2016",
+      "backgroundImage": "https://images.unsplash.com/photo-1634482899780-6ac6b92c656e?w=600&auto=format&fit=crop&q=60",
+      "ctaButton": {
+        "text": "Discover Our Story",
+        "link": "#about"
+      }
+    },
+    "aboutSection": {
+      "title": "Who We Are",
+      "content": [
+        "Established in 2016, Jaikvik Technology started as a partnership and had embarked on a journey with the vision of empowering businesses through digital means. Eventually, into 2022, observing the growth and diversification of the portfolio, the company was promoted to a Private Limited company and is now known as Jaikvik Technology India Private Limited.",
+        "Headquartered in India, we are a dynamic team of software developers, digital strategists, creatives, and brand specialists, committed to transforming business ideas into scalable, tech-driven realities."
+      ]
+    },
+    "missionVision": {
+      "mission": {
+        "title": "Our Mission",
+        "content": "To empower businesses of all sizes with cutting-edge digital solutions that drive growth, enhance visibility, and create meaningful connections with their target audience through innovative technology and creative strategies."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "content": "To be a global leader in digital solutions, recognized for our commitment to excellence, client-centric innovation, and transformative strategies that shape the future of businesses in the digital age."
+      }
+    },
+    "whyUs": {
+      "title": "Comprehensive Digital Solutions",
+      "description": "Jaikvik Technology India Private Limited provides a comprehensive suite of services designed to bridge technology and business strategy for your empowerment towards growth.",
+      "specializationText": "We specialize in:",
+      "services": [
+        {
+          "title": "Customised Software Development",
+          "description": "Provision of tailor-made software solutions like ERP, CRM, and HRM systems that fit into operational needs and industry requirements."
+        },
+        {
+          "title": "Mobile Application Development",
+          "description": "Development of appealing, easy-to-use apps with a strong business focus towards customer engagement and streamlining own operations."
+        },
+        {
+          "title": "SEO & Digital Marketing Services",
+          "description": "Result-driven SEO, content strategies, and all forms of online marketing campaigns to make your brand shine online and bring traffic and conversion."
+        },
+        {
+          "title": "Corporate Film Production",
+          "description": "We help tell your brand's story with engaging visual narratives — from promo videos to bespoke corporate films your audience will connect with."
+        }
+      ],
+      "image": "https://images.unsplash.com/photo-1559165317-9f3837ba893e?w=600&auto=format&fit=crop&q=60"
+    },
+    "stats": {
+      "title": "Our Impact in Numbers",
+      "stats": [
+        {
+          "value": 9,
+          "label": "Years of Experience",
+          "dataId": "9"
+        },
+        {
+          "value": 500,
+          "label": "Happy Clients",
+          "dataId": "500"
+        },
+        {
+          "value": 1200,
+          "label": "Projects Completed",
+          "dataId": "1200"
+        },
+        {
+          "value": 50,
+          "label": "Team Members",
+          "dataId": "50"
+        }
+      ]
+    },
+    "whyChooseUs": {
+      "title": "What Sets Us Apart",
+      "points": [
+        {
+          "title": "Experience & Evolution",
+          "value": 90,
+          "description": "With close to 10 years of industrial existence, the conversion of our firm from a partnership firm into a Private Limited Company is testimony to growth, services, and faith by our clients."
+        },
+        {
+          "title": "Customized Approach",
+          "value": 95,
+          "description": "Two organisations are never alike. Likewise, a solution tailored to your goals, your challenges, and industry needs is what we offer."
+        },
+        {
+          "title": "Integrated Solutions",
+          "value": 98,
+          "description": "We provide end-to-end solutions under one roof-from software development to brand building-so nothing comes up short on integrity and quality, or speed."
+        },
+        {
+          "title": "Result-Driven Strategies",
+          "value": 100,
+          "description": "Focuses on results, not just on service delivery. The strategy that our digital marketing and technological solutions follow is thus geared towards lead generation, conversion enhancement, and long-term brand value development."
+        },
+        {
+          "title": "Creative + Technical Expertise",
+          "value": 92,
+          "description": "Hence, our creative and technical team brings real-world innovation and functionality together-east side creative media production and west side strong software architecture giving a competitive edge to your business."
+        }
+      ],
+      "conclusion": "Jaikvik Technology India Private Limited doesn't just build solutions; it builds partnerships for growth. Digitize operations, develop the brand, or tell your story with engaging visuals: we're one stop for making things happen.",
+      "image": "https://images.unsplash.com/photo-1551822620-ac3afd8acd1f?w=600&auto=format&fit=crop&q=60"
+    },
+    "promoters": [
+      {
+        "name": "Vikas Jaiswal",
+        "role": "Managing Director",
+        "image": "https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/vikas-sir.webp",
+        "bio": [
+          "The foundation of Jaikvik Technology India Private Limited rests in the vision and leadership of our Managing Director Mr. Vikas Jaiswal, a seasoned professional with over 15 years of rich experience in the fields of software development and finance.",
+          "Mr. Jaiswal has built his expertise through key roles in some of India's most renowned organizations."
+        ],
+        "companies": [
+          "Dell Technologies Inc",
+          "Bharti Airtel Limited",
+          "Care Ratings Ltd.",
+          "Resurgent India Ltd."
+        ],
+        "additionalInfo": [
+          "Hailing from a background rich in technology and process management, he engaged in a deep understanding of finance, allowing him to pave the way to innovation while ensuring business viability and growth.",
+          "His skills, however, beyond technical acumen, germinate from dynamic thought leadership and values that he holds. His style of leadership is one to get his hands dirty, and at all levels, he instils integrity, collaboration, and performance excellence.",
+          "Guided by his vision, Jaikvik Technology transitioned from being a partnership firm into a Private Limited Company and set standards in customized software solution."
+        ],
+        "color": "from-purple-500 to-pink-500",
+        "accent": "purple-500"
+      },
+      {
+        "name": "Kranti Parashar",
+        "role": "Director & CEO",
+        "image": "https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/kranti-sir.webp ",
+        "bio": [
+          "The CEO and director of Jaikvik Technology India Private Limited, Mr. Kranti Parashar has emerged as an eminent figure in Indian industry circles with his wide exposure into different domains comprising financial levels, advertising, and communication sectors for nearly over 17 years.",
+          "With a great focus on execution, he entered the higher levels of leadership with an MBA background, excelling at strategic planning and relationship building."
+        ],
+        "companies": [
+          "Tata Teleservices Ltd",
+          "Kotak Mahindra Bank",
+          "Aegon Religare",
+          "Care Ratings Ltd.",
+          "Indiamart Intermesh Ltd.",
+          "Resurgent India Ltd."
+        ],
+        "additionalInfo": [
+          "His professional strengths include Relationship Management, Financial Management, Marketing Strategy, and Team Leadership. Mr. Parashar is strong at networking with key players in the industry.",
+          "Mr. Kranti Parashar with his pragmatic approach, cheerful nature, and much zeal joins the purposes of achieving integrated technology and branding solutions for enabling business transformations across sectors.",
+          "Currently, under his able leadership, Jaikvik Technology stands as a well-known name in software development, digital marketing, and corporate communication."
+        ],
+        "color": "from-blue-500 to-cyan-500",
+        "accent": "blue-500"
+      }
+    ],
+    "clients": {
+      "title": "Trusted By Industry Leaders",
+      "logos": [
+        {
+          "name": "Glow Green Pvt Ltd",
+          "logo": "https://www.glowgreen.in/website/images/logo/logo.png"
+        },
+        {
+          "name": "Envirotech System Ltd",
+          "logo": "https://www.envirotechltd.com/assets/images/logo/New-logo.png"
+        },
+        {
+          "name": "Celestail Lifestyle",
+          "logo": "https://celestialindia.com/Assets/images/Logo/logo.png"
+        },
+        {
+          "name": "Ambrosia Harvest Pvt Ltd",
+          "logo": "https://anphoney.com/wp-content/uploads/header-ambrosia-harvest-logo.png"
+        },
+        {
+          "name": "Victor Magnetics Pvt Ltd",
+          "logo": "https://victormagnetics.com/assets/images/logo/logo.png"
+        },
+        {
+          "name": "Indian Roller Pvt Ltd",
+          "logo": "https://www.indianroller.com/assets/images/logo/logo.png"
+        },
+        {
+          "name": "Indian Railway",
+          "logo": "https://www.indianrail.gov.in/enquiry/images/rail.gif"
+        },
+        {
+          "name": "IDFC Bank",
+          "logo": "https://www.idfcfirstbank.com/content/dam/idfcfirstbank/images/n1/IDFC-logo-website.svg"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your Digital Presence?",
+      "description": "Let's discuss how Jaikvik Technology can help your business grow in the digital space.",
+      "button": {
+        "text": "Get In Touch",
+        "link": "/contact-us"
+      }
+    }
+  }
+}

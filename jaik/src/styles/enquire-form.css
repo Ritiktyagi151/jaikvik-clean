@@ -1,0 +1,83 @@
+.input-contain {
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.input-contain input,
+.input-contain textarea {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #e5e5e5;
+    background-color: transparent;
+    color: #e5e5e5;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.input-contain input:focus,
+.input-contain textarea:focus {
+    border: 1px solid #ff0000;
+    outline: none;
+}
+
+.placeholder-text,
+.placeholder-text-2 {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    transition: 0.2s ease all;
+    font-size: 16px;
+    color: #e5e5e5;
+    pointer-events: none;
+    background-color: #141414;
+    padding: 0 5px;
+}
+
+.placeholder-text-2 {
+    background-color: #2b2b2b;
+}
+
+.input-contain input:focus+.placeholder-text,
+.input-contain input:not(:placeholder-shown)+.placeholder-text,
+.input-contain textarea:focus+.placeholder-text,
+.input-contain textarea:not(:placeholder-shown)+.placeholder-text,
+.input-contain input:focus+.placeholder-text-2,
+.input-contain input:not(:placeholder-shown)+.placeholder-text-2,
+.input-contain textarea:focus+.placeholder-text-2,
+.input-contain textarea:not(:placeholder-shown)+.placeholder-text-2 {
+    top: 0;
+    font-size: 14px;
+    color: #ff0000;
+}
+
+@media (max-width: 992px) {
+
+    .input-contain input,
+    .input-contain textarea {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .placeholder-text {
+        font-size: 14px;
+        left: 12px;
+    }
+
+    .placeholder-text-2 {
+        font-size: 14px;
+        left: 12px;
+    }
+
+    .input-contain input:focus+.placeholder-text,
+    .input-contain input:not(:placeholder-shown)+.placeholder-text,
+    .input-contain textarea:focus+.placeholder-text,
+    .input-contain textarea:not(:placeholder-shown)+.placeholder-text,
+    .input-contain input:focus+.placeholder-text-2,
+    .input-contain input:not(:placeholder-shown)+.placeholder-text-2,
+    .input-contain textarea:focus+.placeholder-text-2,
+    .input-contain textarea:not(:placeholder-shown)+.placeholder-text-2 {
+        font-size: 12px;
+    }
+}

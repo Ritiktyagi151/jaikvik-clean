@@ -97,7 +97,7 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
               loop
               playsInline
               muted={isMuted}
-              // preload="none" 
+              preload="none" 
               poster={posterSrc}
             >
               <source src={videoSrc} type="video/mp4" />

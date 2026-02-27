@@ -35,7 +35,7 @@ const HeroSection: React.FC = () => {
               muted
               playsInline // Mobile autoplay ke liye zaroori
               loop
-              // preload="metadata"
+              preload="metadata"
               className="w-full h-auto cursor-pointer rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-[1.01]"
             >
               <source

@@ -84,7 +84,7 @@ const ReelVideoCard: React.FC<{
         controls={false}
         poster={poster}
         loop
-        preload="metadata"
+        // preload="metadata"
         className="w-full h-full object-cover"
       >
         <source src={src} type="video/mp4" />

@@ -14,6 +14,7 @@ import type { blogInterface } from "../../interfaces/blogInterface";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MEDIA_BASE = API_BASE.replace('/api', '');
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+const QuillEditor = ReactQuill as any;
 
 const quillFormats = [
   "header",
@@ -412,11 +413,11 @@ const BlogFormModal = ({ initialData, onClose, onSave, isLoading }: any) => {
           <div>
               <label className="text-[10px] text-red-500 font-black mb-2 block uppercase">Content (Rich Editor)</label>
               <div className="bg-[#1a1a1a] border border-gray-800 rounded">
-                <ReactQuill
+                <QuillEditor
                   ref={quillRef}
                   theme="snow"
                   value={data.content}
-                  onChange={(val) => setData({ ...data, content: val })}
+                  onChange={(val: string) => setData({ ...data, content: val })}
                   modules={quillModules}
                   formats={quillFormats}
                 />

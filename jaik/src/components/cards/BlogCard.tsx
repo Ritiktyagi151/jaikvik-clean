@@ -25,7 +25,10 @@ const BlogCard: React.FC<blogInterface> = ({
     router.push(`/blog/${slug}`); 
   };
 
-  const displayDate = (publishedAt || createdAt) ? new Date(publishedAt || createdAt).toLocaleDateString() : "";
+  const displayDate =
+    publishedAt || createdAt
+      ? new Date((publishedAt || createdAt) as string).toLocaleDateString()
+      : "";
 
   return (
     <div className="w-full rounded-lg group p-3 gap-2 flex flex-col justify-start items-start bg-main-secondary/80">

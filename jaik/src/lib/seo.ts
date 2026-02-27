@@ -46,6 +46,11 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
     description:
       "Explore detailed blog insights from Jaikvik Technology India on marketing, SEO, and development trends.",
   },
+  "/blog/[slug]": {
+    title: "Blog Details",
+    description:
+      "Explore detailed blog insights from Jaikvik Technology India on marketing, SEO, and development trends.",
+  },
   "/branding": {
     title: "Brand Promotion Services",
     description:
@@ -231,4 +236,3 @@ export const adminNoIndexMetadata: Metadata = {
     },
   },
 };
-

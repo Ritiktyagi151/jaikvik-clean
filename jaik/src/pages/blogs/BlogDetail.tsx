@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { FaRegCalendarCheck, FaRegUser } from "react-icons/fa";
+import SEOManagement from "../../components/seo/SEOManagement";
 
 // ✅ Dynamic URLs from environment
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
@@ -11,7 +12,7 @@ const MEDIA_BASE = API_URL.replace('/api', ''); // Removes /api to get base URL 
 
 const BlogDetail: React.FC = () => {
   const params = useParams();
-  const id = params?.id as string | undefined; 
+  const id = (params?.slug || params?.id) as string | undefined; 
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -44,6 +45,23 @@ const BlogDetail: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen text-white">
+      <SEOManagement
+        title={blog.metaTitle || blog.title}
+        description={blog.metaDescription || blog.description}
+        keywords={
+          (blog.metaKeywords && blog.metaKeywords.length > 0)
+            ? blog.metaKeywords.join(", ")
+            : (blog.tags && blog.tags.length > 0 ? blog.tags.join(", ") : "")
+        }
+        image={`${MEDIA_BASE}${blog.image}`}
+        canonical={
+          blog.canonicalUrl ||
+          (typeof window !== "undefined" ? `${window.location.origin}/blog/${blog.slug}` : "")
+        }
+        author={blog.author}
+        publisher={process.env.NEXT_PUBLIC_SITE_PUBLISHER || blog.author}
+        useDefaults={false}
+      />
       <div className="w-full h-[60vh] relative">
         <img 
           // ✅ Updated: Dynamic media base for local/live images
@@ -59,7 +77,10 @@ const BlogDetail: React.FC = () => {
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="flex flex-wrap gap-6 mb-10 text-sm text-gray-400 border-b border-gray-800 pb-6">
           <span className="flex items-center gap-2"><FaRegUser className="text-red-600"/> {blog.author || 'Admin'}</span>
-          <span className="flex items-center gap-2"><FaRegCalendarCheck className="text-red-600"/> {new Date(blog.createdAt).toLocaleDateString()}</span>
+          <span className="flex items-center gap-2"><FaRegCalendarCheck className="text-red-600"/> {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}</span>
+          {blog.updatedAt && (
+            <span className="flex items-center gap-2 text-gray-500">Updated: {new Date(blog.updatedAt).toLocaleDateString()}</span>
+          )}
           <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{blog.category}</span>
         </div>
 
@@ -67,9 +88,9 @@ const BlogDetail: React.FC = () => {
           <div className="text-2xl font-medium text-gray-300 italic mb-10 border-l-4 border-red-600 pl-6 leading-relaxed">
             "{blog.description}"
           </div>
-          <div 
+          <div
             className="content-render text-gray-200 leading-loose text-lg"
-            dangerouslySetInnerHTML={{ __html: blog.content }} 
+            dangerouslySetInnerHTML={{ __html: blog.content }}
           />
         </article>
       </div>

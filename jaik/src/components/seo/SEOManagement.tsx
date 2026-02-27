@@ -10,6 +10,9 @@ interface SEOProps {
   canonical?: string;
   noIndex?: boolean;
   noFollow?: boolean;
+  author?: string;
+  publisher?: string;
+  useDefaults?: boolean;
 }
 
 const SEOManagement = ({
@@ -20,11 +23,14 @@ const SEOManagement = ({
   canonical,
   noIndex,
   noFollow,
+  author,
+  publisher,
+  useDefaults = true,
 }: SEOProps) => {
-  const metaTitle = title || "Default Meta Title";
-  const metaDescription = description || "Default description of your site";
-  const metaKeywords = keywords || "default, keywords, website";
-  const metaImage = image || "/default-image.jpg";
+  const metaTitle = title || (useDefaults ? "Default Meta Title" : "");
+  const metaDescription = description || (useDefaults ? "Default description of your site" : "");
+  const metaKeywords = keywords || (useDefaults ? "default, keywords, website" : "");
+  const metaImage = image || (useDefaults ? "/default-image.jpg" : "");
 
   const metaCanonical =
     canonical ||
@@ -36,10 +42,12 @@ const SEOManagement = ({
 
   return (
     <Head>
-      <title>{metaTitle}</title>
-      <meta name="description" content={metaDescription} />
-      <meta name="keywords" content={metaKeywords} />
+      {metaTitle && <title>{metaTitle}</title>}
+      {metaDescription && <meta name="description" content={metaDescription} />}
+      {metaKeywords && <meta name="keywords" content={metaKeywords} />}
       <meta name="robots" content={robotsContent} />
+      {author && <meta name="author" content={author} />}
+      {publisher && <meta name="publisher" content={publisher} />}
       {metaCanonical && (
         <link rel="canonical" href={metaCanonical} />
       )}

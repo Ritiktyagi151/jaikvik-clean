@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 // Note: Agar interface file mein 'slug' nahi hai, toh use add kar lena
 import type { blogInterface } from "../../interfaces/blogInterface";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const MEDIA_BASE = API_BASE.replace("/api", "");
+
 const BlogCard: React.FC<blogInterface> = ({
   category = "",
   author = "",
-  createdAt, 
+  createdAt,
+  publishedAt,
   title = "",
   summary = "",
   image = "",
@@ -18,17 +22,17 @@ const BlogCard: React.FC<blogInterface> = ({
   const router = useRouter();
 
   const handleReadMore = () => {
-    router.push(`/blogs/${slug}`); 
+    router.push(`/blog/${slug}`); 
   };
 
-  const displayDate = createdAt ? new Date(createdAt).toLocaleDateString() : "";
+  const displayDate = (publishedAt || createdAt) ? new Date(publishedAt || createdAt).toLocaleDateString() : "";
 
   return (
     <div className="w-full rounded-lg group p-3 gap-2 flex flex-col justify-start items-start bg-main-secondary/80">
       <div className="w-full overflow-hidden rounded-lg">
         <img
           // Port 5002 update kiya aur logic wahi rakha
-          src={`http://localhost:5002${image}`}
+          src={`${MEDIA_BASE}${image}`}
           alt={title}
           className="group-hover:scale-110 transition-all duration-300 h-[160px] w-full object-cover"
           onError={(e) => {

@@ -24,12 +24,15 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [showPoster, setShowPoster] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const isMobileViewport = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 768px)").matches;
 
   const handlePlay = useCallback(async () => {
     if (!videoRef.current) return;
@@ -59,13 +62,6 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
   }, []);
 
   useEffect(() => {
-    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting);
@@ -82,7 +78,13 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
       <div ref={containerRef} className="w-full flex justify-center px-4">
         <div
           className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-black group cursor-pointer"
-          onClick={() => isMobile ? setIsFullscreen(true) : (isPlaying ? handlePause() : handlePlay())}
+          onClick={() =>
+            isMobileViewport()
+              ? setIsFullscreen(true)
+              : isPlaying
+              ? handlePause()
+              : handlePlay()
+          }
         >
           <span className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase z-10">
             {label}
@@ -108,10 +110,9 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
             <img src={posterSrc} alt={title} className="absolute inset-0 w-full h-full object-cover z-[1]" loading="lazy" />
           )}
 
-          {(!isPlaying || isMobile) && (
+          {!isPlaying && (
             <div className="absolute inset-0 flex items-center justify-center z-[3]">
               <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center transition-transform hover:scale-110">
-                {/* Font-Awesome icons ko Lucide se replace kiya gaya hai speed ke liye */}
                 {isPlaying ? <Pause className="text-white" size={32} /> : <Play className="text-white ml-1" size={32} />}
               </div>
             </div>
@@ -122,7 +123,7 @@ const VideoItem: React.FC<VideoItemProps> = memo(({
             <p className="text-sm opacity-90 line-clamp-2">{description}</p>
           </div>
 
-          {!isMobile && !showPoster && (
+          {!showPoster && !isMobileViewport() && (
             <button
               className="absolute bottom-4 right-4 bg-black/50 rounded-full p-2 z-[4] hover:bg-black/70 transition-all"
               onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); if(videoRef.current) videoRef.current.muted = !isMuted; }}

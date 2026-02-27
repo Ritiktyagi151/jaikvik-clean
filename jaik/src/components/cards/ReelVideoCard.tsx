@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useMemo } from "react";
+import { useMemo, useRef } from "react";
+
 const ReelVideoCard: React.FC<{
   src: string;
   onHover: (value: boolean) => void;
@@ -17,41 +18,19 @@ const ReelVideoCard: React.FC<{
   classname = "",
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isMobile = useRef(false);
 
-  // ⬇️ useMemo to avoid splitting aspectRatio on every render
-  const aspectValues = useMemo(() => {
-    return aspectRatio.split("/").map(Number);
+  const normalizedAspectRatio = useMemo(() => {
+    const [width, height] = aspectRatio.split("/").map(Number);
+    if (!width || !height) return "9 / 16";
+    return `${width} / ${height}`;
   }, [aspectRatio]);
 
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      isMobile.current = window.innerWidth <= 768;
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Adjust height based on memoized aspect ratio
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (videoRef.current?.parentElement) {
-        const parent = videoRef.current.parentElement;
-        const [w, h] = aspectValues; // ⬅️ using memoized data
-        parent.style.height = `${(parent.clientWidth * h) / w}px`;
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, [aspectValues]);
-
-  // Handle click for mobile
   const handleVideoClick = () => {
-    if (isMobile.current && videoRef.current) {
+    const isMobileViewport =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobileViewport && videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.muted = false;
         videoRef.current
@@ -94,6 +73,7 @@ const ReelVideoCard: React.FC<{
   return (
     <div
       className={`hover:-translate-y-5 hover:z-[1000] transition-all rounded-md overflow-hidden duration-300 relative w-full ${scale} ${classname}`}
+      style={{ aspectRatio: normalizedAspectRatio }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleVideoClick}
@@ -104,7 +84,7 @@ const ReelVideoCard: React.FC<{
         controls={false}
         poster={poster}
         loop
-        preload="auto"
+        preload="metadata"
         className="w-full h-full object-cover"
       >
         <source src={src} type="video/mp4" />

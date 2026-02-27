@@ -1,19 +1,37 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { ComponentType } from "react";
 import LazySection from "@/components/performance/LazySection";
 
-const SocialMediaPostSection = dynamic(() => import("./SocialMediaPostSection"));
-const OurVideosSection = dynamic(() => import("./OurVideosSection"));
-const GalleryImages = dynamic(() => import("./GalleryImages"));
-const CorporateVideosSection = dynamic(() => import("./CorporateVideosSection"));
-const OurTestimonials = dynamic(() => import("./OurTestimonials"));
-const BlogsSection = dynamic(() => import("./BlogsSection"));
-const OurServices = dynamic(() => import("./OurSerives"));
-const TeamVideoSlider = dynamic(() => import("./TeamVideoSlider"));
-const ReviewsSection = dynamic(() => import("./ReviewsSection"));
-const OurClients = dynamic(() => import("./OurClients"));
-const EnquireSection = dynamic(() => import("./EnquireSection"));
+const withSectionFallback = (
+  importer: () => Promise<{ default: ComponentType<any> }>,
+  minHeight: number
+) =>
+  dynamic(importer, {
+    loading: () => <div style={{ minHeight }} aria-hidden="true" />,
+  });
+
+const SocialMediaPostSection = withSectionFallback(
+  () => import("./SocialMediaPostSection"),
+  180
+);
+const OurVideosSection = withSectionFallback(() => import("./OurVideosSection"), 220);
+const GalleryImages = withSectionFallback(() => import("./GalleryImages"), 220);
+const CorporateVideosSection = withSectionFallback(
+  () => import("./CorporateVideosSection"),
+  320
+);
+const OurTestimonials = withSectionFallback(
+  () => import("./OurTestimonials"),
+  220
+);
+const BlogsSection = withSectionFallback(() => import("./BlogsSection"), 240);
+const OurServices = withSectionFallback(() => import("./OurSerives"), 220);
+const TeamVideoSlider = withSectionFallback(() => import("./TeamVideoSlider"), 220);
+const ReviewsSection = withSectionFallback(() => import("./ReviewsSection"), 220);
+const OurClients = withSectionFallback(() => import("./OurClients"), 140);
+const EnquireSection = withSectionFallback(() => import("./EnquireSection"), 220);
 
 const HomeDeferredSections = () => {
   return (

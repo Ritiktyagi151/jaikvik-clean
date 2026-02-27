@@ -96,12 +96,18 @@ const MobileAppSection: React.FC = () => {
 
   // Check for mobile view
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
+    const mobileQuery = window.matchMedia("(max-width: 1023px)");
+
+    const applyBreakpoint = (event: MediaQueryList | MediaQueryListEvent) => {
+      setIsMobile(event.matches);
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    applyBreakpoint(mobileQuery);
+    mobileQuery.addEventListener("change", applyBreakpoint);
+
+    return () => {
+      mobileQuery.removeEventListener("change", applyBreakpoint);
+    };
   }, []);
 
   // IntersectionObserver to pause animations when section is not visible

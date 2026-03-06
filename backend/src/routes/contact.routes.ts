@@ -7,11 +7,12 @@ import {
   deleteContact,
 } from "../controllers/contact.controller";
 import { protect, admin } from "../middleware/auth";
+import { contactValidationRules, validate } from "../utils/validation";
 
 const router = express.Router();
 
 // Public
-router.post("/", submitContact);
+router.post("/", contactValidationRules(), validate, submitContact);
 
 // Admin protected
 router.get("/", protect, admin, getContacts);

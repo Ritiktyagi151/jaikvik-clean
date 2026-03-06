@@ -1,15 +1,10 @@
 import React from "react";
-import { FaMapMarkerAlt,FaEnvelope,FaPhone  } from "react-icons/fa";
+import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
 import ContactForm from "./ContactForm";
-import SEOManagement from "../../components/seo/SEOManagement";
 
 const ContactUs: React.FC = () => {
   return (
     <>
-    <SEOManagement title=" Contact Jaikvik Technology India – SEO, Web & Digital Experts" 
-    description="Get in touch with Jaikvik Technology India for expert SEO, digital marketing, web development, CRM, ERP, and mobile app services. We're here to help your business grow." 
-    keywords="Jaikvik Technology Contact, Contact Jaikvik Technology India" 
-    canonical="https://www.jaikvik.com/contact-us" />
       {/* Breadcrumb Section */}
       <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
         <img
@@ -20,14 +15,17 @@ const ContactUs: React.FC = () => {
       </div>
 
       {/* Contact Us Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-12 overflow-hidden">
+      <section
+        id="schedule-your-meeting"
+        className="py-12 px-4 sm:px-6 lg:px-12 overflow-hidden"
+      >
         <div className="mb-8 text-start">
           <h2 className="text-2xl font-bold text-red-600 relative inline-block pl-10 before:content-[''] before:absolute before:top-1 before:left-0 before:w-5 before:h-5 before:bg-red-600 before:rounded-full after:content-[''] after:absolute after:top-1 after:left-2.5 after:w-5 after:h-5 after:border-2 after:border-white after:rounded-full">
-            Get In Touch With Us
+            Schedule Your Meeting
           </h2>
           <p className="text-[15px] text-white max-w-3xl mt-2 font-medium">
-            Get in touch with us for inquiries, support, feedback, or
-            partnership opportunities. We're here to assist you efficiently
+            Book a consultation with our team and share your requirements. We
+            will confirm your preferred meeting slot.
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -39,29 +37,29 @@ const ContactUs: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="contactRight flex flex-col gap-3">
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">
-                <div className="rounded-full w-8 h-8 flex justify-center items-center  text-white bg-neutral-950">
+                <div className="rounded-full w-8 h-8 flex justify-center items-center text-white bg-neutral-950">
                   <FaMapMarkerAlt size={16} />
                 </div>
                 <p className="text-white">Noida - A 82, Sector 63, Noida, UP</p>
               </div>
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">
                 <div className="rounded-full w-8 h-8 flex justify-center items-center text-white bg-neutral-950">
-                  <FaEnvelope   size={16} /> {/* Mail Icon */}
-                  </div>
-                  <a href="#" className="text-white">
-                    info@jaikviktechnology.com
-                    </a>
-                    </div>
+                  <FaEnvelope size={16} />
+                </div>
+                <a href="#" className="text-white">
+                  info@jaikviktechnology.com
+                </a>
+              </div>
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">
-                <div className="rounded-full w-8 h-8 flex justify-center items-center  text-white bg-neutral-950">
-                   <FaPhone size={16} />
+                <div className="rounded-full w-8 h-8 flex justify-center items-center text-white bg-neutral-950">
+                  <FaPhone size={16} />
                 </div>
                 <a href="#" className="text-white">
                   +91-8874882735
                 </a>
               </div>
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">
-                <div className="rounded-full w-8 h-8 flex justify-center items-center  text-white bg-neutral-950">
+                <div className="rounded-full w-8 h-8 flex justify-center items-center text-white bg-neutral-950">
                   <FaPhone size={16} />
                 </div>
                 <a href="#" className="text-white">
@@ -69,7 +67,7 @@ const ContactUs: React.FC = () => {
                 </a>
               </div>
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">
-                <div className="rounded-full w-8 h-8 flex justify-center items-center  text-white bg-neutral-950">
+                <div className="rounded-full w-8 h-8 flex justify-center items-center text-white bg-neutral-950">
                   <FaPhone size={16} />
                 </div>
                 <a href="#" className="text-white">

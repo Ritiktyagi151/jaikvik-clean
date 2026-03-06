@@ -5,11 +5,12 @@ import {
   getEnquiries,
   getEnquiryById,
 } from "../controllers/enquiry.controller";
+import { enquiryValidationRules, validate } from "../utils/validation";
 
 const router = express.Router();
 
 // Public
-router.post("/", createEnquiry);
+router.post("/", enquiryValidationRules(), validate, createEnquiry);
 
 // Admin
 router.get("/", protect, admin, getEnquiries);

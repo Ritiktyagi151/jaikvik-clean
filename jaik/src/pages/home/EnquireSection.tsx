@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface";
 import "../../styles/enquire-form.css";
 const EnquireSection = () => {
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+  const today = new Date().toISOString().split("T")[0];
   const [formData, setFormData] = useState<EnquireFormInterface>({
     fname: "",
     email: "",
@@ -11,11 +13,15 @@ const EnquireSection = () => {
     company: "",
     message: "",
     city: "",
+    preferredDate: "",
+    preferredTime: "",
+    location: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     success: boolean;
     message: string;
+    meetLink?: string;
   } | null>(null);
 
   const handleChange = (
@@ -31,34 +37,41 @@ const EnquireSection = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch(
-        "https://formsubmit.co/ajax/info@jaikviktechnology.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.fname,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            message: formData.message,
-            city: formData.city,
-            _subject: "New Enquiry Form Submission",
-            _template: "table",
-            _captcha: "false",
-          }),
-        }
-      );
+      const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+      if (formData.preferredDate < today) {
+        throw new Error("Preferred date cannot be in the past.");
+      }
+      if (!timePattern.test(formData.preferredTime)) {
+        throw new Error("Please enter a valid preferred time.");
+      }
+      if (!API_BASE) {
+        throw new Error("Form service is unavailable. Please try again later.");
+      }
 
-      const data = await response.json();
+      const response = await fetch(`${API_BASE}/enquiries`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          sourcePage: "home-enquiry",
+        }),
+      });
+
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
 
       if (response.ok) {
         setSubmitStatus({
           success: true,
-          message: "Your enquiry has been submitted successfully!",
+          message: data.message || "Your enquiry has been submitted successfully!",
+          meetLink: data?.meeting?.meetLink,
         });
         // Reset form
         setFormData({
@@ -68,9 +81,12 @@ const EnquireSection = () => {
           company: "",
           message: "",
           city: "",
+          preferredDate: "",
+          preferredTime: "",
+          location: "",
         });
       } else {
-        throw new Error(data.message || "Failed to submit enquiry");
+        throw new Error(data?.message || "Failed to submit enquiry");
       }
     } catch (error) {
       setSubmitStatus({
@@ -86,7 +102,10 @@ const EnquireSection = () => {
   };
 
   return (
-    <section className="px-4 py-6 sm:px-7 sm:py-7 md:px-8 md:py-8 lg:px-10 lg:py-10">
+    <section
+      id="schedule-your-meeting"
+      className="px-4 py-6 sm:px-7 sm:py-7 md:px-8 md:py-8 lg:px-10 lg:py-10"
+    >
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
         {/* Enquiry Form */}
         <div className="w-full">
@@ -102,6 +121,19 @@ const EnquireSection = () => {
                   }`}
                 >
                   {submitStatus.message}
+                  {submitStatus.meetLink && (
+                    <div className="mt-2">
+                      Meeting Link:{" "}
+                      <a
+                        href={submitStatus.meetLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                      >
+                        {submitStatus.meetLink}
+                      </a>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -109,7 +141,7 @@ const EnquireSection = () => {
                 {/* Heading */}
                 <div className="col-span-2 flex items-center">
                   <h2 className="uppercase text-white text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4">
-                    Enquiry Form
+                    Schedule Your Meeting
                   </h2>
                 </div>
 
@@ -214,6 +246,69 @@ const EnquireSection = () => {
                     />
                     <label htmlFor="city" className="placeholder-text">
                       CITY
+                    </label>
+                  </div>
+                </div>
+
+                <div className="sm:col-span-1">
+                  <div className="input-contain">
+                    <input
+                      type="date"
+                      id="preferredDate"
+                      name="preferredDate"
+                      value={formData.preferredDate}
+                      onChange={handleChange}
+                      min={today}
+                      required
+                      aria-label="Preferred Date"
+                      className="w-full"
+                    />
+                    <label htmlFor="preferredDate" className="placeholder-text">
+                      PREFERRED DATE
+                    </label>
+                  </div>
+                </div>
+
+                <div className="sm:col-span-1">
+                  <div className="input-contain">
+                    <input
+                      type="time"
+                      id="preferredTime"
+                      name="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={handleChange}
+                      required
+                      aria-label="Preferred Time"
+                      className="w-full"
+                    />
+                    <label htmlFor="preferredTime" className="placeholder-text">
+                      PREFERRED TIME
+                    </label>
+                  </div>
+                </div>
+
+                <div className="sm:col-span-1">
+                  <div className="input-contain">
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      aria-label="Location"
+                      list="enquiry-location-options"
+                      className="w-full"
+                    />
+                    <datalist id="enquiry-location-options">
+                      <option value="Online Meeting" />
+                      <option value="Office Visit" />
+                      <option value="Phone Call" />
+                      <option value="Google Meet" />
+                    </datalist>
+                    <label htmlFor="location" className="placeholder-text">
+                      PREFERRED LOCATION
                     </label>
                   </div>
                 </div>

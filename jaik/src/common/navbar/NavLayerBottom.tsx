@@ -72,7 +72,8 @@ const NavLayerBottom: React.FC<{
           </div>
 
           {/* Right - Language Selector with flags */}
-          <ul className="flex items-center  list-none relative">
+          <ul className="flex items-center list-none relative gap-2">
+            
             <li className="ml-auto">
               <LanguageSelector />
             </li>

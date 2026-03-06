@@ -18,10 +18,19 @@ interface FormData {
   email: string;
   phone: string;
   company: string;
+  preferredDate: string;
+  preferredTime: string;
+  preferredLocation: string;
   message: string;
 }
 
+interface ApiResponse {
+  success?: boolean;
+  message?: string;
+}
+
 const NavLayerTop = () => {
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
   const [isQuotePopupOpen, setIsQuotePopupOpen] = useState(false);
   const [isWhatsAppPopupOpen, setIsWhatsAppPopupOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -29,6 +38,9 @@ const NavLayerTop = () => {
     email: "",
     phone: "",
     company: "",
+    preferredDate: "",
+    preferredTime: "",
+    preferredLocation: "",
     message: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -38,7 +50,16 @@ const NavLayerTop = () => {
   const toggleQuotePopup = () => {
     setIsQuotePopupOpen(!isQuotePopupOpen);
     if (!isQuotePopupOpen) {
-      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        preferredDate: "",
+        preferredTime: "",
+        preferredLocation: "",
+        message: "",
+      });
       setErrors({});
       setButtonText("Send");
     }
@@ -70,6 +91,25 @@ const NavLayerTop = () => {
       newErrors.phone = "Please enter a valid phone number (10-15 digits)";
     }
 
+    const today = new Date().toISOString().split("T")[0];
+    const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+    if (!formData.preferredDate) {
+      newErrors.preferredDate = "Preferred date is required";
+    } else if (formData.preferredDate < today) {
+      newErrors.preferredDate = "Preferred date cannot be in the past";
+    }
+
+    if (!formData.preferredTime) {
+      newErrors.preferredTime = "Preferred time is required";
+    } else if (!timePattern.test(formData.preferredTime)) {
+      newErrors.preferredTime = "Please enter a valid time";
+    }
+
+    if (!formData.preferredLocation.trim()) {
+      newErrors.preferredLocation = "Preferred location is required";
+    }
+
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
@@ -77,26 +117,37 @@ const NavLayerTop = () => {
         setIsSubmitting(true);
         setButtonText("Sending...");
 
-        const response = await fetch(
-          "https://formsubmit.co/ajax/info@jaikviktechnology.com",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              ...formData,
-              _subject: "New Quote Request",
-              _template: "table",
-              _captcha: "false",
-            }),
-          }
-        );
+        if (!API_BASE) {
+          throw new Error("API URL is missing. Please configure NEXT_PUBLIC_API_URL.");
+        }
+        const response = await fetch(`${API_BASE}/enquiries`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            fname: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company || "N/A",
+            city: "N/A",
+            message: formData.message || "Quote request from navbar form",
+            preferredDate: formData.preferredDate,
+            preferredTime: formData.preferredTime,
+            location: formData.preferredLocation,
+            sourcePage: "navbar-quote",
+          }),
+        });
 
-        const data = await response.json();
+        let data: ApiResponse | null = null;
+        try {
+          data = (await response.json()) as ApiResponse;
+        } catch {
+          data = null;
+        }
 
-        if (data.success === "true") {
+        if (response.ok && data?.success) {
           toast.success("Quote request sent successfully!");
           setButtonText("Sent!");
           setFormData({
@@ -104,6 +155,9 @@ const NavLayerTop = () => {
             email: "",
             phone: "",
             company: "",
+            preferredDate: "",
+            preferredTime: "",
+            preferredLocation: "",
             message: "",
           });
           setTimeout(() => {
@@ -111,7 +165,7 @@ const NavLayerTop = () => {
             toggleQuotePopup();
           }, 2000);
         } else {
-          throw new Error(data.message || "Failed to send request");
+          throw new Error(data?.message || "Failed to send request");
         }
       } catch (error) {
         console.error("Submission error:", error);
@@ -130,7 +184,7 @@ const NavLayerTop = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -314,6 +368,65 @@ const NavLayerTop = () => {
                         onChange={handleInputChange}
                         disabled={isSubmitting}
                       />
+                    </div>
+                    <div className="mb-3">
+                      <input
+                        type="date"
+                        name="preferredDate"
+                        className={`form-control w-full px-3 py-2 text-sm border ${
+                          errors.preferredDate ? "border-red-500" : "border-gray-900"
+                        } rounded-md bg-gray-500/20 focus:outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-900/30`}
+                        id="preferredDate"
+                        value={formData.preferredDate}
+                        onChange={handleInputChange}
+                        min={new Date().toISOString().split("T")[0]}
+                        disabled={isSubmitting}
+                      />
+                      {errors.preferredDate && (
+                        <div className="error-message text-red-500 text-xs mt-1">
+                          {errors.preferredDate}
+                        </div>
+                      )}
+                    </div>
+                    <div className="mb-3">
+                      <input
+                        type="time"
+                        name="preferredTime"
+                        className={`form-control w-full px-3 py-2 text-sm border ${
+                          errors.preferredTime ? "border-red-500" : "border-gray-900"
+                        } rounded-md bg-gray-500/20 focus:outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-900/30`}
+                        id="preferredTime"
+                        value={formData.preferredTime}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      />
+                      {errors.preferredTime && (
+                        <div className="error-message text-red-500 text-xs mt-1">
+                          {errors.preferredTime}
+                        </div>
+                      )}
+                    </div>
+                    <div className="mb-3">
+                      <select
+                        name="preferredLocation"
+                        className={`form-control w-full px-3 py-2 text-sm border ${
+                          errors.preferredLocation ? "border-red-500" : "border-gray-900"
+                        } rounded-md bg-gray-500/20 focus:outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-900/30`}
+                        id="preferredLocation"
+                        value={formData.preferredLocation}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      >
+                        <option value="">Preferred Location</option>
+                        <option value="Google Meet (Online)">Google Meet (Online)</option>
+                        <option value="Office Visit">Office Visit</option>
+                        <option value="Phone Call">Phone Call</option>
+                      </select>
+                      {errors.preferredLocation && (
+                        <div className="error-message text-red-500 text-xs mt-1">
+                          {errors.preferredLocation}
+                        </div>
+                      )}
                     </div>
                     <div className="mb-3">
                       <textarea

@@ -604,6 +604,16 @@ const Navbar: React.FC = () => {
                 </Link>
               </li>
 
+              <li>
+                <Link
+                  href="/contact-us#schedule-your-meeting"
+                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 bg-red-600/20 hover:bg-red-600 hover:text-white transition-all duration-200"
+                  onClick={toggleOffCanvas}
+                >
+                  Schedule Your Meeting
+                </Link>
+              </li>
+
               {/* Career */}
               <li>
                 <Link

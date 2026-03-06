@@ -4,8 +4,10 @@ import { body, validationResult } from "express-validator";
 export const validate = (req: any, res: any, next: any) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    const firstError = errors.array()[0] as { msg?: string } | undefined;
     return res.status(400).json({
       success: false,
+      message: firstError?.msg || "Validation failed",
       errors: errors.array(),
     });
   }
@@ -67,12 +69,99 @@ export const contactValidationRules = () => {
     body("phone").trim().notEmpty().withMessage("Phone number is required"),
     body("subject")
       .trim()
-      .isLength({ min: 5, max: 200 })
-      .withMessage("Subject must be between 5 and 200 characters"),
+      .isLength({ min: 2, max: 200 })
+      .withMessage("Subject must be between 2 and 200 characters"),
     body("message")
       .trim()
-      .isLength({ min: 10, max: 2000 })
-      .withMessage("Message must be between 10 and 2000 characters"),
+      .isLength({ min: 2, max: 2000 })
+      .withMessage("Message must be between 2 and 2000 characters"),
+    body("preferredDate")
+      .trim()
+      .matches(/^\d{4}-\d{2}-\d{2}$/)
+      .withMessage("Preferred date must be in YYYY-MM-DD format"),
+    body("preferredTime")
+      .trim()
+      .matches(/^([01]\d|2[0-3]):([0-5]\d)$/)
+      .withMessage("Preferred time must be in HH:mm format"),
+    body("location")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Location must be valid"),
+    body("preferredLocation")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Preferred location must be valid"),
+    body().custom((value) => {
+      const locationValue = value?.location ?? value?.preferredLocation;
+      if (!locationValue) {
+        throw new Error("Location is required");
+      }
+      return true;
+    }),
+  ];
+};
+
+export const enquiryValidationRules = () => {
+  return [
+    body("fname")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 100 })
+      .withMessage("Name must be between 2 and 100 characters"),
+    body("name")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 100 })
+      .withMessage("Name must be between 2 and 100 characters"),
+    body("email")
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please provide a valid email"),
+    body("phone").trim().notEmpty().withMessage("Phone number is required"),
+    body("company")
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Company is required"),
+    body("city")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 120 })
+      .withMessage("City must be valid"),
+    body("message")
+      .trim()
+      .isLength({ min: 2, max: 2000 })
+      .withMessage("Message must be between 2 and 2000 characters"),
+    body("preferredDate")
+      .trim()
+      .matches(/^\d{4}-\d{2}-\d{2}$/)
+      .withMessage("Preferred date must be in YYYY-MM-DD format"),
+    body("preferredTime")
+      .trim()
+      .matches(/^([01]\d|2[0-3]):([0-5]\d)$/)
+      .withMessage("Preferred time must be in HH:mm format"),
+    body("location")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Location must be valid"),
+    body("preferredLocation")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Preferred location must be valid"),
+    body().custom((value) => {
+      const fullName = value?.fname ?? value?.name;
+      if (!fullName) {
+        throw new Error("Name is required");
+      }
+      const locationValue = value?.location ?? value?.preferredLocation;
+      if (!locationValue) {
+        throw new Error("Location is required");
+      }
+      return true;
+    }),
   ];
 };
 

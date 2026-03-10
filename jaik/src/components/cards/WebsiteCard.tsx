@@ -102,7 +102,7 @@ const WebsiteCard = ({
         href={website.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="screen block aspect-[19/16] overflow-hidden relative mx-auto h-full"
+        className="screen block aspect-[19/27] md:aspect-[19/16] overflow-hidden relative mx-auto h-full"
       >
         <img
           src={website.imageSrc}

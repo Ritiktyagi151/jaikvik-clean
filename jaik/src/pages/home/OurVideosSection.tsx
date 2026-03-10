@@ -5,12 +5,11 @@ import { cachedGet } from "@/lib/clientApiCache";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
-import { X, ArrowLeft as BackIcon } from "lucide-react"; 
+import { X, ArrowLeft as BackIcon } from "lucide-react";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
 
-// ✅ API URL from environment
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const OurVideosSection = () => {
@@ -20,11 +19,9 @@ const OurVideosSection = () => {
     poster: string;
   } | null>(null);
 
-  // ✅ API States
   const [videoList, setVideoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch Videos from API
   useEffect(() => {
     let isMounted = true;
     const fetchVideos = async () => {
@@ -41,23 +38,24 @@ const OurVideosSection = () => {
       }
     };
     fetchVideos();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleVideoHover = (value: boolean) => {
     if (swiperRef.current?.autoplay) {
-      if (value) {
-        swiperRef.current.autoplay.stop();
-      } else {
-        swiperRef.current.autoplay.start();
-      }
+      value
+        ? swiperRef.current.autoplay.stop()
+        : swiperRef.current.autoplay.start();
     }
   };
 
   if (loading && videoList.length === 0) return null;
 
   return (
-    <div className="overflow-hidden h-auto my-4 ">
+    <div className="overflow-hidden h-auto my-4">
+      {/* Section Heading */}
       <div className="websiteHeading mb-4">
         <h2 className="uppercase text-gray-200 text-xl inline-block relative">
           <span className="flex font-bold items-center gap-1.5 ml-2">
@@ -66,46 +64,80 @@ const OurVideosSection = () => {
         </h2>
       </div>
 
-      {/* Swiper */}
+      {/* ── Swiper Carousel ── */}
       <div className="w-full group relative">
         <Swiper
           modules={[Navigation, Autoplay]}
-          spaceBetween={10}
-          slidesPerView={4.5}
-          // Performance Fix: watchSlidesProgress se sirf visible slides render hongi
           watchSlidesProgress={true}
-          breakpoints={{
-            320: { slidesPerView: 1.2, spaceBetween: 8 },
-            480: { slidesPerView: 1.3, spaceBetween: 8 },
-            640: { slidesPerView: 2, spaceBetween: 10 },
-            768: { slidesPerView: 2.5, spaceBetween: 10 },
-            1024: { slidesPerView: 3.5, spaceBetween: 10 },
-            1280: { slidesPerView: 4.5, spaceBetween: 10 },
-            1536: { slidesPerView: 5, spaceBetween: 12 },
+          centeredSlides={true}
+          loop={videoList.length > 3}
+          speed={700}
+          autoplay={{
+            delay: 10000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           navigation={{
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          loop={videoList.length > 5}
-          autoplay={{
-            delay: 3000, // Speed Fix: 1000ms se badha kar 3000ms kiya taaki smooth chale
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          speed={800} // Smoothness Fix
+          breakpoints={{
+            /* Mobile: center card big, peek on both sides */
+            0: {
+              slidesPerView: 1.25,
+              spaceBetween: 14,
+            },
+            480: {
+              slidesPerView: 1.35,
+              spaceBetween: 14,
+            },
+            /* Tablet */
+            640: {
+              slidesPerView: 2.2,
+              spaceBetween: 14,
+            },
+            768: {
+              slidesPerView: 2.6,
+              spaceBetween: 14,
+            },
+            /* Desktop — unchanged */
+            1024: {
+              slidesPerView: 3.5,
+              spaceBetween: 10,
+            },
+            1280: {
+              slidesPerView: 4.5,
+              spaceBetween: 10,
+            },
+            1536: {
+              slidesPerView: 5,
+              spaceBetween: 12,
+            },
+          }}
           className="mySwiper !overflow-visible"
         >
           {videoList.map((item) => (
             <SwiperSlide
               key={item._id}
-              className="!overflow-visible hover:z-10 transition-transform duration-200"
+              className="
+                !overflow-visible transition-all duration-500 ease-in-out
+                max-md:!h-[260px]
+                [&.swiper-slide-active]:scale-100
+                [&.swiper-slide-active]:opacity-100
+                [&.swiper-slide-active]:z-10
+                [&.swiper-slide-prev]:max-md:scale-[0.87]
+                [&.swiper-slide-prev]:max-md:opacity-55
+                [&.swiper-slide-next]:max-md:scale-[0.87]
+                [&.swiper-slide-next]:max-md:opacity-55
+                [&:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)]:max-md:scale-[0.75]
+                [&:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)]:max-md:opacity-30
+              "
             >
               <div
-                className="cursor-pointer"
+                className="cursor-pointer h-full"
                 onClick={() => {
                   if (window.innerWidth <= 768) {
                     setSelectedVideo(item);
@@ -117,32 +149,34 @@ const OurVideosSection = () => {
                   poster={item.poster}
                   onHover={handleVideoHover}
                   aspectRatio="16/9"
-                  scale="hover:scale-[1.15]"
-                  classname="transition-all duration-300 ease-in-out"
+                  scale="hover:scale-[1.05]"
+                  classname="transition-all duration-500 ease-in-out h-full [.swiper-slide-active_&]:shadow-[0_8px_40px_rgba(0,0,0,0.6)] [.swiper-slide-active_&]:rounded-xl"
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Nav Arrows */}
         <ArrowLeft onClick={() => swiperRef.current?.slidePrev()} />
         <ArrowRight onClick={() => swiperRef.current?.slideNext()} />
       </div>
 
-      {/* Overlay Fullscreen Video (only for mobile) */}
+      {/* ── Mobile Fullscreen Overlay ── */}
       {selectedVideo && (
-        <div className="fixed inset-0 z-[9999] bg-black bg-opacity-95 flex items-center justify-center">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200">
           <button
-            className="absolute top-4 left-4 text-white p-2 rounded-full bg-black/40"
-            onClick={() => setSelectedVideo(null)} 
+            className="absolute top-5 left-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
+            onClick={() => setSelectedVideo(null)}
           >
-            <BackIcon size={24} />
+            <BackIcon size={22} />
           </button>
 
           <button
-            className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40"
+            className="absolute top-5 right-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
             onClick={() => setSelectedVideo(null)}
           >
-            <X size={26} />
+            <X size={22} />
           </button>
 
           <video
@@ -150,7 +184,8 @@ const OurVideosSection = () => {
             poster={selectedVideo.poster}
             controls
             autoPlay
-            className="max-w-full max-h-[90vh] rounded-lg"
+            playsInline
+            className="w-[92vw] max-w-lg rounded-2xl shadow-2xl max-h-[82vh] object-contain"
           />
         </div>
       )}

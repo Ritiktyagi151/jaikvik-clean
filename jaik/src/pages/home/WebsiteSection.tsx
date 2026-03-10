@@ -67,7 +67,7 @@ const WebsiteSection = () => {
   }
 
   return (
-    <div className="overflow-hidden my-4 h-[250px] md:h-[400px] relative px-4 md:px-6 lg:px-8">
+    <div className="overflow-hidden my-4 h-[350px] md:h-[400px] relative px-4 md:px-6 lg:px-8">
       <div className="websiteHeading mb-4">
         <h2 className="uppercase text-gray-200 text-xl inline-block relative">
           <span className="flex font-bold items-center gap-1.5 ml-2">

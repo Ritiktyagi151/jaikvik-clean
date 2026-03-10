@@ -27,11 +27,7 @@ const OurTestimonials = () => {
       try {
         setLoading(true);
         const response = await cachedGet(API_URL);
-        
-        // ✅ Blog Logic: response.data.data
-        // ✅ Direct Array Logic: response.data
         const actualData = response.data.data || response.data;
-        
         if (Array.isArray(actualData)) {
           setTestimonialsList(actualData);
         } else {
@@ -47,25 +43,26 @@ const OurTestimonials = () => {
   }, []);
 
   const handleVideoHover = (value: boolean) => {
-    if (swiperRef.current) {
-      if (value) {
-        swiperRef.current.autoplay.stop();
-      } else {
-        swiperRef.current.autoplay.start();
-      }
+    if (swiperRef.current?.autoplay) {
+      value
+        ? swiperRef.current.autoplay.stop()
+        : swiperRef.current.autoplay.start();
     }
   };
 
-  // Skip rendering if no data or loading
   if (loading) {
-    return <div className="h-40 flex items-center justify-center text-white animate-pulse">Fetching Testimonials...</div>;
+    return (
+      <div className="h-40 flex items-center justify-center text-white animate-pulse">
+        Fetching Testimonials...
+      </div>
+    );
   }
 
-  // Agar list khali hai toh section hide kardein
   if (testimonialsList.length === 0) return null;
 
   return (
-    <div className="overflow-hidden h-auto my-4 ">
+    <div className="overflow-hidden h-auto my-4">
+      {/* Section Heading */}
       <div className="websiteHeading mb-4">
         <h2 className="uppercase text-gray-200 text-xl inline-block relative">
           <span className="flex font-bold items-center gap-1.5 ml-2">
@@ -74,44 +71,81 @@ const OurTestimonials = () => {
         </h2>
       </div>
 
+      {/* ── Swiper Carousel ── */}
       <div className="w-full group relative">
         <Swiper
           modules={[Navigation, Autoplay]}
-          spaceBetween={16}
-          slidesPerView={4}
-          breakpoints={{
-            320: { slidesPerView: 1.1, spaceBetween: 12 },
-            480: { slidesPerView: 1.2, spaceBetween: 12 },
-            640: { slidesPerView: 1.2, spaceBetween: 14 },
-            768: { slidesPerView: 2, spaceBetween: 14 },
-            1024: { slidesPerView: 3, spaceBetween: 16 },
-            1280: { slidesPerView: 3, spaceBetween: 16 },
-            1536: { slidesPerView: 4, spaceBetween: 18 },
+          watchSlidesProgress={true}
+          centeredSlides={true}
+          loop={testimonialsList.length > 3}
+          speed={700}
+          autoplay={{
+            delay: 10000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            waitForTransition: true,
           }}
           navigation={{
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          loop={testimonialsList.length > 3}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-            waitForTransition: true,
-          }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          speed={600}
+          breakpoints={{
+            /* Mobile: center card big, peek on both sides */
+            0: {
+              slidesPerView: 1.25,
+              spaceBetween: 14,
+            },
+            480: {
+              slidesPerView: 1.35,
+              spaceBetween: 14,
+            },
+            /* Tablet */
+            640: {
+              slidesPerView: 2.2,
+              spaceBetween: 14,
+            },
+            768: {
+              slidesPerView: 2.6,
+              spaceBetween: 14,
+            },
+            /* Desktop — unchanged */
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            1280: {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            1536: {
+              slidesPerView: 4,
+              spaceBetween: 18,
+            },
+          }}
           className="mySwiper !overflow-visible"
         >
           {testimonialsList.map((item, index) => (
             <SwiperSlide
               key={item._id || index}
-              className="hover:z-50 transition-transform duration-200"
+              className="
+                !overflow-visible transition-all duration-500 ease-in-out
+                max-md:!h-[260px]
+                [&.swiper-slide-active]:scale-100
+                [&.swiper-slide-active]:opacity-100
+                [&.swiper-slide-active]:z-10
+                [&.swiper-slide-prev]:max-md:scale-[0.87]
+                [&.swiper-slide-prev]:max-md:opacity-55
+                [&.swiper-slide-next]:max-md:scale-[0.87]
+                [&.swiper-slide-next]:max-md:opacity-55
+                [&:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)]:max-md:scale-[0.75]
+                [&:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)]:max-md:opacity-30
+              "
             >
               <div
-                className="cursor-pointer"
+                className="cursor-pointer h-full"
                 onClick={() => {
                   if (window.innerWidth <= 768) {
                     setSelectedVideo(item);
@@ -123,8 +157,12 @@ const OurTestimonials = () => {
                   poster={item.poster}
                   onHover={handleVideoHover}
                   aspectRatio="16/9"
-                  scale="hover:scale-[1.15]"
-                  classname="transition-all duration-300 ease-in-out hover:shadow-lg"
+                  scale="hover:scale-[1.05]"
+                  classname="
+                    transition-all duration-500 ease-in-out h-full
+                    [.swiper-slide-active_&]:shadow-[0_8px_40px_rgba(0,0,0,0.6)]
+                    [.swiper-slide-active_&]:rounded-xl
+                  "
                 />
               </div>
             </SwiperSlide>
@@ -135,20 +173,21 @@ const OurTestimonials = () => {
         <ArrowRight onClick={() => swiperRef.current?.slideNext()} />
       </div>
 
+      {/* ── Mobile Fullscreen Overlay ── */}
       {selectedVideo && (
-        <div className="fixed inset-0 z-[9999] bg-black bg-opacity-95 flex items-center justify-center">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200">
           <button
-            className="absolute top-4 left-4 text-white p-2 rounded-full bg-black/40"
+            className="absolute top-5 left-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
             onClick={() => setSelectedVideo(null)}
           >
-            <BackIcon size={24} />
+            <BackIcon size={22} />
           </button>
 
           <button
-            className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40"
+            className="absolute top-5 right-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
             onClick={() => setSelectedVideo(null)}
           >
-            <X size={26} />
+            <X size={22} />
           </button>
 
           <video
@@ -156,7 +195,8 @@ const OurTestimonials = () => {
             poster={selectedVideo.poster}
             controls
             autoPlay
-            className="max-w-full max-h-[90vh] rounded-lg"
+            playsInline
+            className="w-[92vw] max-w-lg rounded-2xl shadow-2xl max-h-[82vh] object-contain"
           />
         </div>
       )}

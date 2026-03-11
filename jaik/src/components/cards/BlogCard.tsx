@@ -2,11 +2,8 @@
 
 import { FaRegCalendarCheck, FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-// Note: Agar interface file mein 'slug' nahi hai, toh use add kar lena
+import { useState, useEffect } from "react";
 import type { blogInterface } from "../../interfaces/blogInterface";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
-const MEDIA_BASE = API_BASE.replace("/api", "");
 
 const BlogCard: React.FC<blogInterface> = ({
   category = "",
@@ -17,32 +14,49 @@ const BlogCard: React.FC<blogInterface> = ({
   summary = "",
   image = "",
   description = "",
-  slug = "", 
+  slug = "",
 }) => {
   const router = useRouter();
+  
+  // ✅ Fix 1: MEDIA_BASE client-side pe safely compute karo
+  const [mediaBase, setMediaBase] = useState("");
+  
+  // ✅ Fix 2: Date state mein rakho — server pe empty, client pe set karo
+  const [displayDate, setDisplayDate] = useState("");
+
+  useEffect(() => {
+    // MEDIA_BASE sirf client pe set hoga — hydration mismatch khatam
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
+    setMediaBase(apiBase.replace("/api", ""));
+
+    // Date bhi sirf client pe set hogi
+    const rawDate = publishedAt || createdAt;
+    if (rawDate) {
+      setDisplayDate(new Date(rawDate as string).toLocaleDateString());
+    }
+  }, [publishedAt, createdAt]);
 
   const handleReadMore = () => {
-    router.push(`/blog/${slug}`); 
+    router.push(`/blog/${slug}`);
   };
 
-  const displayDate =
-    publishedAt || createdAt
-      ? new Date((publishedAt || createdAt) as string).toLocaleDateString()
-      : "";
+  // ✅ Fix 3: description safely handle karo
+  const fallbackText = description
+    ? description.substring(0, 80) + "..."
+    : "No description available.";
 
   return (
     <div className="w-full rounded-lg group p-3 gap-2 flex flex-col justify-start items-start bg-main-secondary/80">
       <div className="w-full overflow-hidden rounded-lg">
         <img
-          // Port 5002 update kiya aur logic wahi rakha
-          src={`${MEDIA_BASE}${image}`}
+          // ✅ mediaBase ab safely client-side se aayega
+          src={mediaBase && image ? `${mediaBase}${image}` : "https://placehold.co/300x120?text=Loading"}
           alt={title}
           className="group-hover:scale-110 transition-all duration-300 h-[160px] w-full object-cover"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            // Loop rokne ke liye ye zaroori hai
-            target.onerror = null; 
-            target.src = "https://via.placeholder.com/300x120?text=No+Image";
+            target.onerror = null;
+            target.src = "https://placehold.co/300x120?text=No+Image";
           }}
         />
       </div>
@@ -54,15 +68,15 @@ const BlogCard: React.FC<blogInterface> = ({
         </div>
         <div className="flex justify-center items-center gap-1">
           <FaRegCalendarCheck size={10} className="text-main-red" />
+          {/* ✅ displayDate ab state se aayega — no hydration mismatch */}
           <span className="text-[11px]">{displayDate}</span>
         </div>
       </div>
       <div className="w-full">
         <h4 className="font-extrabold text-white line-clamp-1">{title}</h4>
         <p className="text-neutral-300 text-[13px] line-clamp-2 mt-1">
-          {summary && summary !== ""
-            ? summary
-            : description.substring(0, 80) + "..."}
+          {/* ✅ safely fallback */}
+          {summary || fallbackText}
         </p>
       </div>
       <button

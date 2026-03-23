@@ -5,15 +5,17 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { FaRegCalendarCheck, FaRegUser } from "react-icons/fa";
 import SEOManagement from "../../components/seo/SEOManagement";
+import type { blogInterface } from "../../interfaces/blogInterface";
 
 // ✅ Dynamic URLs from environment
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const MEDIA_BASE = API_URL.replace('/api', ''); // Removes /api to get base URL for images
+const formatDate = (value?: string) => (value ? new Date(value).toLocaleDateString() : "N/A");
 
 const BlogDetail: React.FC = () => {
   const params = useParams();
   const id = (params?.slug || params?.id) as string | undefined; 
-  const [blog, setBlog] = useState<any>(null);
+  const [blog, setBlog] = useState<blogInterface | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,20 +79,20 @@ const BlogDetail: React.FC = () => {
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="flex flex-wrap gap-6 mb-10 text-sm text-gray-400 border-b border-gray-800 pb-6">
           <span className="flex items-center gap-2"><FaRegUser className="text-red-600"/> {blog.author || 'Admin'}</span>
-          <span className="flex items-center gap-2"><FaRegCalendarCheck className="text-red-600"/> {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}</span>
+          <span className="flex items-center gap-2"><FaRegCalendarCheck className="text-red-600"/> {formatDate(blog.publishedAt || blog.createdAt)}</span>
           {blog.updatedAt && (
-            <span className="flex items-center gap-2 text-gray-500">Updated: {new Date(blog.updatedAt).toLocaleDateString()}</span>
+            <span className="flex items-center gap-2 text-gray-500">Updated: {formatDate(blog.updatedAt)}</span>
           )}
           <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{blog.category}</span>
         </div>
 
-        <article className="prose prose-invert max-w-none">
+        <article className="max-w-none">
           <div className="text-2xl font-medium text-gray-300 italic mb-10 border-l-4 border-red-600 pl-6 leading-relaxed">
             "{blog.description}"
           </div>
           <div
-            className="content-render text-gray-200 leading-loose text-lg"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            className="content-render blog-rich-content text-lg text-gray-200"
+            dangerouslySetInnerHTML={{ __html: blog.content || "" }}
           />
         </article>
       </div>

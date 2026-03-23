@@ -55,6 +55,146 @@ body {
   padding-left: 1.5rem;
 }
 
+.blog-rich-content {
+  font-size: 1.125rem;
+  line-height: 1.95;
+}
+
+.blog-rich-content > * + * {
+  margin-top: 1.25rem;
+}
+
+.blog-rich-content h1,
+.blog-rich-content h2,
+.blog-rich-content h3,
+.blog-rich-content h4,
+.blog-rich-content h5,
+.blog-rich-content h6 {
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+}
+
+.blog-rich-content h1 {
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+}
+
+.blog-rich-content h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.blog-rich-content h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.blog-rich-content h4 {
+  font-size: 1.35rem;
+}
+
+.blog-rich-content h5 {
+  font-size: 1.15rem;
+}
+
+.blog-rich-content h6 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f87171;
+}
+
+.blog-rich-content p {
+  color: #d1d5db;
+  margin: 0;
+}
+
+.blog-rich-content strong {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.blog-rich-content em {
+  color: #f3f4f6;
+}
+
+.blog-rich-content a {
+  color: #f87171;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.blog-rich-content ul,
+.blog-rich-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.blog-rich-content li + li {
+  margin-top: 0.5rem;
+}
+
+.blog-rich-content blockquote {
+  margin: 1.5rem 0;
+  border-left: 4px solid #dc2626;
+  padding-left: 1rem;
+  color: #f3f4f6;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.blog-rich-content img {
+  width: 100%;
+  border-radius: 1rem;
+  margin: 1.75rem 0;
+  object-fit: cover;
+}
+
+.blog-rich-content hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 2rem 0;
+}
+
+.blog-rich-content pre {
+  margin: 1.5rem 0;
+  border-radius: 1rem;
+  background: #090909;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  color: #f9fafb;
+}
+
+.blog-rich-content code {
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.4rem;
+  color: #fca5a5;
+}
+
+.blog-rich-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .blog-rich-content {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .blog-rich-content h1,
+  .blog-rich-content h2,
+  .blog-rich-content h3,
+  .blog-rich-content h4,
+  .blog-rich-content h5,
+  .blog-rich-content h6 {
+    margin-top: 1.5rem;
+  }
+}
+
 /* Red & Black Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;

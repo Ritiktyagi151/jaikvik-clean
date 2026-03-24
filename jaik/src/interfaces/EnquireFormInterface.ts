@@ -5,17 +5,19 @@ export interface AdminEnquiryInterface {
   phone: string;
   company: string;
   message: string;
-  city?: string; // Optional field
+  city?: string;
+  state?: string;
   preferredDate?: string;
   preferredTime?: string;
   location?: string;
+  preferredMode?: string;
   sourcePage?: string;
   meeting?: {
     meetLink?: string;
   };
   createdAt: Date;
   status: "pending" | "reviewed" | "resolved";
-  notes?: string; // Optional field
+  notes?: string;
 }
 
 export interface EnquireFormInterface {
@@ -24,8 +26,11 @@ export interface EnquireFormInterface {
   phone: string;
   company: string;
   message: string;
-  city: string; // Added city
+  city: string;
+  state: string;
   preferredDate: string;
   preferredTime: string;
-  location: string;
+  preferredMode: string;
+  location?: string;
+  sourcePage?: string;
 }

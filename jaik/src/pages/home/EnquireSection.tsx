@@ -3,9 +3,11 @@
 import { useState } from "react";
 import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface";
 import "../../styles/enquire-form.css";
+
 const EnquireSection = () => {
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
   const today = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState<EnquireFormInterface>({
     fname: "",
     email: "",
@@ -13,10 +15,12 @@ const EnquireSection = () => {
     company: "",
     message: "",
     city: "",
+    state: "", // Added state
     preferredDate: "",
     preferredTime: "",
-    location: "",
+    preferredMode: "", // Added preferredMode
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     success: boolean;
@@ -25,7 +29,7 @@ const EnquireSection = () => {
   } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -81,9 +85,10 @@ const EnquireSection = () => {
           company: "",
           message: "",
           city: "",
+          state: "",
           preferredDate: "",
           preferredTime: "",
-          location: "",
+          preferredMode: "",
         });
       } else {
         throw new Error(data?.message || "Failed to submit enquiry");
@@ -138,7 +143,6 @@ const EnquireSection = () => {
               )}
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 md:gap-3 lg:gap-4">
-                {/* Heading */}
                 <div className="col-span-2 flex items-center">
                   <h2 className="uppercase text-white text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4">
                     Schedule Your Meeting
@@ -157,12 +161,9 @@ const EnquireSection = () => {
                       placeholder=" "
                       required
                       autoComplete="off"
-                      aria-label="Full Name"
                       className="w-full"
                     />
-                    <label htmlFor="fname" className="placeholder-text">
-                      FULL NAME
-                    </label>
+                    <label htmlFor="fname" className="placeholder-text">FULL NAME</label>
                   </div>
                 </div>
 
@@ -178,12 +179,9 @@ const EnquireSection = () => {
                       placeholder=" "
                       required
                       autoComplete="off"
-                      aria-label="Email Address"
                       className="w-full"
                     />
-                    <label htmlFor="email" className="placeholder-text">
-                      EMAIL ADDRESS
-                    </label>
+                    <label htmlFor="email" className="placeholder-text">EMAIL ADDRESS</label>
                   </div>
                 </div>
 
@@ -198,13 +196,9 @@ const EnquireSection = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      autoComplete="off"
-                      aria-label="Phone Number"
                       className="w-full"
                     />
-                    <label htmlFor="phone" className="placeholder-text">
-                      PHONE NUMBER
-                    </label>
+                    <label htmlFor="phone" className="placeholder-text">PHONE NUMBER</label>
                   </div>
                 </div>
 
@@ -219,13 +213,9 @@ const EnquireSection = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      autoComplete="off"
-                      aria-label="Company Name"
                       className="w-full"
                     />
-                    <label htmlFor="company" className="placeholder-text">
-                      COMPANY NAME
-                    </label>
+                    <label htmlFor="company" className="placeholder-text">COMPANY NAME</label>
                   </div>
                 </div>
 
@@ -240,16 +230,30 @@ const EnquireSection = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      autoComplete="off"
-                      aria-label="City"
                       className="w-full"
                     />
-                    <label htmlFor="city" className="placeholder-text">
-                      CITY
-                    </label>
+                    <label htmlFor="city" className="placeholder-text">CITY</label>
                   </div>
                 </div>
 
+                {/* State (Added) */}
+                <div className="sm:col-span-1">
+                  <div className="input-contain">
+                    <input
+                      type="text"
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      className="w-full"
+                    />
+                    <label htmlFor="state" className="placeholder-text">STATE</label>
+                  </div>
+                </div>
+
+                {/* Preferred Date */}
                 <div className="sm:col-span-1">
                   <div className="input-contain">
                     <input
@@ -260,15 +264,13 @@ const EnquireSection = () => {
                       onChange={handleChange}
                       min={today}
                       required
-                      aria-label="Preferred Date"
                       className="w-full"
                     />
-                    <label htmlFor="preferredDate" className="placeholder-text">
-                      PREFERRED DATE
-                    </label>
+                    <label htmlFor="preferredDate" className="placeholder-text">PREFERRED DATE</label>
                   </div>
                 </div>
 
+                {/* Preferred Time */}
                 <div className="sm:col-span-1">
                   <div className="input-contain">
                     <input
@@ -278,38 +280,33 @@ const EnquireSection = () => {
                       value={formData.preferredTime}
                       onChange={handleChange}
                       required
-                      aria-label="Preferred Time"
                       className="w-full"
                     />
-                    <label htmlFor="preferredTime" className="placeholder-text">
-                      PREFERRED TIME
-                    </label>
+                    <label htmlFor="preferredTime" className="placeholder-text">PREFERRED TIME</label>
                   </div>
                 </div>
 
+                {/* Preferred Mode (Added instead of Location) */}
                 <div className="sm:col-span-1">
                   <div className="input-contain">
                     <input
                       type="text"
-                      id="location"
-                      name="location"
-                      value={formData.location}
+                      id="preferredMode"
+                      name="preferredMode"
+                      value={formData.preferredMode}
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      aria-label="Location"
-                      list="enquiry-location-options"
+                      list="mode-options"
                       className="w-full"
                     />
-                    <datalist id="enquiry-location-options">
+                    <datalist id="mode-options">
                       <option value="Online Meeting" />
                       <option value="Office Visit" />
                       <option value="Phone Call" />
                       <option value="Google Meet" />
                     </datalist>
-                    <label htmlFor="location" className="placeholder-text">
-                      PREFERRED LOCATION
-                    </label>
+                    <label htmlFor="preferredMode" className="placeholder-text">PREFERRED MODE</label>
                   </div>
                 </div>
 
@@ -324,12 +321,9 @@ const EnquireSection = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      aria-label="Message"
                       className="w-full"
                     ></textarea>
-                    <label htmlFor="message" className="placeholder-text">
-                      MESSAGE
-                    </label>
+                    <label htmlFor="message" className="placeholder-text">MESSAGE</label>
                   </div>
                 </div>
 
@@ -356,7 +350,7 @@ const EnquireSection = () => {
         <div className="w-full">
           <div className="w-full h-full min-h-[300px] sm:min-h-[340px] md:min-h-[320px] relative">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3383.728679471876!2d77.3799222!3d28.6208897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef6105705e55%3A0xe206b5e4f7fd200c!2sJaikvik%20Technology%20India%20Pvt.%20Ltd.!5e1!3m2!1sen!2sin!4v1747125883950!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14000.000000000002!2d77.0000000!3d28.0000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
               className="absolute inset-0 w-full h-full border border-gray-300 rounded"
               allowFullScreen
               loading="lazy"

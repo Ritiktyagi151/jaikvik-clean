@@ -1,12 +1,16 @@
 "use client";
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 import {
   FiAlignCenter,
   FiAlignJustify,
@@ -63,6 +67,9 @@ const toolbarButtonClass =
   "inline-flex h-9 min-w-9 items-center justify-center rounded-md border border-gray-700 bg-[#121212] px-2 text-sm text-gray-200 transition-all hover:border-red-500 hover:text-white";
 const toolbarButtonActiveClass = "border-red-600 bg-red-600/15 text-white";
 
+const tableActionButtonClass =
+  "rounded-md border border-gray-700 bg-[#121212] px-3 py-2 text-xs font-semibold uppercase tracking-wide text-gray-200 transition-all hover:border-red-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40";
+
 type BlogFormState = {
   title: string;
   content: string;
@@ -84,6 +91,17 @@ type BlogFormModalProps = {
   onClose: () => void;
   onSave: (formData: FormData) => void;
   isLoading: boolean;
+};
+
+type TableInsertState = {
+  rows: number;
+  cols: number;
+  withHeaderRow: boolean;
+};
+
+const clampTableSize = (value: number, fallback: number) => {
+  if (!Number.isFinite(value)) return fallback;
+  return Math.min(12, Math.max(1, Math.floor(value)));
 };
 
 const ToolbarButton = ({
@@ -109,6 +127,122 @@ const ToolbarButton = ({
   </button>
 );
 
+const TableControls = ({
+  editor,
+  config,
+  onConfigChange,
+}: {
+  editor: Editor;
+  config: TableInsertState;
+  onConfigChange: React.Dispatch<React.SetStateAction<TableInsertState>>;
+}) => {
+  const inTable = editor.isActive("table");
+
+  const updateConfig = (key: "rows" | "cols", value: string) => {
+    const numericValue = Number(value);
+    onConfigChange((current) => ({
+      ...current,
+      [key]: clampTableSize(numericValue, current[key]),
+    }));
+  };
+
+  return (
+    <div className="w-full rounded-lg border border-gray-800 bg-[#0d0d0d] p-4">
+      <div className="grid gap-3 md:grid-cols-[repeat(3,minmax(0,1fr))] md:items-end">
+        <label className="block text-xs text-gray-400">
+          Rows
+          <input
+            type="number"
+            min={1}
+            max={12}
+            value={config.rows}
+            onChange={(e) => updateConfig("rows", e.target.value)}
+            className="mt-1 h-10 w-full rounded-md border border-gray-700 bg-[#121212] px-3 text-sm text-gray-100 outline-none focus:border-red-600"
+          />
+        </label>
+        <label className="block text-xs text-gray-400">
+          Columns
+          <input
+            type="number"
+            min={1}
+            max={12}
+            value={config.cols}
+            onChange={(e) => updateConfig("cols", e.target.value)}
+            className="mt-1 h-10 w-full rounded-md border border-gray-700 bg-[#121212] px-3 text-sm text-gray-100 outline-none focus:border-red-600"
+          />
+        </label>
+        <label className="flex h-10 items-center gap-2 rounded-md border border-gray-700 bg-[#121212] px-3 text-xs font-semibold uppercase tracking-wide text-gray-200">
+          <input
+            type="checkbox"
+            checked={config.withHeaderRow}
+            onChange={(e) =>
+              onConfigChange((current) => ({
+                ...current,
+                withHeaderRow: e.target.checked,
+              }))
+            }
+            className="h-4 w-4 accent-red-600"
+          />
+          Header row
+        </label>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button
+          type="button"
+          className={tableActionButtonClass}
+          onClick={() =>
+            editor
+              .chain()
+              .focus()
+              .insertTable({
+                rows: clampTableSize(config.rows, 3),
+                cols: clampTableSize(config.cols, 3),
+                withHeaderRow: config.withHeaderRow,
+              })
+              .run()
+          }
+        >
+          Insert Table
+        </button>
+        <button
+          type="button"
+          className={tableActionButtonClass}
+          onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+          disabled={!inTable}
+        >
+          Toggle Header
+        </button>
+        <button type="button" className={tableActionButtonClass} onClick={() => editor.chain().focus().addRowAfter().run()} disabled={!inTable}>
+          Add Row
+        </button>
+        <button type="button" className={tableActionButtonClass} onClick={() => editor.chain().focus().deleteRow().run()} disabled={!inTable}>
+          Remove Row
+        </button>
+        <button
+          type="button"
+          className={tableActionButtonClass}
+          onClick={() => editor.chain().focus().addColumnAfter().run()}
+          disabled={!inTable}
+        >
+          Add Column
+        </button>
+        <button
+          type="button"
+          className={tableActionButtonClass}
+          onClick={() => editor.chain().focus().deleteColumn().run()}
+          disabled={!inTable}
+        >
+          Remove Column
+        </button>
+        <button type="button" className={tableActionButtonClass} onClick={() => editor.chain().focus().deleteTable().run()} disabled={!inTable}>
+          Delete Table
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const TiptapEditor = ({
   value,
   onChange,
@@ -116,6 +250,12 @@ const TiptapEditor = ({
   value: string;
   onChange: (value: string) => void;
 }) => {
+  const [isTablePanelOpen, setIsTablePanelOpen] = useState(false);
+  const [tableConfig, setTableConfig] = useState<TableInsertState>({
+    rows: 3,
+    cols: 3,
+    withHeaderRow: true,
+  });
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -137,6 +277,12 @@ const TiptapEditor = ({
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: ensureHtmlContent(value),
     onUpdate: ({ editor: currentEditor }) => {
@@ -272,10 +418,14 @@ const TiptapEditor = ({
         <ToolbarButton title="Upload inline image" onClick={handleInlineImageUpload}>
           <FiImage />
         </ToolbarButton>
+        <ToolbarButton title="Insert or edit table" active={isTablePanelOpen || editor.isActive("table")} onClick={() => setIsTablePanelOpen((current) => !current)}>
+          <span className="text-xs font-bold uppercase">Tbl</span>
+        </ToolbarButton>
         <ToolbarButton title="Clear formatting" onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()}>
           <FiType />
         </ToolbarButton>
       </div>
+      {isTablePanelOpen && <TableControls editor={editor} config={tableConfig} onConfigChange={setTableConfig} />}
       <EditorContent editor={editor} />
     </div>
   );

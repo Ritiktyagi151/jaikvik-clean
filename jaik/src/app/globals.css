@@ -42,6 +42,30 @@ body {
   display: block;
   overflow-x: auto;
   border-collapse: collapse;
+  border-spacing: 0;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  border-radius: 0.85rem;
+  background: rgba(10, 10, 10, 0.88);
+}
+
+.content-render th,
+.content-render td {
+  min-width: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.85rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content-render th {
+  background: rgba(220, 38, 38, 0.18);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.content-render td {
+  color: #d1d5db;
 }
 
 .content-render pre,
@@ -149,6 +173,28 @@ body {
   border-radius: 1rem;
   margin: 1.75rem 0;
   object-fit: cover;
+}
+
+.blog-rich-content .selectedCell:after {
+  background: rgba(248, 113, 113, 0.18);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.blog-rich-content .column-resize-handle {
+  background: #dc2626;
+  bottom: -1px;
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 4px;
+}
+
+.blog-rich-content .tableWrapper {
+  margin: 1.5rem 0;
+  overflow-x: auto;
 }
 
 .blog-rich-content hr {

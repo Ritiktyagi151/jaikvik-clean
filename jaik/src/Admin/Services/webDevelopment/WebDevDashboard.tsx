@@ -93,7 +93,7 @@ const WebDevelopmentAdmin = () => {
         <br />● Enhanced features like abandoned cart recovery and loyalty programs drive sales.
       </p>`,
       image:
-        "https://img.freepik.com/premium-vector/web-development-programmers-landing-page_138260-18.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=webp",
+        "https://img.freepik.com/premium-vector/website-development-programmers-landing-page_138260-18.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=webp",
       alt: "Web Use Cases",
       sectionId: "web-industries",
       locked: false,
@@ -114,7 +114,7 @@ const WebDevelopmentAdmin = () => {
         <strong className="text-blue-300">Customer Data:</strong> Analyze user behavior through analytics to improve marketing strategies.
       </p>`,
       image:
-        "https://img.freepik.com/premium-vector/web-development-flat-landing-page-creative-team-designers-developers-work-together-illustration-full-stack-development-software-engineering-web-page-composition-with-people-characters_9209-3545.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
+        "https://img.freepik.com/premium-vector/website-development-flat-landing-page-creative-team-designers-developers-work-together-illustration-full-stack-development-software-engineering-web-page-composition-with-people-characters_9209-3545.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
       alt: "E-commerce Websites",
       sectionId: "ecommerce-websites",
       locked: false,

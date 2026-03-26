@@ -29,27 +29,27 @@ export const softwareDevelopmentItems = [
 
 export const websiteDevelopmentItems = [
   {
-    href: "/web-development",
+    href: "/website-development",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/e-commerce.jpg",
     text: "E-Commerce",
   },
   {
-    href: "/web-development",
+    href: "/website-development",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/woo-commerce.jpg",
     text: "WooCommerce",
   },
   {
-    href: "/web-development",
+    href: "/website-development",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/corporate-website.jpg",
     text: "Corporate Website",
   },
   {
-    href: "/web-development",
+    href: "/website-development",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/online-portal.jpg",
     text: "Online Portal",
   },
   {
-    href: "/web-development",
+    href: "/website-development",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/packages.jpg",
     text: "Packages",
   },

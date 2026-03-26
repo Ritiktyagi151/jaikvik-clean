@@ -30,15 +30,15 @@ const services: serviceInterface[] = [
       "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Featured.avif",
     galleryImgs: [
       {
-        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Web-Development-Gallery-1.avif",
+        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/website-development-Gallery-1.avif",
         alt: "Web Development Gallery 1",
       },
       {
-        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Web-Development-Gallery-2.avif",
+        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/website-development-Gallery-2.avif",
         alt: "Web Development Gallery 2",
       },
       {
-        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Web-Development-Gallery-3.avif",
+        src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/website-development-Gallery-3.avif",
         alt: "Web Development Gallery 3",
       },
     ],
@@ -49,7 +49,7 @@ const services: serviceInterface[] = [
   },
   {
     mainImg:
-      "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Web-Development.avif",
+      "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/website-development.avif",
     galleryImgs: [
       {
         src: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/services_images/Film-Production-Gallery-1.avif",

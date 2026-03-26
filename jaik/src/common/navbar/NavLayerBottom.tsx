@@ -24,7 +24,7 @@ const NavLayerBottom: React.FC<{
     {
       title: "Website Development",
       menu: websiteDevelopmentItems,
-      href: "/web-development",
+      href: "/website-development",
     },
     {
       title: "Digital Marketing",

@@ -405,7 +405,7 @@ POST /videos/:id/like
 ### Get All Testimonials
 
 ```http
-GET /testimonials?page=1&limit=10&category=web-development&status=active&featured=true
+GET /testimonials?page=1&limit=10&category=website-development&status=active&featured=true
 ```
 
 ### Get Single Testimonial
@@ -457,7 +457,7 @@ Authorization: Bearer <admin_token>
 ### Get Testimonials by Category
 
 ```http
-GET /testimonials/category/web-development
+GET /testimonials/category/website-development
 ```
 
 ### Get Featured Testimonials
@@ -540,7 +540,7 @@ GET /clients/featured?limit=6
 ### Get Clients by Service
 
 ```http
-GET /clients/service/web-development
+GET /clients/service/website-development
 ```
 
 ## Career Management
@@ -889,7 +889,7 @@ Endpoints support various filtering options:
 ### Testimonials
 
 - `status`: active, inactive, draft
-- `category`: web-development, mobile-app, etc.
+- `category`: website-development, mobile-app, etc.
 - `featured`: true, false
 - `rating`: 1-5
 

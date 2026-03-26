@@ -7,9 +7,9 @@ const SITE_URL =
   );
 
 const SITE_NAME = "Jaikvik Technology India";
-const DEFAULT_TITLE = "Digital Marketing, SEO & Web Development Company";
+const DEFAULT_TITLE = "Jaikvik Technology India – Digital Marketing, SEO & Web Development";
 const DEFAULT_DESCRIPTION =
-  "Jaikvik Technology India offers digital marketing, SEO services, website and mobile app development, ERP, CRM, and branding solutions.";
+  "Jaikvik Technology India offers digital marketing, SEO services, web and mobile app development, ERP, CRM, and more. Trusted tech partner for business growth.";
 const DEFAULT_OG_IMAGE = "https://jaikvik.com/img/logo/og-image.jpg";
 const DEFAULT_KEYWORDS = [
   "digital marketing agency",
@@ -28,18 +28,19 @@ type PageSeoConfig = {
 
 const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
   "/": {
-    title: "Jaikvik Technology India",
-    description: DEFAULT_DESCRIPTION,
+    title: "Jaikvik Technology India – Digital Marketing, SEO & Web Development",
+    description:
+      "Jaikvik Technology India offers digital marketing, SEO services, web and mobile app development, ERP, CRM, and more. Trusted tech partner for business growth.",
   },
   "/about": {
-    title: "About Us",
+    title: "About Jaikvik Technology India – Leading IT & Digital Solutions Company",
     description:
-      "Learn about Jaikvik Technology India, our mission, team, and expertise across digital marketing and software services.",
+      "Learn about Jaikvik Technology India, a top IT company offering SEO, digital marketing, web development, CRM, ERP & mobile app solutions for business success.",
   },
   "/blogs": {
-    title: "Our Blogs",
+    title: "Jaikvik Blogs – SEO, Digital Marketing, Web & Tech Insights in India",
     description:
-      "Read digital marketing, SEO, development, and business growth insights from Jaikvik Technology India.",
+      "Explore expert blogs by Jaikvik Technology on SEO, digital marketing, web development, mobile apps, ERP, CRM, and the latest IT trends to grow your business.",
   },
   "/blogs/[id]": {
     title: "Blog Details",
@@ -52,9 +53,9 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
       "Explore detailed blog insights from Jaikvik Technology India on marketing, SEO, and development trends.",
   },
   "/branding": {
-    title: "Brand Promotion Services",
+    title: "Branding Services in India – Jaikvik Technology | Build Your Brand",
     description:
-      "Grow your brand visibility with strategic branding and promotion services from Jaikvik Technology India.",
+      "Jaikvik offers expert branding services in India including logo design, brand strategy, identity, and positioning to help businesses stand out and grow effectively.",
   },
   "/brochure": {
     title: "Company Brochure",
@@ -62,39 +63,47 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
       "Download the official Jaikvik Technology India company brochure and explore our services.",
   },
   "/careers": {
-    title: "Careers",
+    title: "Careers at Jaikvik Technology – Join Top IT & Digital Company in India",
     description:
-      "Apply for open roles at Jaikvik Technology India and build your career with our growing team.",
+      "Explore exciting career opportunities at Jaikvik Technology India. Join our team of experts in SEO, web development, digital marketing, ERP, CRM, and more.",
   },
   "/contact-us": {
-    title: "Contact Us",
+    title: "Contact Jaikvik Technology India – SEO, Web & Digital Experts",
     description:
-      "Contact Jaikvik Technology India for digital marketing, SEO, website, app, and software project requirements.",
+      "Get in touch with Jaikvik Technology India for expert SEO, digital marketing, web development, CRM, ERP, and mobile app services. We're here to help your business grow.",
   },
   "/crm": {
-    title: "CRM Software Development",
+    title: "Best CRM Software for Business Growth – Jaikvik Technology India",
     description:
-      "Custom CRM software solutions to streamline customer management, sales, and support workflows.",
+      "Boost customer relationships with the best CRM software by Jaikvik Technology. Streamlined CRM solutions tailored to manage sales, leads, and customer support.",
   },
   "/cusotmized-software": {
-    title: "Customized Software Development",
+    title: "Customized Software Solutions – Jaikvik Technology India Pvt Ltd",
     description:
-      "Build custom software tailored to your business process, goals, and operational requirements.",
+      "Jaikvik offers customized software tailored to your business needs. Scalable, secure, and efficient custom software solutions to drive digital transformation.",
+  },
+  "/coustmised-software": {
+    title: "Customized Software Solutions – Jaikvik Technology India Pvt Ltd",
+    description:
+      "Jaikvik offers customized software tailored to your business needs. Scalable, secure, and efficient custom software solutions to drive digital transformation.",
   },
   "/digital-marketing-agency": {
-    title: "Digital Marketing Agency",
+    title: "Top Digital Marketing Agency in India – Jaikvik | Marketing Company",
     description:
-      "Performance-focused digital marketing services including SEO, social media, ads, and lead generation.",
+      "Jaikvik is a leading digital marketing agency in India offering expert digital marketing services. Trusted digital marketing company for growth-driven strategies.",
+    keywords:
+      "Digital marketing agency in india, Digital Marketing, Digital Marketing Agency, Digital Marketing Company, digital marketing services",
   },
   "/erp": {
-    title: "ERP Software Development",
+    title: "Best ERP Software for Business Efficiency – Jaikvik Technology India",
     description:
-      "Scalable ERP software solutions for inventory, operations, finance, and enterprise workflows.",
+      "Streamline your operations with the best ERP software by Jaikvik Technology. Scalable, secure, and tailored ERP solutions to boost productivity and performance.",
+    keywords: "best erp software",
   },
   "/film-production": {
-    title: "Film Production Services",
+    title: "Film Production Services – Jaikvik Technology | Video & Ad Creation",
     description:
-      "Corporate film production, promotional shoots, and creative video services by Jaikvik Technology India.",
+      "Jaikvik offers professional film production services including corporate videos, ad films, brand stories, and creative video content for powerful visual marketing.",
   },
   "/java": {
     title: "Java Development",
@@ -117,9 +126,11 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
       "Custom Laravel web application development with secure architecture and high-performance backend.",
   },
   "/mobile-application": {
-    title: "Mobile App Development",
+    title: "Mobile Application Development Company in India – Jaikvik Technology",
     description:
-      "Android and iOS mobile application development services with modern UX and reliable performance.",
+      "Jaikvik Technology is a top mobile application development company in India offering custom mobile app solutions to grow your business with scalable and user-friendly apps.",
+    keywords:
+      "mobile application development company in india, mobile application development company",
   },
   "/mongodb": {
     title: "MongoDB Development",
@@ -152,24 +163,28 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
       "React.js development services for modern, high-performance, and SEO-conscious web interfaces.",
   },
   "/seo-services": {
-    title: "SEO Services",
+    title: "Best SEO Company in India | SEO Services & Audit – Jaikvik Technology",
     description:
-      "Result-oriented SEO services to improve rankings, organic visibility, and qualified traffic growth.",
+      "Jaikvik Technology – top SEO agency in India offering SEO on Page, off Page, technical SEO, ecommerce SEO services, website audit, Google SEO service & SEO for ecommerce sites.",
+    keywords:
+      "SEO agency in India, Best SEO Company, Best SEO Company in India, best seo services in India, ecommerce seo agency, ecommerce seo services, Google seo service, e commerce seo, ecommerce seo, Google Search Engine Optimization, Search Engine Optimisation, SEO, seo agency near me, seo digital marketing, seo for ecommerce website, seo marketing company near me, SEO on Page, SEO Services, SEO Services in India, seo strategy for ecommerce website, seo on shopify, on Page SEO, off Page SEO, technical SEO, website audit",
   },
   "/social-media-marketing": {
-    title: "Social Media Marketing Services",
+    title: "Social Media Marketing Services – Jaikvik Technology India Pvt Ltd",
     description:
-      "Social media strategy, creatives, and campaign management services for sustained brand growth.",
+      "Boost your brand with Jaikvik's expert social media marketing services. We manage, grow, and optimize your presence on Facebook, Instagram, LinkedIn & more.",
   },
   "/sql": {
     title: "SQL Development",
     description:
       "SQL database design, optimization, and management solutions for secure and reliable data systems.",
   },
-  "/web-development": {
-    title: "Web Development Services",
+  "/website-development": {
+    title: "Top Website Development Company in India – Jaikvik | Website Solutions",
     description:
-      "End-to-end web development services for business websites, portals, and custom web platforms.",
+      "Jaikvik is among the top 10 website development companies in India. A leading website development company offering expert website development for all business needs.",
+    keywords:
+      "website development companies in India, Website Development Companies, Website Development Company, Website development, Web Development Company, Top 10 web development company",
   },
   "/wordpress": {
     title: "WordPress Development",
@@ -177,9 +192,15 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
       "WordPress website development, customization, and optimization services for business growth.",
   },
   "/youtube-meta-ads": {
-    title: "YouTube & Meta Ads Services",
+    title: "YouTube & Meta Ads Services – Jaikvik Technology India Pvt Ltd",
     description:
-      "High-conversion YouTube and Meta ads campaign management to maximize reach and ROI.",
+      "Jaikvik offers expert YouTube and Meta (Facebook & Instagram) Ads services. Boost visibility, drive traffic, and grow your business with high-converting campaigns.",
+  },
+  "/admin": {
+    title: "Admin Login – Jaikvik Technology India Private Limited",
+    description:
+      "Secure admin login page for Jaikvik Technology. Authorized personnel only. Access digital operations, web, SEO, and client management tools here.",
+    noIndex: true,
   },
 };
 
@@ -194,7 +215,7 @@ export const pageMetadata = (path: string): Metadata => {
   const normalizedPath = normalizePath(path);
   const pageConfig = PUBLIC_PAGE_SEO[normalizedPath];
   const title = pageConfig?.title
-    ? `${pageConfig.title} | ${SITE_NAME}`
+    ? `${pageConfig.title}`
     : `${DEFAULT_TITLE} | ${SITE_NAME}`;
   const description = pageConfig?.description || DEFAULT_DESCRIPTION;
   const keywords = pageConfig?.keywords || DEFAULT_KEYWORDS;

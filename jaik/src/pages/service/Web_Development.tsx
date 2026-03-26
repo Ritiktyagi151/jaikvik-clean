@@ -812,7 +812,7 @@ const WebDevelopment = () => {
       <SEOManagement title="Top Web Development Company | Leading Website Development Company"
         description="Looking for expert Website Development Companies? Our Web Development Company delivers high-quality website development services to help your business grow."
         keywords="Web development Company, Website Development Companies,Website Development Company, Website development"
-        canonical="https://www.jaikvik.com/web-development" />
+        canonical="https://www.jaikvik.com/website-development" />
       <motion.div
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{ y }}

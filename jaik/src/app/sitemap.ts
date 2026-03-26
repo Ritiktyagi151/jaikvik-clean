@@ -33,7 +33,7 @@ const PUBLIC_ROUTES = [
   "/seo-services",
   "/social-media-marketing",
   "/sql",
-  "/web-development",
+  "/website-development",
   "/wordpress",
   "/youtube-meta-ads",
 ];

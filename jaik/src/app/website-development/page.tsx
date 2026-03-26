@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import WebDevelopment from "@/pages/service/Web_Development";
 
-export const metadata: Metadata = pageMetadata("/web-development");
+export const metadata: Metadata = pageMetadata("/website-development");
 
 export default function Page() {
   return <WebDevelopment />;

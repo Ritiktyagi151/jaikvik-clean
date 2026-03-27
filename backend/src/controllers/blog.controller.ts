@@ -33,10 +33,11 @@ const buildDraftFromBody = (body: any, existingDraft: any = {}) => {
   const metaDescription = body.metaDescription ?? body.draftMetaDescription ?? existingDraft.metaDescription;
   const metaKeywords = normalizeStringArray(body.metaKeywords ?? body.draftMetaKeywords ?? existingDraft.metaKeywords);
   const canonicalUrl = body.canonicalUrl ?? body.draftCanonicalUrl ?? existingDraft.canonicalUrl;
+  const slug = slugify(title);
 
   return {
     title,
-    slug: slugify(title),
+    slug,
     description,
     content,
     category,
@@ -48,6 +49,12 @@ const buildDraftFromBody = (body: any, existingDraft: any = {}) => {
     metaKeywords,
     canonicalUrl,
   };
+};
+
+const assertValidSlug = (draft: { slug?: string }) => {
+  if (!draft.slug) {
+    throw new Error("Blog title is required to generate a valid slug");
+  }
 };
 
 const pickPublishedPayload = (blog: any) => {
@@ -164,6 +171,7 @@ export const createBlog = async (req: Request, res: Response): Promise<any> => {
       blogData.image = `/uploads/${req.file.filename}`;
     }
     const draft = buildDraftFromBody(blogData);
+    assertValidSlug(draft);
     if (blogData.image) {
       draft.image = blogData.image;
     }
@@ -173,6 +181,7 @@ export const createBlog = async (req: Request, res: Response): Promise<any> => {
     const publishedAt = blogData.publishedAt ? new Date(blogData.publishedAt) : undefined;
 
     const blogPayload: any = {
+      slug: draft.slug,
       draft,
       status,
       scheduledAt,
@@ -186,6 +195,9 @@ export const createBlog = async (req: Request, res: Response): Promise<any> => {
     const blog = await Blog.create(blogPayload);
     return res.status(201).json({ success: true, data: blog });
   } catch (error: any) {
+    if (error?.code === 11000 && error?.keyPattern?.slug) {
+      return res.status(409).json({ success: false, message: "A blog with this slug already exists" });
+    }
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -203,10 +215,12 @@ export const updateBlog = async (req: Request, res: Response): Promise<any> => {
     }
 
     const draft = buildDraftFromBody(updateData, blog.draft);
+    assertValidSlug(draft);
     if (updateData.image) {
       draft.image = updateData.image;
     }
 
+    blog.slug = draft.slug;
     blog.draft = draft;
 
     const nextStatus = updateData.status || blog.status;
@@ -223,8 +237,11 @@ export const updateBlog = async (req: Request, res: Response): Promise<any> => {
 
     await blog.save();
     return res.json({ success: true, data: blog });
-  } catch (error) {
-    return res.status(500).json({ success: false, message: "Update error" });
+  } catch (error: any) {
+    if (error?.code === 11000 && error?.keyPattern?.slug) {
+      return res.status(409).json({ success: false, message: "A blog with this slug already exists" });
+    }
+    return res.status(500).json({ success: false, message: error.message || "Update error" });
   }
 };
 

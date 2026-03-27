@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IBlog extends Document {
+  slug: string;
   draft: {
     title: string;
     slug: string;
@@ -39,7 +40,7 @@ export interface IBlog extends Document {
 const blogContentSchema = new Schema(
   {
     title: { type: String, required: true, trim: true },
-    slug: { type: String, trim: true },
+    slug: { type: String, required: true, trim: true },
     description: { type: String, required: true, maxlength: 500 },
     content: { type: String, required: true },
     category: { type: String, required: true },
@@ -56,6 +57,7 @@ const blogContentSchema = new Schema(
 
 const blogSchema = new Schema<IBlog>(
   {
+    slug: { type: String, required: true, trim: true, unique: true },
     draft: { type: blogContentSchema, required: true },
     published: { type: blogContentSchema, required: false },
     status: { type: String, enum: ["draft", "scheduled", "published"], default: "draft" },
@@ -70,5 +72,25 @@ const blogSchema = new Schema<IBlog>(
 );
 
 blogSchema.index({ "published.slug": 1 }, { unique: true, sparse: true });
+
+blogSchema.pre("validate", function (next) {
+  const canonicalSlug = this.published?.slug || this.draft?.slug;
+
+  if (!canonicalSlug) {
+    return next(new Error("Blog slug is required"));
+  }
+
+  this.slug = canonicalSlug;
+
+  if (this.draft && !this.draft.slug) {
+    this.draft.slug = canonicalSlug;
+  }
+
+  if (this.published && !this.published.slug) {
+    this.published.slug = canonicalSlug;
+  }
+
+  next();
+});
 
 export const Blog = mongoose.model<IBlog>("Blog", blogSchema);

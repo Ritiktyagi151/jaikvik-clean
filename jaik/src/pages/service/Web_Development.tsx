@@ -58,7 +58,7 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-             We shall discuss here the meaning of Website Development, its importance, the main features that assist in business growth, and how the top Website Development Companies can assist businesses to grow by using intelligent strategies and development practices.
+              We shall discuss here the meaning of Website Development, its importance, the main features that assist in business growth, and how the top Website Development Companies can assist businesses to grow by using intelligent strategies and development practices.
             </motion.span>
           )}
           </p>
@@ -71,21 +71,21 @@ const WebDevelopment = () => {
     },
     {
       id: 1,
-      title: "Why Use the Right Type of Website?",
+      title: "What Is Website Development?",
       subtitle: "Aligning Your Website with Business Goals",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Website Development refers to the act of developing a well operational, easily usable, and attractive site that markets your business online. It includes various technical and creative processes that collaborate to provide an uncomplicated online experience. The major details that outline Website Development are as follows:
+            <a className="text-blue-700 underline font-bold" href="https://www.jaikvik.com/blog/website-development-blueprint-for-business-growth-online">Website Development </a> refers to the act of developing a well operational, easily usable, and attractive site that markets your business online. It includes various technical and creative processes that collaborate to provide an uncomplicated online experience. The major details that outline Website Development are as follows:
             <br />
             <br />
             <strong className="text-blue-300">
-              Design & Layout Creation:<br />
+              1. Design & Layout Creation:<br />
             </strong>{" "}
             Designing the web site structure, color scheme, layout and graphics.<br />
             Having the design to represent your brand.
             <br /><br/>
-            <strong className="text-blue-300">Coding & Programming:</strong><br />
+            <strong className="text-blue-300">2. Coding & Programming:</strong><br />
             Creation of the site with such languages as HTML, CSS, JavaScript and frameworks.<br />
             Ensuring that all the features are smooth.
             <br /><br/>
@@ -98,31 +98,31 @@ const WebDevelopment = () => {
               className="block mt-4"
             >
                <strong className="text-blue-300">
-              Content Development:<br />
+              3. Content Development:<br />
             </strong>{" "}
             Composing, structuring text, pictures, videos and photographs.<br />
             Making the content clear, useful and optimized.<br /><br/>
             
               <strong className="text-blue-300">
-              Website Functionality:<br />
+              4. Website Functionality:<br />
             </strong>{" "}
             Incorporating the much needed features like forms, buttons, menus and integrations.<br />
             Increasing user interaction and navigation.<br /><br/>
             <strong className="text-blue-300">
-              Mobile Responsiveness:<br />
+              5. Mobile Responsiveness:<br />
             </strong>{" "}
             Ensuring that the site is flawless on mobile devices, tablets and desktops.<br />
             Ensuring that the user experience is not broken.<br /><br/>
             <strong className="text-blue-300">
-              Speed Optimization:<br />
+              6. Speed Optimization:<br />
             </strong>{" "}
             Improving loading time to improve the performance and minimize bounces.<br /><br/>
              <strong className="text-blue-300">
-              SEO Compatibility:<br />
+              7. SEO Compatibility:<br />
             </strong>{" "}
             Coding the webpage in clean, meta tags, and using optimized URLs to enable the webpage to be ranked higher.<br /><br/>
             <strong className="text-blue-300">
-              DIY vs Professional Development: An example.:<br />
+              8. DIY vs Professional Development:<br />
             </strong>{" "}
             DIY website builders have fewer functionality and slower speed.<br /><br />
             A business oriented Web Development Company provides a quick, safe and scalable site to meet the business expansion requirement.
@@ -139,7 +139,7 @@ const WebDevelopment = () => {
     },
     {
       id: 2,
-      title: "Why Choose Web Solutions?",
+      title: "Why Website Development Matters for Business Growth",
       subtitle: "Gathers Consolidated Business Credibility.",
       content: (
         <>
@@ -149,12 +149,10 @@ const WebDevelopment = () => {
             ●	Trust can be earned with clean design, good graphics and functionality.
             <br />
             ●	Customers are confident in companies that have an updated and modern online presence.<br /><br />
-            <strong className="text-blue-300">Increases Customer Interaction:</strong><br />●	Products and services can be explored easily by users due to well-structured pages<br></br>
+            <strong className="text-blue-300">Increases Customer Interaction:</strong><br />●	Products and services can be explored easily by users due to well-structured pages.<br></br>
             ●	Interactive features such as chat support, blogs, buttons and forms enhance interaction.<br />
             ●	The simple navigation helps make the visitors spend more time and interact more.<br />
             <br />
-            
-           
           </p>
           {expandedSections[2] && (
             <motion.span
@@ -215,12 +213,10 @@ const WebDevelopment = () => {
             ●	Minimizes bounce rate and has a wider audience.<br /><br />
             <strong className="text-blue-300">SEO-Optimized Structure</strong>
             <br />
-            ●	Speedy loading enhances satisfaction of the user.<br />
-            ●	Minimizes the bounce rate.<br />
-            ●	Before sending images, Development Companies do optimization, decrease file sizes,    and employ fast servers.<br />
-            ●	Web sites that load faster are more converted and do well in search.<br /><br />
-           
-            
+            ●	Fast crawling and indexing of code.<br />
+            ●	Optimized URLs, title tags, meta description and headers.<br />
+            ●	Schema markup enhances the appearance of search.<br />
+            ●	Grow your business higher and have more organic traffic.<br /><br />
           </p>
           {expandedSections[3] && (
             <motion.span
@@ -231,17 +227,16 @@ const WebDevelopment = () => {
             >
                <strong className="text-blue-300">Fast Loading Speed</strong>
             <br />
-            ●	Fast crawling and indexing of code.<br />
-            ●	Optimized URLs, title tags, meta description and headers.<br />
-            ●	Schema markup enhances the appearance of search.<br />
-            ●	Grow your business higher and have more organic traffic.<br /><br />
+            ●	Speedy loading enhances satisfaction of the user.<br />
+            ●	Minimizes the bounce rate.<br />
+            ●	Before sending images, Development Companies do optimization, decrease file sizes, and employ fast servers.<br />
+            ●	Web sites that load faster are more converted and do well in search.<br /><br />
              <strong className="text-blue-300">Secure Website Architecture</strong>
             <br />
             ●	SSL certificates ensure the security of sensitive data.<br />
             ●	The frequent backups ensure loss of data is avoided.<br />
             ●	Attacks are guarded by firewalls and security patches.<br />
             ●	Security creates user confidence and promotes brand reliability.<br /><br />
-
             <strong className="text-blue-300">User-Centric Interface (UI/UX)</strong>
             <br />
             ●	Easy navigation will guarantee that users get information fast.<br />
@@ -254,7 +249,6 @@ const WebDevelopment = () => {
             ●	Saves on the time and effort of redesigning the entire web site to support the growth of business.<br />
             ●	Future-proof design is used to adapt to new trends and technologies.<br />
             ●	Maintains stability and performance in the long-term.
-
             </motion.span>
           )}
         </>
@@ -272,7 +266,7 @@ const WebDevelopment = () => {
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            ●	Any good Web Development Company would start with the knowledge of your business objectives, your target market, and your competitors.<br />
+            ●	Any good <a className="text-blue-700 underline font-bold" href="https://www.jaikvik.com/blogs">Web Development Company </a> would start with the knowledge of your business objectives, your target market, and your competitors.<br />
             ●	They develop an excellent layout, feature, technology and user experience plan.<br />
             ●	This is to make sure that the completed site corresponds with your brand purpose and growth objectives.
             <br />
@@ -305,7 +299,6 @@ const WebDevelopment = () => {
               ●	Was built on WordPress, Shopify, or Magento.<br />
               ●	Enables non-technical easy content updates.<br />
               ●	Small businesses, dynamic websites and blogs.<br />
-
               <br />
               <strong className="text-blue-300">Website Redesign Services</strong><br />
               ●	Updates the old websites and makes them newer and better designed in terms of structure, visuals and speed.<br />
@@ -318,7 +311,7 @@ const WebDevelopment = () => {
               <br />
               <br />
               <strong className="text-blue-300">Guaranteeing Long-lasting Website Performance.</strong><br />
-              ● Frequent updates, security patches, backups, and performance monitoring.<br />
+              ●	Frequent updates, security patches, backups, and performance monitoring.<br />
               ●	Ongoing maintenance to maintain the site with bugs.<br />
               ●	Keep your website within the shifting business requirement.
             </motion.span>
@@ -332,166 +325,6 @@ const WebDevelopment = () => {
     },
     {
       id: 5,
-      title: "WooCommerce Websites",
-      subtitle: "Flexible E-commerce on WordPress",
-      content: (
-        <>
-          <p className="text-gray-300 leading-relaxed mb-4">
-            WooCommerce, a powerful WordPress plugin, transforms websites into
-            fully functional online stores, offering flexibility and control for
-            businesses. It’s an ideal solution for small to medium-sized
-            enterprises seeking cost-effective e-commerce capabilities.
-            <br />
-            <br />
-            <strong className="text-blue-300">Purpose</strong>
-            <br />
-            <strong className="text-blue-300">
-              Seamless Integration:
-            </strong>{" "}
-            Adds e-commerce functionality to any WordPress site.
-            <br />
-            <strong className="text-blue-300">Customization:</strong> Allows
-            developers to tailor user experiences through coding.
-            <br />
-            <strong className="text-blue-300">Cost-Effective:</strong> Provides
-            access to premium features without expensive software.
-          </p>
-          {expandedSections[5] && (
-            <motion.span
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.5 }}
-              className="block mt-4"
-            >
-              <strong className="text-blue-300">Features</strong>
-              <br />
-              <strong className="text-blue-300">Theme Integration:</strong>{" "}
-              Supports a wide range of free and premium WordPress themes for a
-              unique look.
-              <br />
-              <strong className="text-blue-300">
-                Flexible Customization:
-              </strong>{" "}
-              Access to source code and plugins for enhanced functionality and
-              API support for external integrations.
-              <br />
-              <strong className="text-blue-300">
-                Advanced Store Management:
-              </strong>{" "}
-              Manage inventory, shipping, and taxes via a centralized dashboard,
-              with support for unlimited products and trusted payment gateways
-              like PayPal and Stripe.
-              <br />
-              <br />
-              <strong className="text-blue-300">Best Practices</strong>
-              <br />
-              <strong className="text-blue-300">Regular Updates:</strong> Keep
-              WordPress, WooCommerce, and extensions updated to improve
-              performance and security.
-              <br />
-              <strong className="text-blue-300">SSL Certificate:</strong> Ensure
-              secure connections with HTTPS for customer trust and SEO benefits.
-              <br />
-              <strong className="text-blue-300">Speed Optimization:</strong> Use
-              image compression and caching plugins with reliable hosting.
-              <br />
-              <strong className="text-blue-300">
-                Mobile-First Design:
-              </strong>{" "}
-              Ensure responsiveness and test checkout processes on mobile
-              devices.
-              <br />
-              <strong className="text-blue-300">SEO Optimization:</strong>{" "}
-              Utilize plugins like Yoast SEO for optimized product pages and
-              keyword-rich descriptions.
-              <br />
-              <strong className="text-blue-300">
-                Secure Payment Gateways:
-              </strong>{" "}
-              Offer trusted payment options for customer convenience and
-              security.
-              <br />
-              <br />
-              Jaikvik Technology’s WooCommerce solutions deliver
-              mobile-responsive designs and integrations with Google Analytics
-              and Facebook Ads, helping clients achieve a 25% boost in
-              conversions.
-            </motion.span>
-          )}
-        </>
-      ),
-      image:
-        "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/woocommerce-websites.avif",
-      alt: "WooCommerce Websites",
-      reverse: true,
-      sectionId: "woocommerce-websites",
-    },
-    {
-      id: 6,
-      title: "Corporate Websites",
-      subtitle: "Building a Professional Digital Presence",
-      content: (
-        <>
-          <p className="text-gray-300 leading-relaxed mb-4">
-            The primary aim of a corporate website is to establish an online
-            presence for companies. It serves as a central platform to showcase
-            a business’s brand, values, services, and achievements while
-            building credibility and trust among potential clients and partners.
-            <br />
-            <br />
-            <strong className="text-blue-300">Features</strong>
-            <br />
-            <strong className="text-blue-300">About Us:</strong> Highlights the
-            company’s background, mission, and vision.
-            <br />
-            <strong className="text-blue-300">Services:</strong> Details the
-            products and services offered.
-            <br />
-            <strong className="text-blue-300">Contact Page:</strong> Provides
-            user-friendly contact forms and information.
-            <br />
-            <strong className="text-blue-300">Testimonials:</strong> Showcases
-            customer reviews and success stories.
-            <br />
-            <strong className="text-blue-300">Branding Elements:</strong>{" "}
-            Incorporates logos, colors, and fonts reflecting the firm’s
-            identity.
-          </p>
-          {expandedSections[6] && (
-            <motion.span
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.5 }}
-              className="block mt-4"
-            >
-              <strong className="text-blue-300">Best Practices</strong>
-              <br />
-              <strong className="text-blue-300">
-                Clean, Professional Design:
-              </strong>{" "}
-              A visually appealing and easy-to-navigate layout.
-              <br />
-              <strong className="text-blue-300">Responsive Design:</strong>{" "}
-              Ensures compatibility and performance across all devices with
-              optimized images and code for fast loading.
-              <br />
-              <br />A corporate website is a powerful tool to connect with your
-              target audience, enhance your business’s reputation, and achieve
-              organizational goals in the digital space. Jaikvik Technology’s
-              corporate websites are built with responsive layouts, fast load
-              times, and integrations with tools like Salesforce for enhanced
-              CRM, helping clients achieve up to a 20% increase in inquiries.
-            </motion.span>
-          )}
-        </>
-      ),
-      image:
-        "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Corporate-Websites.avif",
-      alt: "Corporate Websites",
-      sectionId: "corporate-websites",
-    },
-    {
-      id: 7,
       title: "Choosing the Right Website Development Company",
       subtitle: "Experience & Portfolio",
       content: (
@@ -502,11 +335,108 @@ const WebDevelopment = () => {
             ●	The portfolio they have shows that they can cope with various kinds of websites.
             <br />
             <br />
-            <strong className="text-blue-300"> Transparent Pricing & Communication</strong><br />
+            <strong className="text-blue-300">Knowledge of Your Industry.</strong>
+            <br />
             ●	Specific websites that are industry-focused are better since they are in line with customer expectations.<br />
             ●	Select a business partner that has dealt with other businesses in the past.<br />
             ●	They are able to point you to the right features and best practices to use in your niche.<br /><br />
-           
+            <strong className="text-blue-300">Transparent Pricing & Communication</strong><br />
+            ●	A great business does not have any non-disclosed prices.<br />
+            ●	Constant update and flow of information avoid delays and misunderstandings.<br />
+            ●	Transparency will make sure that you understand what you are actually paying.
+          </p>
+          {expandedSections[5] && (
+            <motion.span
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.5 }}
+              className="block mt-4"
+            >
+              <strong className="text-blue-300">Use of Latest Technologies</strong><br />
+              ●	The performance is improved by the use of new development tools: HTML5, CSS3, JavaScript frameworks, and CMS platforms.<br />
+              ●	Businesses that apply AI-enabled tools and high-level security provide more powerful websites.<br />
+              ●	Modernised technology will keep your site competitive.<br /><br />
+              <strong className="text-blue-300">Reviews & Reputation</strong><br />
+              ●	Examine Google feedback, reviews, and ratings.<br />
+              ●	Trust, timely delivery and professional service are reflected in good reviews.<br />
+              ●	A good reputation is a positive predictor of dependability.<br /><br />
+              <strong className="text-blue-300">Post-Launch Support</strong><br />
+              ●	Websites require frequent updates, maintenance, bugs and security.<br />
+              ●	Select a firm that is willing to support long-term but not only development.<br />
+              ●	After sales service insures your site against downtime and hacking.<br /><br />
+              <strong className="text-blue-300">Closing Reminder</strong><br />
+              The choice of <a className="text-blue-500 font-bold underline" href="https://www.jaikvik.com/">Website Development</a> Company influences your business growth in the long term directly. A trusted partner will make your site stay fast, secure, scalable and can yield good results over several years.
+            </motion.span>
+          )}
+        </>
+      ),
+      image:
+        "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/woocommerce-websites.avif",
+      alt: "Choosing Website Development Company",
+      reverse: true,
+      sectionId: "choosing-company",
+    },
+    {
+      id: 6,
+      title: "Types of Website Development Services Offered by Website Development Companies",
+      subtitle: "Custom Website Development",
+      content: (
+        <>
+          <p className="text-gray-300 leading-relaxed mb-4">
+            ●	The Website Development Companies are the ones that are developed all the way to meet the business requirements.<br />
+            ●	Propositions distinctive design, total control and unlimited scalability.<br />
+            ●	Helps brands are also differentiated and provide custom user experiences.<br /><br />
+            <strong className="text-blue-300">Ecommerce Web Page Development.</strong>
+            <br />
+            ●	It has product listing, shopping carts, secure payment gateways and order management.<br />
+            ●	Created to offer a seamless purchasing process and boost the sales.<br />
+            ●	United in businesses dealing with products over the internet.
+          </p>
+          {expandedSections[6] && (
+            <motion.span
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.5 }}
+              className="block mt-4"
+            >
+              <strong className="text-blue-300">CMS Website Development</strong><br />
+              ●	Sites are created based on the WordPress, Shopify, and Magento platforms.<br />
+              ●	Enables easy updating of content without the technical expertise.<br />
+              ●	Sponsors blogs, online business websites and small stores.<br /><br />
+              <strong className="text-blue-300">Website Redesign Services</strong><br />
+              ●	Updates the old websites to be designed in a contemporary manner, enhanced UX, and increased speed.<br />
+              ●	Supports businesses to be competitive and relevant in the digital world.<br />
+              ●	Increases interaction and transactions.<br /><br />
+              <strong className="text-blue-300">Landing Page Development</strong><br />
+              ●	Ads, promotional pages and conversion-oriented pages.<br />
+              ●	Geared towards boosting subscriptions, inquiries and purchases.<br />
+              ●	Being important to enhance ROI in digital marketing.<br /><br />
+              <strong className="text-blue-300 block mt-8 text-xl">Value Added to Business Development:</strong><br />
+              The services enhance online presence, enhance user experience, and facilitate conversions. Under the shield of the right <a className="text-blue-500 font-bold underline" href="https://en.wikipedia.org/wiki/Web_development">Website Development</a>  Company, the businesses receive a professional and high performance platform leading to long term growth.
+            </motion.span>
+          )}
+        </>
+      ),
+      image:
+        "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Corporate-Websites.avif",
+      alt: "Website Development Services",
+      sectionId: "development-services",
+    },
+    {
+      id: 7,
+      title: "Website Development Best Practices that Move Results",
+      subtitle: "Clear Brand Messaging",
+      content: (
+        <>
+          <p className="text-gray-300 leading-relaxed mb-4">
+            Your message must tell what you are and what you sell.<br />
+            A powerful message creates confidence and assists the user to relate with your brand.<br /><br />
+            <strong className="text-blue-300">Visual Consistency</strong><br />
+            Apply uniform colors, fonts and design styles.<br />
+            Having a homogeneous appearance will improve brand recognition and the readability.<br /><br />
+            <strong className="text-blue-300">Optimized Content</strong><br />
+            The content must be plain, educative, and search engine optimized.<br />
+            Quality content makes it more interesting and more popular in search engines.<br /><br />
           </p>
           {expandedSections[7] && (
             <motion.span
@@ -515,252 +445,119 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-               <strong className="text-blue-300">Use of Latest Technologies</strong> <br />
-            ●	The performance is improved by the use of new development tools: HTML5, CSS3, JavaScript frameworks, and CMS platforms.<br />
-            ●	Businesses that apply AI-enabled tools and high-level security provide more powerful websites.<br />
-            ●	Modernised technology will keep your site competitive.<br /><br />
-              <strong className="text-blue-300">Reviews & Reputation</strong><br />
-              ●	Websites require frequent updates, maintenance, bugs and security.<br />
-              ●	Select a firm that is willing to support long-term but not only development.<br />
-              ●	After sales service insures your site against downtime and hacking.<br /><br />
-              <strong className="text-blue-300">Closing Reminder</strong> <br />
-              The choice of Website Development Company influences your business growth in the long term directly. A trusted partner will make your site stay fast, secure, scalable and can yield good results over several years.
-
+              <strong className="text-blue-300">Strong Calls-to-Action (CTAs)</strong><br />
+              The users are guided by such buttons as Buy Now, Contact Us, or Get Quote.<br />
+              Easy CTAs have a great effect on conversion.<br /><br />
+              <strong className="text-blue-300">Analytics and Tracking.</strong><br />
+              Such tools as Google Analytics can assist you to comprehend the behavior of users.<br />
+              Performance tracking enables business entities to remedy the areas which are underperforming and enhance performance.<br /><br />
+              <strong className="text-blue-300">Periodical Updates and Maintenance.</strong><br />
+              Maintaining your website with updating of the plugins, content and security makes it a reliable one.<br />
+              Frequent enhancements are used to improve user experience and site performance.<br /><br />
+              <strong className="text-blue-300">Ease of use and Conformance.</strong><br />
+              The websites must be user-friendly to every visitor, even the disabled.<br />
+              Adherence enhances satisfaction and prevents lawsuits.<br /><br />
+              <strong className="text-blue-300 block mt-8 text-xl">How These Practices Help:</strong><br />
+              These best practices will produce a smooth, trusting and conversion-specific site. Companies that apply them experience improved interaction, improved ranking, and enhanced growth of income.
             </motion.span>
           )}
         </>
       ),
       image:
         "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Online-Portals.avif",
-      alt: "Online Portals",
+      alt: "Best Practices",
       reverse: true,
-      sectionId: "online-portals",
+      sectionId: "best-practices",
     },
     {
       id: 8,
-      title: " Types of Website Development Services Offered by Website Development Companies",
-      subtitle: "Custom Website Development",
+      title: "Common Mistakes Businesses Make in Website Development",
+      subtitle: "Using Outdated Designs",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            ● The Website Development Companies are the ones that are developed all the way to meet the business requirements.
-            <br />
-            ● Propositions distinctive design, total control and unlimited scalability.
-            <br />
-            ● Helps brands are also differentiated and provide custom user experiences.
-            <br /><br />
+            Outdated designs create a bad impression and less interaction.<br /><br />
+            <strong className="text-blue-300">Poor Navigation</strong><br />
+            Complicated hierarchies create problems with confusion of menus and they result in high bounces.<br /><br />
+            <strong className="text-blue-300">Slow Website Speed</strong><br />
+            Web sites that take long to load lose customers and harm SEO scores.<br /><br />
+            <strong className="text-blue-300">Weak or Unclear Content</strong><br />
+            Bad content does not describe your services and decreases conversions.<br /><br />
 
-            <strong className="text-blue-300">Ecommerce Web Page Development</strong>
-            <br />
-            ● It has product listing, shopping carts, secure payment gateways and order management.
-            <br />
-            ● Created to offer a seamless purchasing process and boost the sales.
-            <br />
-            ● United in businesses dealing with products over the internet.
+          {expandedSections[8] && (
+            <motion.span
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.5 }}
+              className="block mt-4"
+            >
+              <strong className="text-blue-300">No SEO Strategy</strong><br />
+              In the absence of SEO, websites cannot rank and get organic traffic.<br /><br />
+              <strong className="text-blue-300">Lack of Security Measures</strong><br />
+              Lack of backups, firewalls, or SSL puts websites at risk of cyber attacks.<br /><br />
+              <strong className="text-blue-300">The importance of avoiding these mistakes is as follows:</strong><br />
+              ●	With these typical mistakes avoided, companies are able to develop well performing websites, which gain increased visitors, confidence and compel conversions.<br />
+              ●	It results in improved user experience, enhanced online presence, and success in the long run in the digital space.
+            </motion.span>
+          )}
+          </p>
+        </>
+      ),
+      image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Online-Portals.avif",
+      alt: "Common Mistakes",
+      sectionId: "common-mistakes",
+    },
+    {
+      id: 9,
+      title: "Future Trends in Website Development",
+      subtitle: "AI-Powered Website Features",
+      content: (
+        <>
+          <p className="text-gray-300 leading-relaxed mb-4">
+            The AI technologies help to make the content personal, automated and provide better user experience.
             <br /><br />
-
-            
-            {expandedSections[8] && (
+            <strong className="text-blue-300">Instant Support Chatbots.</strong>
+            <br />
+            Chatbots provide the response in time and improve interaction with customers 24 hours.
+            <br /><br />
+            <strong className="text-blue-300">Voice Search Optimization</strong>
+            <br />
+            Websites will be forced to adapt to voice search as voice assistants will continue to grow.
+            <br /><br />
+            <strong className="text-blue-300">Enhanced Personalization</strong>
+            <br />
+            The websites will be displayed according to the user behavior and location as well as preferences.
+            <br /><br />
+           
+            {expandedSections[9] && (
               <motion.span
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 transition={{ duration: 0.5 }}
                 className="block mt-4"
               >
-                <strong className="text-blue-300">CMS Website Development</strong>
-            <br />
-            ● Sites are created based on the WordPress, Shopify, and Magento platforms.
-            <br />
-            ● Enables easy updating of content without the technical expertise.
-            <br />
-            ● Sponsors blogs, online business websites and small stores.
-            <br /><br />
-                <strong className="text-blue-300">Website Redesign Services</strong>
+                <strong className="text-blue-300">Rapid Enhances with new Structures</strong>
                 <br />
-                ● Updates the old websites to be designed in a contemporary manner, enhanced UX, and increased speed.
-                <br />
-                ● Supports businesses to be competitive and relevant in the digital world.
-                <br />
-                ● Increases interaction and transactions.
+                Current systems such as Next.js and React ensure enhanced performance and speed.
                 <br /><br />
-
-                <strong className="text-blue-300">Landing Page Development</strong>
+                <strong className="text-blue-300">Mobile-First Indexing</strong>
                 <br />
-                ● Ads, promotional pages and conversion-oriented pages.
-                <br />
-                ● Geared towards boosting subscriptions, inquiries and purchases.
-                <br />
-                ● Being important to enhance ROI in digital marketing.
+                ●	Websites are first ranked by Google on their mobile version.<br />
+                ●	The mobile friendly design is now a requirement in order to be seen.
                 <br /><br />
-
-                <strong className="text-blue-300 block mt-8 text-xl">
-                  Value Added to Business Development:
-                </strong>
+                <strong className="text-blue-300 text-xl block mt-8">Why It Matters:</strong>
                 <br />
-                The services enhance online presence, enhance user experience, and facilitate conversions. Under the shield of the right Website Development Company, the businesses receive a professional and high performance platform leading to long term growth.
-
-                <strong className="text-blue-300 block mt-10 text-xl">
-                  Website Development Best Practices that Move Results
-                </strong>
-                <br /><br />
-
-                <strong className="text-blue-300">Clear Brand Messaging</strong>
-                <br />
-                Your message must tell what you are and what you sell.
-                <br />
-                A powerful message creates confidence and assists the user to relate with your brand.
-                <br /><br />
-
-                <strong className="text-blue-300">Visual Consistency</strong>
-                <br />
-                Apply uniform colors, fonts and design styles.
-                <br />
-                Having a homogeneous appearance will improve brand recognition and the readability.
-                <br /><br />
-
-                <strong className="text-blue-300">Optimized Content</strong>
-                <br />
-                The content must be plain, educative, and search engine optimized.
-                <br />
-                Quality content makes it more interesting and more popular in search engines.
-                <br /><br />
-
-                <strong className="text-blue-300">Strong Calls-to-Action (CTAs)</strong>
-                <br />
-                The users are guided by such buttons as Buy Now, Contact Us, or Get Quote.
-                <br />
-                Easy CTAs have a great effect on conversion.
-                <br /><br />
-
-                <strong className="text-blue-300">Analytics and Tracking</strong>
-                <br />
-                Such tools as Google Analytics can assist you to comprehend the behavior of users.
-                <br />
-                Performance tracking enables business entities to remedy the areas which are underperforming and enhance performance.
-                <br /><br />
-
-                <strong className="text-blue-300">Periodical Updates and Maintenance</strong>
-                <br />
-                Maintaining your website with updating of the plugins, content and security makes it a reliable one.
-                <br />
-                Frequent enhancements are used to improve user experience and site performance.
-                <br /><br />
-
-                <strong className="text-blue-300">Ease of use and Conformance</strong>
-                <br />
-                The websites must be user-friendly to every visitor, even the disabled.
-                <br />
-                Adherence enhances satisfaction and prevents lawsuits.
-                <br /><br />
-
-                <strong className="text-blue-300 block mt-8 text-xl">
-                  How These Practices Help:
-                </strong>
-                <br />
-                These best practices will produce a smooth, trusting and conversion-specific site. Companies that apply them experience improved interaction, improved ranking, and enhanced growth of income.
-         </motion.span>
-         )}
-         </p>
+                Partnering with a current Website Development Company keeps your site abreast of the current trends, technologies and user demands - this keeps you on top of your rivals and more customers are drawn to your site.
+              </motion.span>
+            )}
+          </p>
         </>
       ),
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Corporate-Websites.avif",
-      alt: "Corporate Websites",
-      sectionId: "corporate-websites",
+      alt: "Future Trends",
+      reverse: true,
+      sectionId: "future-trends",
     },
-    {
-  id: 9,
-  title: "Common Mistakes Businesses Make in Website Development",
-  subtitle: "Using Outdated Designs",
-  content: (
-    <>
-      <p className="text-gray-300 leading-relaxed mb-4">
-        Outdated designs create a bad impression and less interaction.<br /><br />
-        <strong className="text-blue-300">Poor Navigation</strong><br />
-        Complicated hierarchies create problems with confusion of menus and they result in high bounces.<br /><br />
-        <strong className="text-blue-300">Slow Website Speed</strong><br />
-        Web sites that take long to load lose customers and harm SEO scores.<br /><br />
-        <strong className="text-blue-300">Weak or Unclear Content</strong><br />
-        Bad content does not describe your services and decreases conversions.<br /><br />
-       
-
-      {expandedSections[9] && (
-        <motion.span
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{ duration: 0.5 }}
-          className="block mt-4"
-        >
-           <strong className="text-blue-300">No SEO Strategy</strong><br />
-        In the absence of SEO, websites cannot rank and get organic traffic.<br /><br />
-        
-          <strong className="text-blue-300">Lack of Security Measures</strong><br />
-        Lack of backups, firewalls, or SSL puts websites at risk of cyber attacks.<br /><br />
-          <strong className="text-blue-300">The importance of avoiding these mistakes is as follows:</strong><br />
-        ● With these typical mistakes avoided, companies are able to develop well performing websites, which gain increased visitors, confidence and compel conversions.<br />
-        ● It results in improved user experience, enhanced online presence, and success in the long run in the digital space.
-        </motion.span>
-      )}
-      </p>
-    </>
-  ),
-  image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Online-Portals.avif",
-  alt: "Online Portals",
-  reverse: true,
-  sectionId: "online-portals",
-    },
-    {
-  id: 10,
-  title: "Future Trends in Website Development",
-  subtitle: "AI-Powered Website Features",
-  content: (
-    <>
-      <p className="text-gray-300 leading-relaxed mb-4">
-        The AI technologies help to make the content personal, automated and provide better user experience.
-        <br /><br />
-        <strong className="text-blue-300">Instant Support Chatbots</strong>
-        <br />
-        Chatbots provide the response in time and improve interaction with customers 24 hours.
-        <br /><br />
-        <strong className="text-blue-300">Voice Search Optimization</strong>
-        <br />
-        Websites will be forced to adapt to voice search as voice assistants will continue to grow.
-        <br /><br />
-        <strong className="text-blue-300">Enhanced Personalization</strong>
-        <br />
-        The websites will be displayed according to the user behavior and location as well as preferences.
-        <br /><br />
-       
-        {expandedSections[10] && (
-          <motion.span
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            transition={{ duration: 0.5 }}
-            className="block mt-4"
-          >
-            <strong className="text-blue-300">Rapid Enhances with new Structures</strong>
-        <br />
-        Current systems such as Next.js and React ensure enhanced performance and speed.
-        <br /><br />
-        <strong className="text-blue-300">Mobile-First Indexing</strong>
-        <br />
-        ● Websites are first ranked by Google on their mobile version.
-        <br />
-        ● The mobile friendly design is now a requirement in order to be seen.
-        <br /><br />
-
-        <strong className="text-blue-300 text-xl block mt-8">Why It Matters:</strong>
-        <br />
-        Partnering with a current Website Development Company keeps your site abreast of the current trends, technologies and user demands - this keeps you on top of your rivals and more customers are drawn to your site.
-
-          </motion.span>
-        )}
-      </p>
-    </>
-  ),
-  image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Corporate-Websites.avif",
-  alt: "Corporate Websites",
-  sectionId: "corporate-websites",
-},
   ];
 
   // Initialize expandedSections after sections definition

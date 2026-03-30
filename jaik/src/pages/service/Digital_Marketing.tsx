@@ -66,35 +66,19 @@ const DigitalMarketing: React.FC = () => {
     threshold: 0.3,
     triggerOnce: true,
   });
+
   const sections: Section[] = [
     {
-      title:
-        "Creative Digital Marketing Services to Boost Your Brand",
+      title: "Creative Digital Marketing Services to Boost Your Brand",
       content: (
         <>
           <p className="text-lg leading-relaxed mb-6 text-gray-300">
-            Digital Marketing refers to the process of marketing products and services through online platforms, which include websites, search engines, social media, email and mobile applications. It has become a component of the business of the current world as individuals now spend the majority of their time online- searching, comparing brands and making purchase decisions. This change in consumerism has seen Digital Marketing emerge as one of the best means of business to connect with its audience, earn trust, and nurture its brand.
+            Digital Marketing refers to the process of marketing products and services through online platforms, which include websites, search engines, social media, email and mobile applications. It has become a component of the business of the current world as individuals now spend the majority of their time online- searching, comparing brands and making purchase decisions. This change in consumerism has seen Online Marketing emerge as one of the best means of business to connect with its audience, earn trust, and nurture its brand.
           </p>
           <p className="text-lg leading-relaxed mb-6 text-gray-300">
             In the current new era and age of online business, sheer presence in the digital world enables the business to remain visible and competitive. It could be better ranking of the websites, higher use of the social media or targeted ads, and the digital marketing services enable companies to reach the right people at the right time.
           </p>
-          {expandedSections[0] && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.5 }}
-              className="mt-6"
-            >
-              <p className="text-lg leading-relaxed mb-6 text-gray-300">
-                A large number of companies have started to work with a digital marketing agency in India due to the expertise of professionals, the development of digital strategies, and the affordability of solutions in the country. Such agencies assist brands to be more efficient when it comes to the use of SEO, social media, advertising, and content marketing.
-              </p>
-              <p className="text-lg leading-relaxed mb-6 text-gray-300">
-                All in all, Digital Marketing Company empowers the business to know what clients need, to understand performance and make a decision and succeed in the online world propelled by increased speed and improved outcomes.
-
-              </p>
-            </motion.div>
-          )}
-
+          
         </>
       ),
       image:
@@ -106,10 +90,10 @@ const DigitalMarketing: React.FC = () => {
       content: (
         <>
           <p className="text-lg leading-relaxed mb-6 text-gray-300">
-            Digital Marketing involves all online marketing activities that are applied to market a business online. It consists of different techniques comprising SEO, social media marketing, email marketing, advertising, content development, and web optimization. The idea is to approach the appropriate people, attract them and make them become regular customers.
+           <a className="underline text-bold text-blue-500" href="https://www.jaikvik.com/blogs">Digital Marketing </a>  involves all online marketing activities that are applied to market a business online. It consists of different techniques comprising SEO, social media marketing, email marketing, advertising, content development, and web optimization. The idea is to approach the appropriate people, attract them and make them become regular customers.
           </p>
           <p className="text-lg leading-relaxed mb-6 text-gray-300">
-            Digital Marketing is not similar to traditional marketing in a number of ways. Conventional channels such as newspaper advertisements, flyers, bill boards, and television advertisements will reach out to a general audience but are expensive and not easily quantifiable. Digital Marketing on the other hand is specific and is real-time and enables brands to engage directly with customers.
+            Web Marketing is not similar to traditional marketing in a number of ways. Conventional channels such as newspaper advertisements, flyers, bill boards, and television advertisements will reach out to a general audience but are expensive and not easily quantifiable. Digital Marketing on the other hand is specific and is real-time and enables brands to engage directly with customers.
           </p>
           {expandedSections[1] && (
             <motion.div
@@ -118,19 +102,21 @@ const DigitalMarketing: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="mt-6"
             >
+              <p className="text-lg leading-relaxed mb-6 text-gray-300">A full-scale online marketing package consists of several elements that include:</p>
               <ul>
-                <p className="text-lg leading-relaxed mb-6 text-gray-300">A full-scale digital marketing package consists of several elements that include:</p>
-                <li>●	Search Engine Optimization (SEO).</li>
-                <li>●	Social Media Marketing (SMM)</li>
-                <li>●	Content Marketing</li>
-                <li>●	Pay-Per- Click Advertising (PPC)</li>
-                <li>●	Email Marketing</li>
-                <li>●	Website Optimization</li>
-              </ul><br></br>
-              <p className="text-lg leading-relaxed mb-6 text-gray-300">Any Digital Marketing Company implements the online strategies as they provide the enhanced reach, the increased visibility and the quantifiable performance. The brands will be able to follow the clicks, impressions, engagement, and conversions in real-time and make changes to their strategy at any time.</p>
+                <li>● Search Engine Optimization (SEO).</li>
+                <li>● Social Media Marketing (SMM)</li>
+                <li>● Content Marketing</li>
+                <li>● Pay-Per-Click Advertising (PPC)</li>
+                <li>● Email Marketing</li>
+                <li>● Website Optimization</li>
+              </ul>
+              <br />
+              <p className="text-lg leading-relaxed mb-6 text-gray-300">
+                Any Digital Marketing Company implements the online strategies as they provide the enhanced reach, the increased visibility and the quantifiable performance. The brands will be able to follow the clicks, impressions, engagement, and conversions in real-time and make changes to their strategy at any time.
+              </p>
             </motion.div>
           )}
-
         </>
       ),
       image:
@@ -139,24 +125,24 @@ const DigitalMarketing: React.FC = () => {
       reverse: true,
     },
     {
-      title: "Why Digital Marketing Is Important in Today’s Online World",
+      title: "Why Digital Marketing Is Important in Today's Online World",
       content: (
         <>
           <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
             <li>
               <span className="font-semibold text-purple-400">
-                Rapid Digital Shift:<br></br>
+                Rapid Digital Shift:<br />
               </span>{" "}
-              The majority of individuals have to spend hours per day on the Internet.<br></br>
-              Shopping, learning, entertainment all take place on the digital platform.<br></br>
+              The majority of individuals have to spend hours per day on the Internet.<br />
+              Shopping, learning, entertainment all take place on the digital platform.<br />
               Companies have to remain active online in order to access their customers.
             </li>
             <li>
               <span className="font-semibold text-purple-400">
-                Consumer Behaviour Changes: <br></br>
+                Consumer Behaviour Changes:<br />
               </span>{" "}
-              Before customers make purchases, they do research.<br></br>
-              They compare prices, review them, and track brands on the Internet.<br></br>
+              Before customers make purchases, they do research.<br />
+              They compare prices, review them, and track brands on the Internet.<br />
               Good digital presence is useful in shaping their choices.
             </li>
           </ul>
@@ -167,32 +153,32 @@ const DigitalMarketing: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="mt-6"
             >
-
               <li>
                 <span className="font-semibold text-purple-400">
-                  Importance for Small and Large Businesses:<br></br>
+                  Importance for Small and Large Businesses:<br />
                 </span>{" "}
-                Marketing is now affordable to small businesses.<br></br>
-                Global presence is achieved through digital approaches by large businesses.<br></br>
-                Digital Marketing puts everybody on the same growth level.
-              </li><br />
+                Marketing is now affordable to small businesses.<br />
+                Global presence is achieved through digital approaches by large businesses.<br />
+               <a className="text-bold text-blue-500 underline" href="https://www.jaikvik.com/">Digital</a>  Marketing puts everybody on the same growth level.
+              </li>
+              <br />
               <li>
                 <span className="font-semibold text-purple-400">
-                  How a Digital Marketing Agency Helps Brands Grow:<br></br>
+                  How a Digital Marketing Agency Helps Brands Grow:<br />
                 </span>{" "}
-                Offers professional offerings such as search engine optimization, social media, paid advertisements, and content.<br></br>
-                Helps businesses reach the appropriate audience.<br></br>
+                Offers professional offerings such as search engine optimization, social media, paid advertisements, and content.<br />
+                Helps businesses reach the appropriate audience.<br />
                 Offers are quantified with the help of analytics and reporting.
-              </li><br />
+              </li>
+              <br />
               <li>
                 <span className="font-semibold text-purple-400">
-                  Importance of Having Online Visibility:<br></br>
+                  Importance of Having Online Visibility:<br />
                 </span>{" "}
-                Develops trust and credibility.<br></br>
-                Easy to make customers learn about the brand.<br></br>
+                Develops trust and credibility.<br />
+                Easy to make customers learn about the brand.<br />
                 Assists in long-term business development and interaction with customers.
               </li>
-
             </motion.div>
           )}
         </>
@@ -202,12 +188,13 @@ const DigitalMarketing: React.FC = () => {
       alt: "Significance of Digital Marketing",
     },
     {
-      title: " Key Components of Digital Marketing",
+      title: "Key Components of Digital Marketing",
       content: (
         <>
           <h3 className="font-semibold text-purple-400">
             Search Engine Optimization (SEO)
-          </h3><br />
+          </h3>
+          <br />
           <h4 className="font-semibold text-purple-400 mb-3">What It Is</h4>
           <ul className="list-disc list-inside text-lg text-gray-300 space-y-2 mb-6">
             <li>Strategy to enhance ranking of the websites on search engines.</li>
@@ -326,10 +313,8 @@ const DigitalMarketing: React.FC = () => {
                 <li>Assist in turning visitors into customers.</li>
                 <li>Enhances any marketing campaigns.</li>
               </ul>
-
             </motion.div>
           )}
-
         </>
       ),
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Basics-of-Digital-Marketing.avif",
@@ -401,10 +386,8 @@ const DigitalMarketing: React.FC = () => {
                 <li>Enhance web experience and performance.</li>
                 <li>New update plans after every few months to fit trends and customer needs.</li>
               </ul>
-
             </motion.div>
           )}
-
         </>
       ),
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Components-of-Digital-Marketing.avif",
@@ -450,10 +433,8 @@ const DigitalMarketing: React.FC = () => {
                 <li>Saves time and with improved results.</li>
                 <li>Develops strategies to grow in the long term.</li>
               </ul>
-
             </motion.div>
           )}
-
         </>
       ),
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/LinkedIn-Marketing.avif",
@@ -470,22 +451,21 @@ const DigitalMarketing: React.FC = () => {
                 Cost-Effective Digital Marketing Services<br />
               </span>{" "}
               Individual agencies provide quality work at low costs.<br />
-              Helps save money and at the same time save big business without losing results.<br />
+              Helps save money and at the same time save big business without losing results.
             </li>
             <li>
               <span className="font-semibold text-purple-400">
                 Skilled Professionals<br />
               </span>{" "}
-              India boasts of a vast talent base of SEO specialists, content developers, designers, and planners.
+              India boasts of a vast talent base of SEO specialists, content developers, designers, and planners.<br />
               Agencies keep abreast with current trends in the digital domain around the globe.
             </li>
             <li>
               <span className="font-semibold text-purple-400">
                 Global Demand<br />
-
               </span>{" "}
               India has many international brands which outsource their marketing.<br />
-              Renowned by quality performance and on-time delivery.<br />
+              Renowned by quality performance and on-time delivery.
             </li>
           </ul>
           {expandedSections[6] && (
@@ -495,38 +475,33 @@ const DigitalMarketing: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="mt-6"
             >
-
               <li>
                 <span className="font-semibold text-purple-400">
                   Digital Ecosystem that Grows Rapidly<br />
-
                 </span>{" "}
-                India has been amongst the fastest growing Digital marketing agency in India.<br />
-                High level of technology use and new methods of digital solutions.<br /><br />
-
+                India has been amongst the fastest growing <a className="underline text-blue-500 text-bold" href="https://www.jaikvik.com/blog/digital-marketing-strategies-for-business-growth-in-2026">Digital marketing agency in India</a> .<br />
+                High level of technology use and new methods of digital solutions.
               </li>
-              <h3 className="font-semibold text-purple-400">Subtopics</h3><br />
+              <br />
+              <h3 className="font-semibold text-purple-400">Subtopics</h3>
+              <br />
               <li>
-
                 <span className="font-semibold text-purple-400">
                   Rise of Indian Startups<br />
                 </span>{" "}
                 The modern tools, platforms and marketing solutions are developed by startups.<br />
-                Creative thinking keeps the agencies up to date.<br /><br />
+                Creative thinking keeps the agencies up to date.
               </li>
-
+              <br />
               <li>
                 <span className="font-semibold text-purple-400">
                   Outsourcing Benefits<br />
                 </span>{" "}
                 Companies enjoy professional services at reduced prices.<br />
                 Around the clock support and work models.
-
               </li>
             </motion.div>
           )}
-
-
         </>
       ),
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Benefits-of-Digital-Marketing.avif",
@@ -543,47 +518,44 @@ const DigitalMarketing: React.FC = () => {
             <li>Industry experience</li>
             <li>Clear strategies</li>
             <li>Professional approach</li>
-            <ul />
-            <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
-              <span className="font-semibold text-purple-400">
-                Portfolio and Experience
-              </span>{" "}
-              <li>Review previous job and customer work.</li>
-              <li>Find agencies that have operated within the same industries.</li>
-            </ul>
-            <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
-              <span className="font-semibold text-purple-400">
-                Services Provided
-              </span>{" "}
-              <li>SEO, social media, advertisements, branding, content, and others.</li>
-              <li>Full Digital Marketing Agency provides full marketing services.</li>
-            </ul>
-            {expandedSections[7] && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.5 }}
-                className="mt-6"
-              >
-                <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
-                  <span className="font-semibold text-purple-400">
-                    Use of Technology and Tools
-                  </span>{" "}
-                  <li>Modern tools must be used by agencies regarding analytics, key word research, and automation.</li>
-                  <li>Helps enhance precision and performance.</li>
-                </ul>
-                <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
-                  <span className="font-semibold text-purple-400">
-                    Transparency and Communication
-                  </span>{" "}
-                  <li>There should be regular sharing of reports between agencies.</li>
-                  <li>Effective communication establishes confidence and mutual relationships.</li>
-                </ul>
-
-              </motion.div>
-            )}
-
           </ul>
+          <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
+            <span className="font-semibold text-purple-400">
+              Portfolio and Experience
+            </span>{" "}
+            <li>Review previous job and customer work.</li>
+            <li>Find agencies that have operated within the same industries.</li>
+          </ul>
+          <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
+            <span className="font-semibold text-purple-400">
+              Services Provided
+            </span>{" "}
+            <li>SEO, social media, advertisements, branding, content, and others.</li>
+            <li>Full <a className="text-blue-500 text-bold underline" href="https://en.wikipedia.org/wiki/Digital_marketing">Digital Marketing</a>  Agency provides full marketing services.</li>
+          </ul>
+          {expandedSections[7] && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.5 }}
+              className="mt-6"
+            >
+              <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
+                <span className="font-semibold text-purple-400">
+                  Use of Technology and Tools
+                </span>{" "}
+                <li>Modern tools must be used by agencies regarding analytics, key word research, and automation.</li>
+                <li>Helps enhance precision and performance.</li>
+              </ul>
+              <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
+                <span className="font-semibold text-purple-400">
+                  Transparency and Communication
+                </span>{" "}
+                <li>There should be regular sharing of reports between agencies.</li>
+                <li>Effective communication establishes confidence and mutual relationships.</li>
+              </ul>
+            </motion.div>
+          )}
         </>
       ),
       image:
@@ -595,12 +567,10 @@ const DigitalMarketing: React.FC = () => {
       title: "Types of Digital Marketing Services Offered by Agencies",
       content: (
         <>
-
           <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
             <span className="font-semibold text-purple-400">SEO Services</span>{" "}
             <li>On-page SEO, link building, technical SEO, keyword research.</li>
             <li>Helps enhance ranking of web sites and organic traffic.</li>
-
           </ul>
           <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
             <span className="font-semibold text-purple-400">Website Development</span>{" "}
@@ -624,22 +594,18 @@ const DigitalMarketing: React.FC = () => {
                 <li>Placing targeted advertisements to achieve fast outcomes.</li>
                 <li>Contemplates search adverts, display adverts, and social media adverts.</li>
               </ul>
-
               <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
                 <span className="font-semibold text-purple-400">Content Creation</span>{" "}
                 <li>Blogs, video, graphics, product descriptions and so on.</li>
                 <li>Establishes power and aids in SEO.</li>
               </ul>
-
               <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
                 <span className="font-semibold text-purple-400">Branding and Design</span>{" "}
                 <li>Logo design, brand, and packaging and creatives.</li>
                 <li>Benefit businesses to be unique in the market.</li>
               </ul>
-
-
               <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
-                <span className="font-semibold text-purple-400">What Full-Service Digital Marketing Company Delivers.</span>{" "}
+                <span className="font-semibold text-purple-400">What Full-Service Digital Marketing Company Delivers</span>{" "}
                 <li>Full package with SEO, advertisement, design, social media, websites, and strategy.</li>
                 <li>Time-saving and standardized branding.</li>
               </ul>
@@ -650,7 +616,6 @@ const DigitalMarketing: React.FC = () => {
       image: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/Digital-Marketing-Trends.avif",
       alt: "Digital Marketing Strategies",
     },
-
     {
       title: "Mistakes to Avoid in Digital Marketing",
       content: (
@@ -692,7 +657,6 @@ const DigitalMarketing: React.FC = () => {
               </ul>
             </motion.div>
           )}
-
         </>
       ),
       image:
@@ -704,7 +668,6 @@ const DigitalMarketing: React.FC = () => {
       title: "Future of Digital Marketing",
       content: (
         <>
-
           <ul className="list-disc list-inside text-lg leading-relaxed mb-6 space-y-2 text-gray-300">
             <span className="font-semibold text-purple-400">
               AI and Automation
@@ -749,14 +712,12 @@ const DigitalMarketing: React.FC = () => {
               </ul>
             </motion.div>
           )}
-
         </>
       ),
       image:
         "https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/SMM-Strategies.avif",
       alt: "SMM Strategies",
     },
-
   ];
 
   // Toggle section expansion
@@ -780,7 +741,7 @@ const DigitalMarketing: React.FC = () => {
       <div className="font-sans text-gray-100 bg-gray-950 min-h-screen relative overflow-hidden">
         <SEOManagement title="Top Digital Marketing Agency in India | Digital Marketing Services"
           description="Leading Digital Marketing Agency in India offering expert Digital Marketing Services. A trusted Digital Marketing Company for growth-driven results."
-          keywords="Digital marketing agency in india, Digital Marketing, Digital Marketing Agency, Digital Marketing Company, digital marketing services "
+          keywords="Digital marketing agency in india, Digital Marketing, Digital Marketing Agency, Digital Marketing Company, digital marketing services"
           canonical="https://www.jaikvik.com/digital-marketing-agency" />
         {/* Animated background */}
         <motion.div
@@ -849,8 +810,9 @@ const DigitalMarketing: React.FC = () => {
           {sections.map((section, index) => (
             <motion.div
               key={index}
-              className={`flex flex-col ${section.reverse ? "lg:flex-row-reverse" : "lg:flex-row"
-                } gap-8 bg-gray-900/30 p-8 rounded-xl mb-12 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-500`}
+              className={`flex flex-col ${
+                section.reverse ? "lg:flex-row-reverse" : "lg:flex-row"
+              } gap-8 bg-gray-900/30 p-8 rounded-xl mb-12 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-500`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
@@ -868,8 +830,9 @@ const DigitalMarketing: React.FC = () => {
                 >
                   {expandedSections[index] ? "Show Less" : "Read More"}
                   <FaArrowRight
-                    className={`ml-2 transition-transform duration-300 ${expandedSections[index] ? "rotate-90" : ""
-                      }`}
+                    className={`ml-2 transition-transform duration-300 ${
+                      expandedSections[index] ? "rotate-90" : ""
+                    }`}
                   />
                 </button>
               </div>
@@ -889,91 +852,7 @@ const DigitalMarketing: React.FC = () => {
             </motion.div>
           ))}
 
-          {/* FAQ Section */}
-          <motion.div
-            className="text-lg mb-12 bg-gray-900/30 p-8 rounded-xl shadow-lg hover:shadow-purple-500/20 transition-shadow duration-500"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
-            viewport={{ once: true }}
-            role="region"
-            aria-label="Frequently Asked Questions"
-          >
-            <h2 className="text-3xl font-semibold text-purple-400 mb-6">
-              FAQs About Digital Marketing
-            </h2>
-            <div>
-              {[
-                {
-                  question: "What is digital marketing?",
-                  answer:
-                    "Digital marketing uses online channels like search engines, social media, email, and websites to promote products or services, leveraging strategies like SEO, PPC, and content marketing.",
-                },
-                {
-                  question:
-                    "Why is digital marketing important for businesses?",
-                  answer:
-                    "It offers global reach, cost-efficiency, targeted ads, measurable results, and enhanced brand visibility, making it essential for growth and competitiveness.",
-                },
-                {
-                  question:
-                    "Which industries benefit most from digital marketing?",
-                  answer:
-                    "E-commerce, healthcare, education, travel, real estate, and technology sectors gain significantly due to targeted reach and online consumer behavior.",
-                },
-                {
-                  question: "What skills are needed for digital marketing?",
-                  answer:
-                    "Key skills include SEO, analytics, copywriting, social media management, email marketing, basic design, and adaptability to new trends.",
-                },
-                {
-                  question: "How does digital marketing benefit professionals?",
-                  answer:
-                    "It enhances skills, supports entrepreneurship, boosts networking, and meets high industry demand across various fields.",
-                },
-                {
-                  question: "What is the future of digital marketing?",
-                  answer:
-                    "Trends include AI-driven personalization, voice search optimization, video marketing, influencer strategies, and sustainable marketing practices.",
-                },
-                {
-                  question: "How can I start learning digital marketing?",
-                  answer:
-                    "Take online courses (Coursera, HubSpot), earn certifications (Google Ads, Facebook Blueprint), practice with projects, and follow industry blogs.",
-                },
-                {
-                  question: "How is ROI measured in digital marketing?",
-                  answer:
-                    "Track conversion rates, cost-per-lead, customer lifetime value, website traffic, engagement, and revenue vs. ad spend.",
-                },
-                {
-                  question: "What tools are essential for digital marketing?",
-                  answer:
-                    "Use Google Analytics, SEMrush, Canva, Mailchimp, and Hootsuite for analytics, content creation, and campaign management.",
-                },
-                {
-                  question:
-                    "Why choose Jaikvik Technology for digital marketing?",
-                  answer:
-                    "Jaikvik Technology offers expert strategies, data-driven campaigns, and tailored solutions to drive your business’s digital success.",
-                },
-              ].map((faq, index) => (
-                <motion.details
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="border-b border-gray-600 py-4"
-                >
-                  <summary className="text-lg font-semibold text-gray-100 cursor-pointer hover:text-purple-400 transition-colors duration-300">
-                    {faq.question}
-                  </summary>
-                  <p className="text-lg text-gray-300 mt-2">{faq.answer}</p>
-                </motion.details>
-              ))}
-            </div>
-          </motion.div>
+         
         </div>
       </div>
     </ErrorBoundary>

@@ -31,11 +31,13 @@ const Career: React.FC = () => {
 
   return (
     <>
-      <SEOManagement title="Careers at Jaikvik Technology – Join Top IT & Digital Company in India" 
-        description="Explore exciting career opportunities at Jaikvik Technology India." 
-        keywords="Jaikvik Technology Careers, jaikvik Technology Jobs" 
-        canonical="https://www.jaikvik.com/careers" />
-      
+      <SEOManagement
+        title="Careers at Jaikvik Technology – Join Top IT & Digital Company in India"
+        description="Explore exciting career opportunities at Jaikvik Technology India."
+        keywords="Jaikvik Technology Careers, jaikvik Technology Jobs"
+        canonical="https://www.jaikvik.com/careers"
+      />
+
       <div className="relative w-full h-[20vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src="https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/career.avif"
@@ -50,9 +52,11 @@ const Career: React.FC = () => {
             <CareerForm />
           </div>
           <div className=" bg-main-secondary rounded-md p-6 flex flex-col gap-3 order-0 md:order-1">
-            <h4 className="text-xl text-white">Join Our Team and Build the Future</h4>
+            <h4 className="text-xl text-white">
+              Join Our Team and Build the Future
+            </h4>
             <p className="text-white font-bold">Current Openings:</p>
-            
+
             <ul className="list-decimal pl-4 flex flex-col gap-1 text-white">
               {loading ? (
                 <p className="text-sm animate-pulse">Loading openings...</p>
@@ -63,15 +67,20 @@ const Career: React.FC = () => {
                   </li>
                 ))
               ) : (
-                <p className="text-sm opacity-70">No active openings right now.</p>
+                <p className="text-sm opacity-70">
+                  No active openings right now.
+                </p>
               )}
             </ul>
 
             <p className="text-white font-bold mt-4">How to Apply</p>
             <p className="text-white">
               Submit your resume and cover letter to{" "}
-              <a href="mailto:info@jaikviktechnology.com" className="font-bold text-main-red">
-                info@jaikviktechnology.com
+              <a
+                href="mailto:info@jaikvik.com"
+                className="font-bold text-main-red"
+              >
+                info@jaikvik.com
               </a>{" "}
               or apply directly via our website.
             </p>

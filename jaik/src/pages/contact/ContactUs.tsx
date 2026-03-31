@@ -47,7 +47,7 @@ const ContactUs: React.FC = () => {
                   <FaEnvelope size={16} />
                 </div>
                 <a href="#" className="text-white">
-                  info@jaikviktechnology.com
+                  info@jaikvik.com
                 </a>
               </div>
               <div className="flex items-center gap-3 bg-red-600 py-3 px-4">

@@ -5,4 +5,4 @@ Allow: /pages/
 # Optional: specify sitemap for better content understanding
  https://www.jaikvik.com/sitemap.xml 
 # Contact information for inquiries about data usage
-Contact: info@jaikviktechnology.com
+Contact: info@jaikvik.com

@@ -106,9 +106,9 @@ const SocialMediaSection = () => {
     <div className="overflow-hidden h-auto my-8 bg-black py-10">
       {/* Heading */}
       <div className="px-6 mb-8">
-        <h2 className="text-white text-2xl font-bold uppercase tracking-wider border-l-4 border-red-500 pl-4">
+        <h1 className="text-white text-2xl font-bold uppercase tracking-wider border-l-4 border-red-500 pl-4">
           Social Media Reels
-        </h2>
+        </h1>
       </div>
 
       {/* ─── MOBILE SLIDER (Shows 3+ videos on screen) ─── */}

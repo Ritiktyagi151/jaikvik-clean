@@ -30,16 +30,20 @@ interface FormData {
 
 const ReviewModal = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
     const isOpen = useSelector((state: RootState) => state.action.isReviewModal);
     const setIsOpen = () => dispatch(setAction({ isReviewModal: false }));
 
     const [hoveredRating, setHoveredRating] = useState<number | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
 
     const {
         register,
         handleSubmit,
         setValue,
+        reset,
         watch,
         formState: { errors },
     } = useForm<FormData>({
@@ -55,9 +59,51 @@ const ReviewModal = () => {
 
     const rating = watch('rating');
 
-    const onSubmit = (data: FormData) => {
-        console.log('Form submitted:', data); // Replace with actual API call
-        setIsOpen();
+    const onSubmit = async (data: FormData) => {
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            if (!API_BASE) {
+                throw new Error("Review service is unavailable right now.");
+            }
+
+            const response = await fetch(`${API_BASE}/reviews`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok || !result?.success) {
+                throw new Error(result?.message || "Failed to submit review.");
+            }
+
+            setSubmitStatus({ success: true, message: "Review submitted successfully!" });
+            reset({
+                fname: "",
+                email: "",
+                cname: "",
+                rating: 0,
+                msg: "",
+            });
+            setHoveredRating(null);
+            setTimeout(() => {
+                setSubmitStatus(null);
+                setIsOpen();
+            }, 1200);
+        } catch (error) {
+            setSubmitStatus({
+                success: false,
+                message: error instanceof Error ? error.message : "Failed to submit review.",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleRatingClick = (value: number) => {
@@ -81,6 +127,11 @@ const ReviewModal = () => {
                         </div>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="p-5">
+                        {submitStatus && (
+                            <div className={`mb-4 rounded p-3 text-sm ${submitStatus.success ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+                                {submitStatus.message}
+                            </div>
+                        )}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                             <div className="relative">
                                 <div className="input-contain">
@@ -189,9 +240,10 @@ const ReviewModal = () => {
                             <div className="col-span-1 lg:col-span-2">
                                 <button
                                     type="submit"
+                                    disabled={isSubmitting}
                                     className="bg-main-red text-white px-4 py-2 cursor-pointer border-none outline-none font-semibold hover:scale-90 transition-transform duration-300"
                                 >
-                                    Send Message
+                                    {isSubmitting ? "Sending..." : "Send Message"}
                                 </button>
                             </div>
                         </div>

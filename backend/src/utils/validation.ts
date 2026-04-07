@@ -93,8 +93,14 @@ export const contactValidationRules = () => {
       .trim()
       .isLength({ min: 2, max: 150 })
       .withMessage("Preferred location must be valid"),
+    body("preferredMode")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Preferred mode must be valid"),
     body().custom((value) => {
-      const locationValue = value?.location ?? value?.preferredLocation;
+      const locationValue =
+        value?.location ?? value?.preferredLocation ?? value?.preferredMode;
       if (!locationValue) {
         throw new Error("Location is required");
       }
@@ -151,12 +157,18 @@ export const enquiryValidationRules = () => {
       .trim()
       .isLength({ min: 2, max: 150 })
       .withMessage("Preferred location must be valid"),
+    body("preferredMode")
+      .optional()
+      .trim()
+      .isLength({ min: 2, max: 150 })
+      .withMessage("Preferred mode must be valid"),
     body().custom((value) => {
       const fullName = value?.fname ?? value?.name;
       if (!fullName) {
         throw new Error("Name is required");
       }
-      const locationValue = value?.location ?? value?.preferredLocation;
+      const locationValue =
+        value?.location ?? value?.preferredLocation ?? value?.preferredMode;
       if (!locationValue) {
         throw new Error("Location is required");
       }

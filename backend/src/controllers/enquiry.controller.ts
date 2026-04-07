@@ -43,6 +43,7 @@ export const createEnquiry = async (
       preferredTime,
       location: rawLocation,
       preferredLocation,
+      preferredMode,
       sourcePage,
     } = req.body as {
       fname: string;
@@ -56,10 +57,11 @@ export const createEnquiry = async (
       preferredTime: string;
       location?: string;
       preferredLocation?: string;
+      preferredMode?: string;
       sourcePage?: string;
     };
     const resolvedName = fname || name || "";
-    const location = rawLocation || preferredLocation || "";
+    const location = rawLocation || preferredLocation || preferredMode || "";
 
     try {
       validateMeetingSlotInput({ preferredDate, preferredTime });

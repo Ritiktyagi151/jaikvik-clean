@@ -2,6 +2,8 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface IReview extends Document {
   author: string;
+  email?: string;
+  company?: string;
   text: string;
   stars: number;
   status: "active" | "inactive" | "draft";
@@ -14,6 +16,14 @@ const reviewSchema = new Schema<IReview>(
     author: {
       type: String,
       required: [true, "Please add your name"],
+      trim: true,
+    },
+    email: {
+      type: String,
+      trim: true,
+    },
+    company: {
+      type: String,
       trim: true,
     },
     text: {

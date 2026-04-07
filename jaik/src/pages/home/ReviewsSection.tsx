@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -32,7 +32,40 @@ const Arrows: React.FC<{
 
 const ReviewsSection = () => {
   const dispatch = useDispatch();
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+  const [reviewItems, setReviewItems] = useState(reviews);
   const setIsOpen = () => dispatch(setAction({ isReviewModal: true }));
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchReviews = async () => {
+      if (!API_BASE) return;
+
+      try {
+        const response = await fetch(`${API_BASE}/reviews`, {
+          headers: { Accept: "application/json" },
+        });
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok || !data?.success || !Array.isArray(data?.data)) {
+          return;
+        }
+
+        if (isMounted && data.data.length > 0) {
+          setReviewItems(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to load reviews:", error);
+      }
+    };
+
+    fetchReviews();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [API_BASE]);
 
   return (
     <>
@@ -66,7 +99,7 @@ const ReviewsSection = () => {
             }}
             style={{ width: "100%", overflow: "hidden" }}
           >
-            {reviews.map((review, index) => (
+            {reviewItems.map((review, index) => (
               <SwiperSlide
                 key={index}
                 className="flex-shrink-0 w-full max-w-full"

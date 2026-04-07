@@ -77,17 +77,17 @@ const Career: React.FC = () => {
             <p className="text-white">
               Submit your resume and cover letter to{" "}
               <a
-                href="mailto:info@jaikvik.com"
+                href="mailto:hr@jaikviktechnology.com"
                 className="font-bold text-main-red"
               >
-                info@jaikvik.com
+                hr@jaikviktechnology.com
               </a>{" "}
               or apply directly via our website.
             </p>
           </div>
         </div>
       </section>
-      <EnquireSection />
+      
     </>
   );
 };

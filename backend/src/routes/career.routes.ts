@@ -1,18 +1,89 @@
-import express from 'express';
-import multer from 'multer';
-import { getJobs, createJob, deleteJob, submitApp, getApps } from '../controllers/career.controller';
+import express, { NextFunction, Request, Response } from "express";
+import fs from "fs";
+import multer from "multer";
+import path from "path";
+import {
+  createJob,
+  deleteJob,
+  getApps,
+  getJobs,
+  submitApp,
+} from "../controllers/career.controller";
 
 const router = express.Router();
-const storage = multer.diskStorage({
-    destination: 'uploads/',
-    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-});
-const upload = multer({ storage });
+const resumeUploadDir = path.join(process.cwd(), "uploads", "resumes");
+const allowedExtensions = new Set([".pdf", ".doc", ".docx"]);
+const maxResumeSize = 5 * 1024 * 1024;
 
-router.get('/jobs', getJobs);
-router.post('/jobs', createJob);
-router.delete('/jobs/:id', deleteJob);
-router.post('/submit', upload.single('resume'), submitApp);
-router.get('/admin/apps', getApps);
+if (!fs.existsSync(resumeUploadDir)) {
+  fs.mkdirSync(resumeUploadDir, { recursive: true });
+}
+
+const sanitizeFileName = (fileName: string): string =>
+  fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, resumeUploadDir);
+  },
+  filename: (_req, file, cb) => {
+    cb(null, `${Date.now()}-${sanitizeFileName(file.originalname)}`);
+  },
+});
+
+const fileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
+  const extension = path.extname(file.originalname).toLowerCase();
+
+  if (!allowedExtensions.has(extension)) {
+    cb(new Error("Only PDF, DOC, and DOCX resume files are allowed."));
+    return;
+  }
+
+  cb(null, true);
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: maxResumeSize,
+  },
+});
+
+const uploadResume = (req: Request, res: Response, next: NextFunction): void => {
+  upload.single("resume")(req, res, (error: unknown) => {
+    if (!error) {
+      next();
+      return;
+    }
+
+    if (error instanceof multer.MulterError && error.code === "LIMIT_FILE_SIZE") {
+      res.status(400).json({
+        success: false,
+        message: "Resume file size must not exceed 5MB.",
+      });
+      return;
+    }
+
+    if (error instanceof Error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
+
+    res.status(400).json({
+      success: false,
+      message: "Resume upload failed.",
+    });
+  });
+};
+
+router.get("/jobs", getJobs);
+router.post("/jobs", createJob);
+router.delete("/jobs/:id", deleteJob);
+router.post("/submit", uploadResume, submitApp);
+router.get("/admin/apps", getApps);
 
 export default router;

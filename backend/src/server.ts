@@ -117,6 +117,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/websites", websiteRoutes);
 app.use("/api/blogs", blogRoutes);
+// Career submission endpoints are mounted at /api/careers
 app.use("/api/about", aboutRoutes);
 app.use("/api/footer", footerRoutes);
 app.use("/api/careers", careerRoutes);

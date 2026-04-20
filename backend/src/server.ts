@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -10,13 +9,10 @@ import rateLimit from "express-rate-limit";
 import path from "path";
 import fs from "fs";
 import multer from "multer";
-
 import { connectDB } from "./config/database";
 import { errorHandler } from "./middleware/errorHandler";
 import { notFound } from "./middleware/notFound";
 import logger from "./utils/logger";
-
-// --- Route Imports ---
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import blogRoutes from "./routes/blog.routes";
@@ -43,81 +39,59 @@ import testimonialVideoRoutes from "./routes/testimonialVideo.routes";
 import footerRoutes from "./routes/footer.routes";
 import navbarRoutes from "./routes/navbar.routes";
 import aboutRoutes from "./routes/about.routes";
-
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 5002;
-
-// ✅ Database Connection
 connectDB();
-
-// ✅ Setup Uploads Directory
 const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
-    console.log("📁 Uploads directory created successfully");
 }
-
-// ✅ Security & CORS Middleware
-app.use(helmet({
-    // crossOriginResourcePolicy: false zaroori hai taki frontend images access kar sake
-    crossOriginResourcePolicy: false 
+app.use(helmet({ crossOriginResourcePolicy: false }));
+const allowedOrigins = [
+    "https://www.jaikvik.com",
+    "https://jaikvik.com",
+    "http://www.jaikvik.com",
+    "http://jaikvik.com"
+];
+app.use(cors({
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
 }));
-
-// Aapka manga hua CORS logic
-app.use(
-    cors({
-        origin: process.env.FRONTEND_URL || "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true,
-    })
-);
-
-// ✅ Body Parsing
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-
-// ✅ Performance & Logging
 app.use(compression());
 if (process.env.NODE_ENV !== "test") {
     app.use(morgan("dev"));
 }
-
-// ✅ Rate Limiting (Production Security)
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
-    max: 2000, 
+    windowMs: 15 * 60 * 1000,
+    max: 2000,
     message: "Too many requests, please try again later.",
 });
 app.use("/api/", limiter);
-
-// ✅ Static Folder for Images
 app.use("/uploads", express.static(uploadDir));
-
-// ✅ Image Upload Logic (Multer) - Directly integrated like your old code
 const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename(req, file, cb) {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
+    destination(req, file, cb) { cb(null, "uploads/"); },
+    filename(req, file, cb) { cb(null, `${Date.now()}-${file.originalname}`); },
 });
 const upload = multer({ storage });
-
 app.post("/api/upload", upload.single("file"), (req: any, res: any) => {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-    res.json({
-        url: `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`,
-    });
+    res.json({ url: `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}` });
 });
-
-// ✅ API Routes Registration
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/websites", websiteRoutes);
 app.use("/api/blogs", blogRoutes);
-// Career submission endpoints are mounted at /api/careers
 app.use("/api/about", aboutRoutes);
 app.use("/api/footer", footerRoutes);
 app.use("/api/careers", careerRoutes);
@@ -140,24 +114,16 @@ app.use("/api/mobile-apps", mobileAppRoutes);
 app.use("/api/team", teamRoutes);
 app.use("/api/testimonial-videos", testimonialVideoRoutes);
 app.use("/api/navbar", navbarRoutes);
-
-// ✅ Health Checks
 app.get("/", (req, res) => {
-    res.json({ success: true, message: "🚀 Jaikvik Technology API is running..." });
+    res.json({ success: true, message: "Jaikvik Technology API is running..." });
 });
-
 app.get("/health", (req, res) => {
     res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
 });
-
-// ✅ Error Handling
 app.use(notFound);
 app.use(errorHandler);
-
-// ✅ Server Startup
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-    console.log(`🚀 Jaikvik Backend live at http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+    console.log(`Jaikvik Backend live at http://localhost:${PORT}`);
 });
-
 export default app;

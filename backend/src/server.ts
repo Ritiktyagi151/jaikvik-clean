@@ -57,29 +57,17 @@ if (!fs.existsSync(uploadDir)) {
     console.log("📁 Uploads directory created successfully");
 }
 
-// ✅ Security Middleware
+// ✅ Security & CORS Middleware
 app.use(helmet({
-    crossOriginResourcePolicy: false
+    // crossOriginResourcePolicy: false zaroori hai taki frontend images access kar sake
+    crossOriginResourcePolicy: false 
 }));
 
-// ✅ CORS - Both www and non-www allowed
-const allowedOrigins = [
-    "https://www.jaikvik.com",
-    "https://jaikvik.com",
-    "http://www.jaikvik.com",
-    "http://jaikvik.com"
-];
-
+// Aapka manga hua CORS logic
 app.use(
     cors({
-        origin: function(origin, callback) {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        origin: process.env.FRONTEND_URL || "*",
+        methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
     })
@@ -95,10 +83,10 @@ if (process.env.NODE_ENV !== "test") {
     app.use(morgan("dev"));
 }
 
-// ✅ Rate Limiting
+// ✅ Rate Limiting (Production Security)
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 2000,
+    windowMs: 15 * 60 * 1000, 
+    max: 2000, 
     message: "Too many requests, please try again later.",
 });
 app.use("/api/", limiter);
@@ -106,7 +94,7 @@ app.use("/api/", limiter);
 // ✅ Static Folder for Images
 app.use("/uploads", express.static(uploadDir));
 
-// ✅ Image Upload Logic (Multer)
+// ✅ Image Upload Logic (Multer) - Directly integrated like your old code
 const storage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, "uploads/");
@@ -129,6 +117,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/websites", websiteRoutes);
 app.use("/api/blogs", blogRoutes);
+// Career submission endpoints are mounted at /api/careers
 app.use("/api/about", aboutRoutes);
 app.use("/api/footer", footerRoutes);
 app.use("/api/careers", careerRoutes);

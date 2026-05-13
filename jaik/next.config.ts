@@ -1,8 +1,19 @@
 import type { NextConfig } from "next";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "jaikvik.com" }],
+        destination: "https://www.jaikvik.com/:path*",
+        permanent: true,
+      },
+    ];
   },
   async rewrites() {
     return [
@@ -13,4 +24,5 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
 export default nextConfig;

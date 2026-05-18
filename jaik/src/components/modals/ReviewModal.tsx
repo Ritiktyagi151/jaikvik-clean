@@ -83,7 +83,7 @@ const ReviewModal = () => {
                 throw new Error(result?.message || "Failed to submit review.");
             }
 
-            setSubmitStatus({ success: true, message: "Review submitted successfully!" });
+            setSubmitStatus({ success: true, message: result?.message || "Your review has been submitted and is under review." });
             reset({
                 fname: "",
                 email: "",

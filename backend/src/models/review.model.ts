@@ -6,7 +6,8 @@ export interface IReview extends Document {
   company?: string;
   text: string;
   stars: number;
-  status: "active" | "inactive" | "draft";
+  status: "pending" | "approved";
+  source: "website" | "admin";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,8 +40,13 @@ const reviewSchema = new Schema<IReview>(
     },
     status: {
       type: String,
-      enum: ["active", "inactive", "draft"],
-      default: "active",
+      enum: ["pending", "approved"],
+      default: "pending",
+    },
+    source: {
+      type: String,
+      enum: ["website", "admin"],
+      default: "website",
     },
   },
   { timestamps: true }

@@ -43,7 +43,7 @@ const ReviewsSection = () => {
       if (!API_BASE) return;
 
       try {
-        const response = await fetch(`${API_BASE}/reviews`, {
+        const response = await fetch(`${API_BASE}/reviews/approved`, {
           headers: { Accept: "application/json" },
         });
         const data = await response.json().catch(() => null);

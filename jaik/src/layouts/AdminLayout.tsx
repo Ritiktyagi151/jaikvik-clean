@@ -17,14 +17,13 @@ import {
   User,
   LogOut,
   LayoutDashboard,
-  Navigation,
   Footprints,
   Image,
   Film,
-  Mail,
   List,
   Plus,
   HelpCircle,
+  Star,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -54,6 +53,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isAllowed, setIsAllowed] = useState(false);
   const pathname = usePathname() || "";
   const router = useRouter();
 
@@ -150,6 +150,12 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           label: "Our Clients",
           href: "/admin/dashboard/home/our-clients",
           icon: <Users size={18} />,
+        },
+        {
+          id: "reviews",
+          label: "Reviews",
+          href: "/admin/dashboard/home/reviews",
+          icon: <Star size={18} />,
         },
       ],
     },
@@ -276,7 +282,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/logout", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/auth/logout`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -284,29 +290,34 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         },
       });
 
-      localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("admin-auth");
       localStorage.removeItem("userData");
-      sessionStorage.removeItem("userData");
 
       if (response.ok) {
-        router.push("/");
+        router.push("/admin");
       } else {
         console.error("Logout failed");
         router.push("/admin");
       }
     } catch (error) {
       console.error("Logout error:", error);
-      localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("admin-auth");
       localStorage.removeItem("userData");
-      sessionStorage.removeItem("userData");
       router.push("/admin");
     } finally {
       setIsLoggingOut(false);
       setProfileOpen(false);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("admin-auth");
+    if (!token) {
+      router.replace("/admin");
+      return;
+    }
+    setIsAllowed(true);
+  }, [router]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -330,6 +341,8 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  if (!isAllowed) return null;
 
   return (
     <div className="flex h-screen bg-black text-gray-100 font-sans">

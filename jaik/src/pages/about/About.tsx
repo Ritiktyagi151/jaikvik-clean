@@ -300,7 +300,7 @@ const ClientsSection: React.FC<{ content: any }> = ({ content }) => (
     <h2 className="text-3xl font-black mb-16 uppercase tracking-[0.3em] text-gray-500">{content?.title}</h2>
     <div className="flex flex-wrap justify-center gap-10 opacity-60 hover:opacity-100 transition-opacity">
       {content?.logos?.map((c: any, i: number) => (
-        <div key={i} className="bg-white/5 p-6 rounded-2xl w-40 h-28 flex items-center justify-center grayscale hover:grayscale-0 transition-all border border-transparent hover:border-gray-800">
+        <div key={i} className="bg-white/5 p-6 rounded-2xl w-40 h-28 flex items-center justify-center transition-all border border-transparent hover:border-gray-800">
           <img src={c.logo} alt={c.name} className="max-h-14 object-contain" />
         </div>
       ))}

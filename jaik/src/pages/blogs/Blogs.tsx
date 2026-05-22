@@ -6,12 +6,13 @@ import BlogCard from "../../components/cards/BlogCard";
 import EnquireSection from "../home/EnquireSection";
 import OurClients from "../home/OurClients";
 import SEOManagement from "../../components/seo/SEOManagement";
+import type { blogInterface } from "../../interfaces/blogInterface";
 
 // ✅ API URL from environment
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const Blogs: React.FC = () => {
-  const [blogsList, setBlogsList] = useState<any[]>([]);
+  const [blogsList, setBlogsList] = useState<blogInterface[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

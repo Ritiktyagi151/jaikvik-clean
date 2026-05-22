@@ -92,10 +92,10 @@ const SeoServices: React.FC = () => {
   return (
     <div className="font-sans text-gray-100 bg-black min-h-screen relative overflow-hidden">
       <SEOManagement
-        title="SEO Agency in India | Best SEO Company for SEO Services"
-        description="Looking for the Best SEO Services? Choose the leading SEO Agency in India trusted as the Best SEO Company offering high-quality SEO Services in India ."
+        title="SEO Services in India | Best SEO Company & SEO Agency in India"
+        description="Looking for professional SEO Services in India? Jaikvik is a trusted SEO Agency in India offering Search Engine Optimization, Best SEO Company, local SEO."
         keywords="SEO Agency in India ,Best SEO Company ,SEO Services in India ,Best SEO Services,Search Engine Optimisation, Seo Agency Near Me"
-        canonical="https://www.jaikvik.com/seo-services"
+        canonical="https://www.jaikvik.com/seo-services-in-india"
       />
 
       {/* Background */}
@@ -112,7 +112,7 @@ const SeoServices: React.FC = () => {
         ref={heroRef}
         className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center z-10"
         style={{
-          backgroundImage: `url('https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/SEO-Services-Hero.avif')`,
+          backgroundImage: `url('https://jaikvik.in/lab/cloud/jaikvik/assets/images/pages_images/seo-services-Hero.avif')`,
         }}
         initial="hidden"
         animate={heroInView ? "visible" : "hidden"}
@@ -134,7 +134,7 @@ const SeoServices: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Boost Your Rankings with Google SEO Services
+            SEO Services in India for Business Growth and Online Success
           </motion.h1>
 
           <motion.p
@@ -143,9 +143,9 @@ const SeoServices: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Optimize your website with{" "}
-            <span className="font-bold">Jaikvik Technology's</span> SEO and Audit
-            Solutions
+            Build long-term visibility with{" "}
+            <span className="font-bold">Jaikvik Technology's</span> professional
+            SEO strategies.
           </motion.p>
 
           <motion.button

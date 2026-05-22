@@ -742,7 +742,7 @@ const DigitalMarketing: React.FC = () => {
         <SEOManagement title="Top Digital Marketing Agency in India | Digital Marketing Services"
           description="Leading Digital Marketing Agency in India offering expert Digital Marketing Services. A trusted Digital Marketing Company for growth-driven results."
           keywords="Digital marketing agency in india, Digital Marketing, Digital Marketing Agency, Digital Marketing Company, digital marketing services"
-          canonical="https://www.jaikvik.com/digital-marketing-agency" />
+          canonical="https://www.jaikvik.com/digital-marketing-agency-in-india" />
         {/* Animated background */}
         <motion.div
           className="absolute inset-0 pointer-events-none"

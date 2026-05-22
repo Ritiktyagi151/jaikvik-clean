@@ -29,27 +29,27 @@ export const softwareDevelopmentItems = [
 
 export const websiteDevelopmentItems = [
   {
-    href: "/website-development",
+    href: "/website-development-company",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/e-commerce.jpg",
     text: "E-Commerce",
   },
   {
-    href: "/website-development",
+    href: "/website-development-company",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/woo-commerce.jpg",
     text: "WooCommerce",
   },
   {
-    href: "/website-development",
+    href: "/website-development-company",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/corporate-website.jpg",
     text: "Corporate Website",
   },
   {
-    href: "/website-development",
+    href: "/website-development-company",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/online-portal.jpg",
     text: "Online Portal",
   },
   {
-    href: "/website-development",
+    href: "/website-development-company",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/packages.jpg",
     text: "Packages",
   },
@@ -72,7 +72,7 @@ export const digitalMarketingItems = [
     text: "Brand Identity",
   },
   {
-    href: "/digital-marketing-agency",
+    href: "/digital-marketing-agency-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/packages.jpg",
     text: "Packages",
   },
@@ -80,27 +80,27 @@ export const digitalMarketingItems = [
 
 export const seoServiceItems = [
   {
-    href: "/seo-services",
+    href: "/seo-services-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/website-audit.jpg",
     text: "Website Audit",
   },
   {
-    href: "/seo-services",
+    href: "/seo-services-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/technical-seo.jpg",
     text: "Technical SEO",
   },
   {
-    href: "/seo-services",
+    href: "/seo-services-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/on-page-seo.jpg",
     text: "On-Page SEO",
   },
   {
-    href: "/seo-services",
+    href: "/seo-services-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/off-page-seo.jpg",
     text: "Off-Page SEO",
   },
   {
-    href: "/seo-services",
+    href: "/seo-services-in-india",
     img: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/nabvar/packages.jpg",
     text: "SEO Packages",
   },

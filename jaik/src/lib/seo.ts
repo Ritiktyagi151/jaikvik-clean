@@ -87,7 +87,7 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
     description:
       "Jaikvik offers customized software tailored to your business needs. Scalable, secure, and efficient custom software solutions to drive digital transformation.",
   },
-  "/digital-marketing-agency": {
+  "/digital-marketing-agency-in-india": {
     title: "Top Digital Marketing Agency in India – Jaikvik | Marketing Company",
     description:
       "Jaikvik is a leading digital marketing agency in India offering expert digital marketing services. Trusted digital marketing company for growth-driven strategies.",
@@ -162,10 +162,10 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
     description:
       "React.js development services for modern, high-performance, and SEO-conscious web interfaces.",
   },
-  "/seo-services": {
-    title: "Best SEO Company in India | SEO Services & Audit – Jaikvik Technology",
+  "/seo-services-in-india": {
+    title: "SEO Services in India | Best SEO Company & SEO Agency in India",
     description:
-      "Jaikvik Technology – top SEO agency in India offering SEO on Page, off Page, technical SEO, ecommerce SEO services, website audit, Google SEO service & SEO for ecommerce sites.",
+      "Looking for professional SEO Services in India? Jaikvik is a trusted SEO Agency in India offering Search Engine Optimization, Best SEO Company, local SEO.",
     keywords:
       "SEO agency in India, Best SEO Company, Best SEO Company in India, best seo services in India, ecommerce seo agency, ecommerce seo services, Google seo service, e commerce seo, ecommerce seo, Google Search Engine Optimization, Search Engine Optimisation, SEO, seo agency near me, seo digital marketing, seo for ecommerce website, seo marketing company near me, SEO on Page, SEO Services, SEO Services in India, seo strategy for ecommerce website, seo on shopify, on Page SEO, off Page SEO, technical SEO, website audit",
   },
@@ -179,7 +179,7 @@ const PUBLIC_PAGE_SEO: Record<string, PageSeoConfig> = {
     description:
       "SQL database design, optimization, and management solutions for secure and reliable data systems.",
   },
-  "/website-development": {
+  "/website-development-company": {
     title: "Top Website Development Company in India – Jaikvik | Website Solutions",
     description:
       "Jaikvik is among the top 10 website development companies in India. A leading website development company offering expert website development for all business needs.",

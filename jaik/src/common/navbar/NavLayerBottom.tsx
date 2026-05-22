@@ -24,17 +24,17 @@ const NavLayerBottom: React.FC<{
     {
       title: "Website Development",
       menu: websiteDevelopmentItems,
-      href: "/website-development",
+      href: "/website-development-company",
     },
     {
       title: "Digital Marketing",
       menu: digitalMarketingItems,
-      href: "/digital-marketing-agency",
+      href: "/digital-marketing-agency-in-india",
     },
     {
       title: "google SEO Services",
       menu: seoServiceItems,
-      href: "/seo-services",
+      href: "/seo-services-in-india",
     },
     {
       title: "Film Production",

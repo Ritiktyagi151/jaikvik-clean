@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
-import DigitalMarketing from "@/pages/service/Digital_Marketing";
-
-export const metadata: Metadata = pageMetadata("/digital-marketing-agency");
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <DigitalMarketing />;
+  redirect("/digital-marketing-agency-in-india");
 }

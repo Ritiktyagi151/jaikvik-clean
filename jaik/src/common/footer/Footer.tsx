@@ -32,12 +32,12 @@ const DESKTOP_USEFUL_LINKS = [
 ];
 
 const DESKTOP_SERVICES_LINKS = [
-  { text: "Digital Marketing", url: "/digital-marketing-agency" },
+  { text: "Digital Marketing", url: "/digital-marketing-agency-in-india" },
   { text: "Software Development", url: "/cusotmized-software" },
   { text: "Film Making", url: "/film-production" },
-  { text: "SEO (Search Engine Optimization)", url: "/seo-services" },
-  { text: "E-Commerce", url: "/website-development" },
-  { text: "Website Development", url: "/website-development" },
+  { text: "SEO (Search Engine Optimization)", url: "/seo-services-in-india" },
+  { text: "E-Commerce", url: "/website-development-company" },
+  { text: "Website Development", url: "/website-development-company" },
 ];
 
 const Footer = () => {

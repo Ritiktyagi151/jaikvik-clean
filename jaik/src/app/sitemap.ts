@@ -19,6 +19,7 @@ const PUBLIC_ROUTES = [
   "/digital-marketing-agency-in-india",
   "/erp",
   "/film-production",
+  "/gallery",
   "/java",
   "/javascript",
   "/jquery",

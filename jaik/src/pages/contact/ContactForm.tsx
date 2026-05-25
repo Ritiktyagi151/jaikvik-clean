@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { sendExternalLead } from "@/lib/externalLead";
 import "../../styles/enquire-form.css";
 
 interface FormData {
@@ -62,16 +63,23 @@ const ContactForm = () => {
         throw new Error("Form service is unavailable. Please try again later.");
       }
 
+      const payload = {
+        ...formData,
+        sourcePage: "contact-us",
+      };
+
+      sendExternalLead({
+        formName: "contact-form",
+        ...payload,
+      });
+
       const response = await fetch(`${API_BASE}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          sourcePage: "contact-us",
-        }),
+        body: JSON.stringify(payload),
       });
 
       let data: any = null;

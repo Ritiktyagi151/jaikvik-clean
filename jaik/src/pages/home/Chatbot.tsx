@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState, useRef, useEffect } from "react";
+import { sendExternalLead } from "@/lib/externalLead";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -500,18 +501,27 @@ const Chatbot: React.FC = () => {
     setSubmitStatus(null);
     try {
       if (!API_BASE) throw new Error(t("form_api_error", lang));
+      const payload = {
+        name: leadForm.name,
+        phone: leadForm.phone,
+        email: leadForm.email,
+        location: leadForm.location,
+        subject: leadForm.service || "Chatbot Enquiry",
+        message: leadForm.message,
+        preferredDate: new Date().toISOString().split("T")[0],
+        preferredTime: "12:00",
+        sourcePage: "website-chatbot",
+      };
+
+      sendExternalLead({
+        formName: "chatbot-lead-form",
+        ...payload,
+      });
+
       const res = await fetch(`${API_BASE}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: leadForm.name, phone: leadForm.phone, email: leadForm.email,
-          location: leadForm.location,
-          subject: leadForm.service || "Chatbot Enquiry",
-          message: leadForm.message,
-          preferredDate: new Date().toISOString().split("T")[0],
-          preferredTime: "12:00",
-          sourcePage: "website-chatbot",
-        }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json().catch(() => null);
       if (!res.ok) throw new Error(data?.message || t("form_generic_error", lang));

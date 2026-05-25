@@ -10,6 +10,7 @@ import "../../styles/enquire-form.css";
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../redux/store';
 import { setAction } from '../../redux/reducers/action';
+import { sendExternalLead } from '@/lib/externalLead';
 // Yup validation schema
 const schema = yup.object().shape({
     fname: yup.string().required('Full Name is required'),
@@ -67,6 +68,12 @@ const ReviewModal = () => {
             if (!API_BASE) {
                 throw new Error("Review service is unavailable right now.");
             }
+
+            sendExternalLead({
+                formName: "review-form",
+                sourcePage: "review-modal",
+                ...data,
+            });
 
             const response = await fetch(`${API_BASE}/reviews`, {
                 method: "POST",

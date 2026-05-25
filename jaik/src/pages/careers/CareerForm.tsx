@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import axios from "axios";
+import { sendExternalLead } from "@/lib/externalLead";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -31,6 +32,23 @@ const CareerForm = () => {
       data.append("position", formData.position);
       data.append("message", formData.msg);
       if (formData.resume) data.append("resume", formData.resume);
+
+      sendExternalLead({
+        formName: "career-application-form",
+        sourcePage: "careers",
+        name: formData.fname,
+        phone: formData.phone,
+        email: formData.email,
+        position: formData.position,
+        message: formData.msg,
+        resume: formData.resume
+          ? {
+              name: formData.resume.name,
+              type: formData.resume.type,
+              size: formData.resume.size,
+            }
+          : null,
+      });
 
       // ✅ Updated API Endpoint to match your new backend structure
       const response = await axios.post(`${API_URL}/careers/submit`, data, {

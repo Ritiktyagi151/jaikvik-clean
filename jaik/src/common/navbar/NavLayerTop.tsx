@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { navlinks } from "../../configs/navConfigs";
 import NavLink from "./NavLink";
+import { sendExternalLead } from "@/lib/externalLead";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaXTwitter } from "react-icons/fa6";
@@ -120,24 +121,31 @@ const NavLayerTop = () => {
         if (!API_BASE) {
           throw new Error("API URL is missing. Please configure NEXT_PUBLIC_API_URL.");
         }
+        const payload = {
+          fname: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company || "N/A",
+          city: "N/A",
+          message: formData.message || "Quote request from navbar form",
+          preferredDate: formData.preferredDate,
+          preferredTime: formData.preferredTime,
+          location: formData.preferredLocation,
+          sourcePage: "navbar-quote",
+        };
+
+        sendExternalLead({
+          formName: "navbar-quote-form",
+          ...payload,
+        });
+
         const response = await fetch(`${API_BASE}/enquiries`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify({
-            fname: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company || "N/A",
-            city: "N/A",
-            message: formData.message || "Quote request from navbar form",
-            preferredDate: formData.preferredDate,
-            preferredTime: formData.preferredTime,
-            location: formData.preferredLocation,
-            sourcePage: "navbar-quote",
-          }),
+          body: JSON.stringify(payload),
         });
 
         let data: ApiResponse | null = null;

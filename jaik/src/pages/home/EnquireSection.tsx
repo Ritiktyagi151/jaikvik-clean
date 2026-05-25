@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { sendExternalLead } from "@/lib/externalLead";
 import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface";
 import "../../styles/enquire-form.css";
 // Icons ke liye (Optional: Lucide-react use karein ya SVG daal dein)
@@ -40,10 +41,17 @@ const EnquireSection = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     try {
+      const payload = { ...formData, location: formData.preferredMode, sourcePage: "home-enquiry" };
+
+      sendExternalLead({
+        formName: "home-enquiry-form",
+        ...payload,
+      });
+
       const response = await fetch(`${API_BASE}/enquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...formData, location: formData.preferredMode, sourcePage: "home-enquiry" }),
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
       if (response.ok && data?.success) {

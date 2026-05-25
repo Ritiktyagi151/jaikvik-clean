@@ -39,8 +39,9 @@ import testimonialVideoRoutes from "./routes/testimonialVideo.routes";
 import footerRoutes from "./routes/footer.routes";
 import navbarRoutes from "./routes/navbar.routes";
 import aboutRoutes from "./routes/about.routes";
+import externalWebsiteLeadRoutes from "./routes/externalWebsiteLead.routes";
 const app = express();
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 5002;
 connectDB();
 const uploadDir = path.join(process.cwd(), "uploads");
@@ -114,6 +115,7 @@ app.use("/api/mobile-apps", mobileAppRoutes);
 app.use("/api/team", teamRoutes);
 app.use("/api/testimonial-videos", testimonialVideoRoutes);
 app.use("/api/navbar", navbarRoutes);
+app.use("/api/external-website-lead", externalWebsiteLeadRoutes);
 app.get("/", (req, res) => {
     res.json({ success: true, message: "Jaikvik Technology API is running..." });
 });

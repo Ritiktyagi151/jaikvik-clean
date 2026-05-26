@@ -9,13 +9,14 @@ import {
   deleteReview,
 } from "../controllers/review.controller";
 import { protect, admin } from "../middleware/auth";
+import { verifyRecaptcha } from "../middleware/verifyRecaptcha";
 
 const router = express.Router();
 
 // Public
 router.get("/", getReviews);
 router.get("/approved", getReviews);
-router.post("/", createReview); // anyone can submit review
+router.post("/", verifyRecaptcha, createReview); // anyone can submit review
 
 // Admin
 router.get("/admin", protect, admin, getAdminReviews);

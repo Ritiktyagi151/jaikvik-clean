@@ -9,6 +9,7 @@ import {
   getJobs,
   submitApp,
 } from "../controllers/career.controller";
+import { verifyRecaptcha } from "../middleware/verifyRecaptcha";
 
 const router = express.Router();
 const resumeUploadDir = path.join(process.cwd(), "uploads", "resumes");
@@ -83,7 +84,7 @@ const uploadResume = (req: Request, res: Response, next: NextFunction): void => 
 router.get("/jobs", getJobs);
 router.post("/jobs", createJob);
 router.delete("/jobs/:id", deleteJob);
-router.post("/submit", uploadResume, submitApp);
+router.post("/submit", verifyRecaptcha, uploadResume, submitApp);
 router.get("/admin/apps", getApps);
 
 export default router;

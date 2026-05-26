@@ -5,12 +5,13 @@ import {
   getEnquiries,
   getEnquiryById,
 } from "../controllers/enquiry.controller";
+import { verifyRecaptcha } from "../middleware/verifyRecaptcha";
 import { enquiryValidationRules, validate } from "../utils/validation";
 
 const router = express.Router();
 
 // Public
-router.post("/", enquiryValidationRules(), validate, createEnquiry);
+router.post("/", verifyRecaptcha, enquiryValidationRules(), validate, createEnquiry);
 
 // Admin
 router.get("/", protect, admin, getEnquiries);

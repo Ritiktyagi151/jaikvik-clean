@@ -3,10 +3,18 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { sendExternalLead } from "@/lib/externalLead";
+import { useRecaptcha } from "@/lib/useRecaptcha";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const CareerForm = () => {
+  const {
+    getRecaptchaToken,
+    isRecaptchaReady,
+    recaptchaError,
+    recaptchaRef,
+    resetRecaptcha,
+  } = useRecaptcha();
   const [formData, setFormData] = useState({
     fname: "",
     phone: "",
@@ -25,12 +33,14 @@ const CareerForm = () => {
     setStatus(null);
 
     try {
+      const recaptchaToken = await getRecaptchaToken();
       const data = new FormData();
       data.append("name", formData.fname);
       data.append("phone", formData.phone);
       data.append("email", formData.email);
       data.append("position", formData.position);
       data.append("message", formData.msg);
+      data.append("recaptchaToken", recaptchaToken);
       if (formData.resume) data.append("resume", formData.resume);
 
       sendExternalLead({
@@ -54,6 +64,7 @@ const CareerForm = () => {
       const response = await axios.post(`${API_URL}/careers/submit`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "x-recaptcha-token": recaptchaToken,
         },
       });
 
@@ -62,12 +73,16 @@ const CareerForm = () => {
         setFormData({ fname: "", phone: "", email: "", resume: null, position: "", msg: "" });
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = axios.isAxiosError<{ message?: string }>(error)
+        ? error.response?.data?.message
+        : undefined;
       setStatus({ 
         success: false, 
-        message: error.response?.data?.message || "Something went wrong" 
+        message: message || "Something went wrong" 
       });
     } finally {
+      resetRecaptcha();
       setIsSubmitting(false);
     }
   };
@@ -103,6 +118,12 @@ const CareerForm = () => {
         <textarea placeholder="Message" rows={4} required className="bg-transparent border p-2 text-white md:col-span-2" 
           value={formData.msg} onChange={(e)=>setFormData({...formData, msg: e.target.value})} />
 
+        <div className="recaptcha-field md:col-span-2" ref={recaptchaRef} />
+        {!isRecaptchaReady && (
+          <p className="recaptcha-status md:col-span-2">
+            {recaptchaError || "Captcha is loading..."}
+          </p>
+        )}
         <button type="submit" disabled={isSubmitting} className="bg-red-600 text-white p-3 font-bold hover:bg-red-700 disabled:opacity-50">
           {isSubmitting ? "Uploading..." : "Submit Application"}
         </button>

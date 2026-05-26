@@ -2,14 +2,22 @@
 
 import { useState } from "react";
 import { sendExternalLead } from "@/lib/externalLead";
+import { useRecaptcha } from "@/lib/useRecaptcha";
 import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface";
 import "../../styles/enquire-form.css";
 // Icons ke liye (Optional: Lucide-react use karein ya SVG daal dein)
-import { CheckCircle, ShieldCheck, Zap, Users } from "lucide-react";
+import { ShieldCheck, Zap, Users } from "lucide-react";
 
 const EnquireSection = () => {
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
   const today = new Date().toISOString().split("T")[0];
+  const {
+    getRecaptchaToken,
+    isRecaptchaReady,
+    recaptchaError,
+    recaptchaRef,
+    resetRecaptcha,
+  } = useRecaptcha();
 
   const [formData, setFormData] = useState<EnquireFormInterface>({
     fname: "",
@@ -41,16 +49,19 @@ const EnquireSection = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     try {
-      const payload = { ...formData, location: formData.preferredMode, sourcePage: "home-enquiry" };
+      const recaptchaToken = await getRecaptchaToken();
+      const payload = { ...formData, location: formData.preferredMode, sourcePage: "home-enquiry", recaptchaToken };
 
       sendExternalLead({
         formName: "home-enquiry-form",
-        ...payload,
+        ...formData,
+        location: formData.preferredMode,
+        sourcePage: "home-enquiry",
       });
 
       const response = await fetch(`${API_BASE}/enquiries`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json", "x-recaptcha-token": recaptchaToken },
         body: JSON.stringify(payload),
       });
       const data = await response.json();
@@ -59,8 +70,17 @@ const EnquireSection = () => {
         setFormData({ fname: "", email: "", phone: "", company: "", message: "", city: "", state: "", preferredDate: "", preferredTime: "", preferredMode: "" });
       } else { throw new Error(data?.message || "Failed"); }
     } catch (error) {
-      setSubmitStatus({ success: false, message: "Something went wrong. Please try again." });
-    } finally { setIsSubmitting(false); }
+      setSubmitStatus({
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    } finally {
+      resetRecaptcha();
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -111,6 +131,12 @@ const EnquireSection = () => {
               </div>
             </div>
 
+            <div className="recaptcha-field" ref={recaptchaRef} />
+            {!isRecaptchaReady && (
+              <p className="recaptcha-status">
+                {recaptchaError || "Captcha is loading..."}
+              </p>
+            )}
             <button type="submit" disabled={isSubmitting} className="w-full bg-main-red hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-all transform hover:scale-[0.98]">
               {isSubmitting ? "SENDING..." : "CONFIRM SCHEDULE"}
             </button>

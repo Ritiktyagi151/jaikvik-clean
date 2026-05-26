@@ -7,12 +7,13 @@ import {
   deleteContact,
 } from "../controllers/contact.controller";
 import { protect, admin } from "../middleware/auth";
+import { verifyRecaptcha } from "../middleware/verifyRecaptcha";
 import { contactValidationRules, validate } from "../utils/validation";
 
 const router = express.Router();
 
 // Public
-router.post("/", contactValidationRules(), validate, submitContact);
+router.post("/", verifyRecaptcha, contactValidationRules(), validate, submitContact);
 
 // Admin protected
 router.get("/", protect, admin, getContacts);

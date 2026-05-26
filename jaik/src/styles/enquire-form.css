@@ -52,6 +52,28 @@
     color: #ff0000;
 }
 
+.recaptcha-field {
+    width: 100%;
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.recaptcha-status {
+    margin: -10px 0 14px;
+    color: #f87171;
+    font-size: 14px;
+}
+
+@media (max-width: 380px) {
+    .recaptcha-field {
+        transform: scale(0.86);
+        transform-origin: left center;
+        width: 116%;
+    }
+}
+
 @media (max-width: 992px) {
 
     .input-contain input,

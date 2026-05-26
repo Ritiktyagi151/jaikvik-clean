@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { sendExternalLead } from "@/lib/externalLead";
+import { useRecaptcha } from "@/lib/useRecaptcha";
 import "../../styles/enquire-form.css";
 
 interface FormData {
@@ -15,9 +16,24 @@ interface FormData {
   location: string;
 }
 
+type ContactResponse = {
+  success?: boolean;
+  message?: string;
+  meeting?: {
+    meetLink?: string;
+  };
+};
+
 const ContactForm = () => {
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
   const today = new Date().toISOString().split("T")[0];
+  const {
+    getRecaptchaToken,
+    isRecaptchaReady,
+    recaptchaError,
+    recaptchaRef,
+    resetRecaptcha,
+  } = useRecaptcha();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -63,14 +79,17 @@ const ContactForm = () => {
         throw new Error("Form service is unavailable. Please try again later.");
       }
 
+      const recaptchaToken = await getRecaptchaToken();
       const payload = {
         ...formData,
         sourcePage: "contact-us",
+        recaptchaToken,
       };
 
       sendExternalLead({
         formName: "contact-form",
-        ...payload,
+        ...formData,
+        sourcePage: "contact-us",
       });
 
       const response = await fetch(`${API_BASE}/contact`, {
@@ -78,11 +97,12 @@ const ContactForm = () => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "x-recaptcha-token": recaptchaToken,
         },
         body: JSON.stringify(payload),
       });
 
-      let data: any = null;
+      let data: ContactResponse | null = null;
       try {
         data = await response.json();
       } catch {
@@ -118,6 +138,7 @@ const ContactForm = () => {
             : "Something went wrong. Please try again.",
       });
     } finally {
+      resetRecaptcha();
       setIsSubmitting(false);
     }
   };
@@ -308,6 +329,12 @@ const ContactForm = () => {
 
         {/* Submit Button */}
         <div className="md:col-span-2">
+          <div className="recaptcha-field" ref={recaptchaRef} />
+          {!isRecaptchaReady && (
+            <p className="recaptcha-status">
+              {recaptchaError || "Captcha is loading..."}
+            </p>
+          )}
           <button
             type="submit"
             disabled={isSubmitting}

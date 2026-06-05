@@ -21,6 +21,7 @@ const SocialMediaSection = () => {
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [reelsData, setReelsData] = useState<any[]>([]);
+  const [selectedReel, setSelectedReel] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -100,6 +101,12 @@ const SocialMediaSection = () => {
     else desktopSwiperRef.current.autoplay.start();
   };
 
+  const openMobileReel = (reel: any) => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setSelectedReel(reel);
+    }
+  };
+
   if (loading) return <div className="h-60 flex items-center justify-center text-white">Loading Reels...</div>;
 
   return (
@@ -140,6 +147,7 @@ const SocialMediaSection = () => {
                         ${isFar ? "scale-75 opacity-20" : ""}
                       `}
                       style={{ aspectRatio: "9/16" }}
+                      onClick={() => openMobileReel(reel)}
                     >
                       <video
                         ref={(el) => { videoRefs.current[index] = el; }}
@@ -184,6 +192,35 @@ const SocialMediaSection = () => {
       </div>
 
       {/* ─── DESKTOP SLIDER ─── */}
+      {selectedReel && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black lg:hidden">
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm"
+            onClick={() => setSelectedReel(null)}
+            aria-label="Close reel"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+
+          <video
+            src={selectedReel.video}
+            poster={selectedReel.poster}
+            controls
+            autoPlay
+            playsInline
+            className="h-full w-full object-contain"
+          />
+        </div>
+      )}
+
       <div className="hidden lg:block px-10">
         <div className="relative group">
           <Swiper

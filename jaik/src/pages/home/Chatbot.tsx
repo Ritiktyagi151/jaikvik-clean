@@ -546,7 +546,7 @@ const Chatbot: React.FC = () => {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-24 right-4 z-[9999] flex h-[78vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-[28px] border border-white/15 bg-[#0b1120] text-white shadow-[0_30px_80px_rgba(0,0,0,0.55)] md:right-6 md:w-[400px]">
+        <div className="fixed bottom-32 right-4 z-[9999] flex h-[78vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-[28px] border border-white/15 bg-[#0b1120] text-white shadow-[0_30px_80px_rgba(0,0,0,0.55)] md:right-6 md:w-[400px]">
 
           {/* ── Header ── */}
           <div className="bg-gradient-to-r from-[#f97316] via-[#ef4444] to-[#1d4ed8] px-5 py-4">
@@ -720,7 +720,7 @@ const Chatbot: React.FC = () => {
 
       {/* ── FAB ── */}
       <button type="button" onClick={() => setIsOpen((p) => !p)}
-        className="fixed bottom-6 right-4 z-[9999] flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#f97316] via-[#ef4444] to-[#1d4ed8] text-white shadow-[0_20px_60px_rgba(239,68,68,0.45)] transition hover:scale-105 md:right-6"
+        className="fixed bottom-14 right-4 z-[9999] flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#f97316] via-[#ef4444] to-[#1d4ed8] text-white shadow-[0_20px_60px_rgba(239,68,68,0.45)] transition hover:scale-105 md:right-6"
         aria-label={isOpen ? "Close chat" : "Open chat"}>
         {isOpen ? (
           <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">

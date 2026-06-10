@@ -201,12 +201,14 @@ const SeoServices: React.FC = () => {
                   initial="hidden"
                   animate={sectionRefs[index][1] ? "visible" : "hidden"}
                 >
-                  <motion.h2
-                    variants={staggerItem}
-                    className="text-3xl md:text-4xl font-extrabold text-red-500 mb-8 tracking-tight drop-shadow-md"
-                  >
-                    {section.title}
-                  </motion.h2>
+                 {section.title && (
+  <motion.h2
+    variants={staggerItem}
+    className="text-3xl md:text-4xl font-extrabold text-red-500 mb-8 tracking-tight drop-shadow-md"
+  >
+    {section.title}
+  </motion.h2>
+)}
 
                   <motion.div variants={staggerItem}>
                     {parseContent(preview)}

@@ -310,7 +310,7 @@ const Navbar: React.FC = () => {
       >
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <h2 className="text-lg font-bold text-red-500">Menu</h2>
+          <p className="text-lg font-bold text-red-500">Menu</p>
           <button
             className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
             onClick={toggleOffCanvas}
@@ -641,9 +641,9 @@ const Navbar: React.FC = () => {
           {/* Social Icons */}
           <div>
             <div className="offcanvas-social p-4 border-t border-gray-700">
-              <h3 className="text-sm font-semibold text-gray-400 mb-3 text-center">
+              <p className="text-sm font-semibold text-gray-400 mb-3 text-center">
                 Follow Us
-              </h3>
+              </p>
               <ul className="flex space-x-3 justify-center">
                 <li>
                   <Link

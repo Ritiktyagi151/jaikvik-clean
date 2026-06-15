@@ -1,89 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
+<url>
     <loc>https://www.jaikvik.com/</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
     <priority>1.0</priority>
-  </url>
+</url>
 
-  <url>
+<url>
     <loc>https://www.jaikvik.com/about</loc>
-    <priority>0.9</priority>
-  </url>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
+<url>
     <loc>https://www.jaikvik.com/blogs</loc>
-    <priority>0.9</priority>
-  </url>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
+<url>
     <loc>https://www.jaikvik.com/contact-us</loc>
-    <priority>0.9</priority>
-  </url>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/admin</loc>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
+<url>
     <loc>https://www.jaikvik.com/careers</loc>
-    <priority>0.8</priority>
-  </url>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/coustmised-software</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+    <loc>https://www.jaikvik.com/cusotmized-software</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/crm</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+    <loc>https://www.jaikvik.com/website-development-company</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/mobile-application</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+    <loc>https://www.jaikvik.com/digital-marketing-agency-in-india</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/erp</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+    <loc>https://www.jaikvik.com/seo-services-in-india</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://www.jaikvik.com/website-development</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.jaikvik.com/digital-marketing</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.jaikvik.com/social-media-marketing</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.jaikvik.com/youtube-meta-ads</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.jaikvik.com/branding</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.jaikvik.com/seo-services</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
+<url>
     <loc>https://www.jaikvik.com/film-production</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/crm</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/mobile-application</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/erp</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/social-media-marketing</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/youtube-meta-ads</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/branding</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/JaikvikTechnologyBroucher.pdf</loc>
+    <lastmod>2026-06-12T07:23:15+01:00</lastmod>
+    <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/digital-marketing-strategies-for-business-growth-in-2026</loc>
+    <lastmod>2026-06-12T07:23:20+01:00</lastmod>
     <priority>0.8</priority>
-  </url>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/how-best-seo-services-improve-website-traffic</loc>
+    <lastmod>2026-06-12T07:23:22+01:00</lastmod>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/website-development-blueprint-for-business-growth-online</loc>
+    <lastmod>2026-06-12T07:23:24+01:00</lastmod>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/local-success-starts-with-an-seo-agency-near-me</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/how-do-you-choose-the-best-seo-company-for-your-business</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/smart-digital-marketing-strategies-for-business-growth</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/best-website-development-company-for-smes</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/best-seo-services-in-india-for-better-online-visibility</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/best-digital-marketing-agency-in-india-for-growth</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/trusted-website-development-company-grow-your-brand</loc>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://www.jaikvik.com/blog/digital-marketing-solutions-for-modern-business-growth</loc>
+    <priority>0.8</priority>
+</url>
 
 </urlset>

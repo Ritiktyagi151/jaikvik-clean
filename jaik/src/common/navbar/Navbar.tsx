@@ -14,6 +14,7 @@ import {
   websiteDevelopmentItems,
 } from "../../configs/navConfigs";
 import Link from "next/link";
+import BookingPillButton from "@/components/buttons/BookingPillButton";
 
 const Navbar: React.FC = () => {
   // State for popups and off-canvas menu
@@ -277,6 +278,9 @@ const Navbar: React.FC = () => {
             />
           </Link>
           <div className="flex items-center space-x-3">
+            <BookingPillButton className="h-8 gap-1.5 px-2.5 text-[10px]">
+              <span className="whitespace-nowrap">Book</span>
+            </BookingPillButton>
             <button
               onClick={toggleOffCanvas}
               className="text-white hover:text-red-500 transition-colors p-1"
@@ -606,11 +610,11 @@ const Navbar: React.FC = () => {
 
               <li>
                 <Link
-                  href="/contact-us#schedule-your-meeting"
+                  href="/book"
                   className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 bg-red-600/20 hover:bg-red-600 hover:text-white transition-all duration-200"
                   onClick={toggleOffCanvas}
                 >
-                  Schedule Your Meeting
+                  Book a call with us (30 Minute Meeting)
                 </Link>
               </li>
 

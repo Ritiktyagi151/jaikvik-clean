@@ -8,6 +8,7 @@ import {
 } from "../../configs/navConfigs";
 import type navmenuInterface from "../../interfaces/navmenuInterface";
 import NavMenu from "./NavMenu";
+import BookingPillButton from "@/components/buttons/BookingPillButton";
 
 // 🔑 Import your LanguageSelector (flag-based)
 import LanguageSelector from "./LanguageSelector"; // <-- path correct
@@ -73,7 +74,9 @@ const NavLayerBottom: React.FC<{
 
           {/* Right - Language Selector with flags */}
           <ul className="flex items-center list-none relative gap-2">
-            
+            <li>
+              <BookingPillButton className="h-9 px-3 text-[11px] xl:px-4" />
+            </li>
             <li className="ml-auto">
               <LanguageSelector />
             </li>

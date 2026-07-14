@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/favicon.png",
+        url: "/favicon.ico",
+        type: "image/x-icon",
+      },
+      {
+        url: "/logos/favicon.png",
         type: "image/png",
       },
     ],

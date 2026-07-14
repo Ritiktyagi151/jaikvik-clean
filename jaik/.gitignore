@@ -25,3 +25,8 @@ dist-ssr
 .next/
 out/
 *.pack
+
+.env
+.env.development
+.env.production
+.env.local

@@ -108,3 +108,7 @@ coverage/
 # Add any other local/secret files you use:
 # secret-config.json
 # my-credentials.json
+.env
+.env.development
+.env.production
+.env.local

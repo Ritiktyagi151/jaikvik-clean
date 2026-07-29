@@ -131,7 +131,7 @@ export const enquiryValidationRules = () => {
       .isLength({ min: 2, max: 150 })
       .withMessage("Company is required"),
     body("city")
-      .optional()
+      .optional({ values: "falsy" })
       .trim()
       .isLength({ min: 2, max: 120 })
       .withMessage("City must be valid"),

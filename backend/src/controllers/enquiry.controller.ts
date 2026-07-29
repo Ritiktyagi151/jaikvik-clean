@@ -51,7 +51,7 @@ export const createEnquiry = async (
       email: string;
       phone: string;
       company: string;
-      city: string;
+      city?: string;
       message: string;
       preferredDate: string;
       preferredTime: string;
@@ -62,6 +62,7 @@ export const createEnquiry = async (
     };
     const resolvedName = fname || name || "";
     const location = rawLocation || preferredLocation || preferredMode || "";
+    const resolvedCity = city || "N/A";
 
     try {
       validateMeetingSlotInput({ preferredDate, preferredTime });
@@ -81,7 +82,7 @@ export const createEnquiry = async (
         preferredDate,
         preferredTime,
         summary: `Enquiry call with ${resolvedName}`,
-        description: `Company: ${company}\nCity: ${city}\nMessage: ${message}`,
+        description: `Company: ${company}\nCity: ${resolvedCity}\nMessage: ${message}`,
         attendeeEmails: [email].filter(Boolean),
       });
     } catch (meetingError) {
@@ -105,7 +106,7 @@ export const createEnquiry = async (
       email,
       phone,
       company,
-      city: city || "N/A",
+      city: resolvedCity,
       message,
       preferredDate,
       preferredTime,
@@ -123,7 +124,7 @@ export const createEnquiry = async (
         email,
         phone,
         company,
-        city,
+        city: resolvedCity,
         message,
         preferredDate,
         preferredTime,

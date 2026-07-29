@@ -16,6 +16,21 @@ import axios from "axios";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const API_URL = `${API_BASE}/footer`;
+const FOOTER_EMAIL = "info@jaikvik.com";
+
+type Office = {
+  address: string;
+};
+
+type FooterData = {
+  description?: string;
+  socials?: Record<string, string>;
+  contacts?: {
+    offices?: Office[];
+    phones?: string[];
+  };
+  copyright?: string;
+};
 
 const DESKTOP_USEFUL_LINKS = [
   { text: "About Us", url: "/about" },
@@ -41,7 +56,7 @@ const DESKTOP_SERVICES_LINKS = [
 ];
 
 const Footer = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<FooterData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -79,7 +94,7 @@ const Footer = () => {
         {/* Row 1: Description & Socials — full width */}
         <div>
           <div className="flex gap-6 mb-4">
-            {Object.entries(data.socials || {}).map(([platform, url]: any) =>
+            {Object.entries(data.socials || {}).map(([platform, url]) =>
               url && (
                 <Link key={platform} href={url} target="_blank" rel="noopener noreferrer">
                   <span className="text-white text-xl hover:text-main-red transition-all">
@@ -149,7 +164,7 @@ const Footer = () => {
             Get In Touch
           </h3>
           <ul className="list-none p-0 m-0">
-            {data.contacts?.offices?.map((off: any, i: number) => (
+            {data.contacts?.offices?.map((off, i) => (
               <li key={i} className="flex items-start gap-2 mt-2">
                 <FaMapMarkerAlt className="text-main-red shrink-0 mt-1" />
                 <p className="text-main-gray text-[16px]">{off.address}</p>
@@ -157,14 +172,14 @@ const Footer = () => {
             ))}
             <li className="flex items-center gap-2 mt-2">
               <FaEnvelopeOpenText className="text-main-red" />
-              <a href={`mailto:${data.contacts.email}`} className="text-main-gray hover:underline">
-                {data.contacts.email}
+              <a href={`mailto:${FOOTER_EMAIL}`} className="text-main-gray hover:underline">
+                {FOOTER_EMAIL}
               </a>
             </li>
             <li className="flex items-center gap-2 mt-2 text-[16px]">
               <FaPhone className="text-main-red rotate-120" />
               <ul className="flex flex-wrap gap-2 p-0 m-0 leading-4">
-                {data.contacts.phones?.map((ph: string, i: number) => (
+                {data.contacts?.phones?.map((ph, i) => (
                   <li key={i}>
                     <a href={`tel:${ph}`} className="text-main-gray hover:underline">
                       {ph}
@@ -183,7 +198,7 @@ const Footer = () => {
         {/* Section 1: Description & Socials */}
         <div>
           <div className="flex gap-6 mb-4">
-            {Object.entries(data.socials || {}).map(([platform, url]: any) =>
+            {Object.entries(data.socials || {}).map(([platform, url]) =>
               url && (
                 <Link key={platform} href={url} target="_blank" rel="noopener noreferrer">
                   <span className="text-white text-xl hover:text-main-red transition-all">
@@ -244,7 +259,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg text-gray-200 mb-2 font-bold">Get In Touch</h3>
           <ul className="list-none p-0 m-0">
-            {data.contacts?.offices?.map((off: any, i: number) => (
+            {data.contacts?.offices?.map((off, i) => (
               <li key={i} className="flex items-center gap-2 mt-2">
                 <FaMapMarkerAlt className="text-main-red shrink-0" />
                 <p className="text-main-gray text-[16px]">{off.address}</p>
@@ -252,14 +267,14 @@ const Footer = () => {
             ))}
             <li className="flex items-center gap-2 mt-2">
               <FaEnvelopeOpenText className="text-main-red" />
-              <a href={`mailto:${data.contacts.email}`} className="text-main-gray hover:underline">
-                {data.contacts.email}
+              <a href={`mailto:${FOOTER_EMAIL}`} className="text-main-gray hover:underline">
+                {FOOTER_EMAIL}
               </a>
             </li>
             <li className="flex items-center gap-2 mt-2 text-[16px]">
               <FaPhone className="text-main-red rotate-120" />
               <ul className="flex flex-wrap gap-2 p-0 m-0 leading-4">
-                {data.contacts.phones?.map((ph: string, i: number) => (
+                {data.contacts?.phones?.map((ph, i) => (
                   <li key={i}>
                     <a href={`tel:${ph}`} className="text-main-gray hover:underline">
                       {ph}

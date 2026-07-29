@@ -25,8 +25,6 @@ const EnquireSection = () => {
     phone: "",
     company: "",
     message: "",
-    city: "",
-    state: "",
     preferredDate: "",
     preferredTime: "",
     preferredMode: "",
@@ -67,7 +65,7 @@ const EnquireSection = () => {
       const data = await response.json();
       if (response.ok && data?.success) {
         setSubmitStatus({ success: true, message: "Success! We'll contact you soon.", meetLink: data?.meeting?.meetLink });
-        setFormData({ fname: "", email: "", phone: "", company: "", message: "", city: "", state: "", preferredDate: "", preferredTime: "", preferredMode: "" });
+        setFormData({ fname: "", email: "", phone: "", company: "", message: "", preferredDate: "", preferredTime: "", preferredMode: "" });
       } else { throw new Error(data?.message || "Failed"); }
     } catch (error) {
       setSubmitStatus({
@@ -124,6 +122,14 @@ const EnquireSection = () => {
               <div className="input-contain col-span-1">
                 <input type="time" name="preferredTime" value={formData.preferredTime} onChange={handleChange} required />
                 <label className="placeholder-text">TIME</label>
+              </div>
+              <div className="input-contain col-span-2">
+                <select name="preferredMode" value={formData.preferredMode} onChange={handleChange} required>
+                  <option value="">PREFERRED LOCATION</option>
+                  <option value="Google Meet (Online)">Google Meet (Online)</option>
+                  <option value="Office Visit">Office Visit</option>
+                  <option value="Phone Call">Phone Call</option>
+                </select>
               </div>
               <div className="input-contain col-span-2">
                 <textarea name="message" rows={2} value={formData.message} onChange={handleChange} placeholder=" " required></textarea>

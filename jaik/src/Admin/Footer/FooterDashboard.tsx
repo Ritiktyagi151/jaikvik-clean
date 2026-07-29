@@ -1,22 +1,37 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { 
-  FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaMapMarkerAlt, 
-  FaEdit, FaSave, FaTimes, FaPlus, FaTrash, FaGlobe, FaEnvelope, FaPhone 
+  FaEdit, FaSave, FaTimes, FaPlus, FaTrash, FaEnvelope, FaPhone 
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import { FiRefreshCw } from "react-icons/fi";
 import axios from "axios";
 
 // Environment Variable for API
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const API_URL = `${API_BASE}/footer`;
+const FOOTER_EMAIL = "info@jaikvik.com";
+
+type Office = {
+  label: string;
+  address: string;
+};
+
+type FooterData = {
+  description: string;
+  socials: Record<string, string>;
+  contacts: {
+    offices: Office[];
+    email: string;
+    phones: string[];
+  };
+  copyright: string;
+};
 
 const AdminFooterPanel = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
-  const [tempData, setTempData] = useState<any>(null);
+  const [data, setData] = useState<FooterData | null>(null);
+  const [tempData, setTempData] = useState<FooterData | null>(null);
   
   // Sections toggle state
   const [isEditing, setIsEditing] = useState({
@@ -36,12 +51,12 @@ const AdminFooterPanel = () => {
       const backendData = res.data?.data || res.data;
       
       // ✅ Mapping Backend Schema to UI
-      const normalized = {
+      const normalized: FooterData = {
         description: backendData?.description || "",
         socials: backendData?.socials || {},
         contacts: {
           offices: backendData?.contacts?.offices || [],
-          email: backendData?.contacts?.email || "",
+          email: backendData?.contacts?.email || FOOTER_EMAIL,
           phones: backendData?.contacts?.phones || []
         },
         copyright: backendData?.copyright || "© 2016 All Rights Reserved"
@@ -49,7 +64,7 @@ const AdminFooterPanel = () => {
       
       setData(normalized);
       setTempData(normalized);
-    } catch (err: any) { 
+    } catch (err) {
       console.error("API Fetch Error:", err);
       setError("Database connection failed.");
     } finally { setLoading(false); }
@@ -59,6 +74,8 @@ const AdminFooterPanel = () => {
 
   // ✅ SAVE DATA TO BACKEND
   const handleSave = async (sectionKey: string) => {
+    if (!tempData) return;
+
     try {
       setLoading(true);
       // Sending the complete tempData object to the PUT endpoint
@@ -67,38 +84,42 @@ const AdminFooterPanel = () => {
       setData(JSON.parse(JSON.stringify(tempData))); 
       setIsEditing({ ...isEditing, [sectionKey as keyof typeof isEditing]: false });
       alert("Footer updated successfully!");
-    } catch (err: any) { 
+    } catch {
         alert("Update failed! Please check backend console."); 
     } finally { setLoading(false); }
   };
 
   // ✅ Dynamic Field Logic
   const addOffice = () => {
+    if (!tempData) return;
     const copy = { ...tempData };
     copy.contacts.offices.push({ label: "Office Title", address: "" });
     setTempData(copy);
   };
 
   const removeOffice = (index: number) => {
+    if (!tempData) return;
     const copy = { ...tempData };
     copy.contacts.offices.splice(index, 1);
     setTempData(copy);
   };
 
   const addPhone = () => {
+    if (!tempData) return;
     const copy = { ...tempData };
     copy.contacts.phones.push("");
     setTempData(copy);
   };
 
   const removePhone = (index: number) => {
+    if (!tempData) return;
     const copy = { ...tempData };
     copy.contacts.phones.splice(index, 1);
     setTempData(copy);
   };
 
   // Loading Guard
-  if (!tempData) return (
+  if (!tempData || !data) return (
     <div className="min-h-screen bg-black flex items-center justify-center">
       <div className="text-red-600 font-bold animate-pulse flex items-center gap-2 uppercase">
         <FiRefreshCw className="animate-spin" /> Fetching Database...
@@ -151,7 +172,7 @@ const AdminFooterPanel = () => {
                 <label className="text-[10px] font-bold text-red-600 uppercase tracking-widest">Office Locations</label>
                 {isEditing.contact && <button onClick={addOffice} className="bg-green-600/10 text-green-500 px-3 py-1 rounded text-[10px] flex items-center gap-1 hover:bg-green-600 hover:text-white transition-all"><FaPlus/> NEW OFFICE</button>}
               </div>
-              {tempData.contacts.offices.map((off: any, i: number) => (
+              {tempData.contacts.offices.map((off, i) => (
                 <div key={i} className="bg-black/60 p-4 rounded-xl border border-gray-800 relative group">
                   {isEditing.contact ? (
                     <div className="space-y-3">
@@ -207,7 +228,16 @@ const AdminFooterPanel = () => {
   );
 };
 
-const Section = ({ title, children, active, onEdit, onSave, onCancel }: any) => (
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
+  active: boolean;
+  onEdit: () => void;
+  onSave: () => void;
+  onCancel: () => void;
+};
+
+const Section = ({ title, children, active, onEdit, onSave, onCancel }: SectionProps) => (
   <div className={`bg-[#0d0d0d] border ${active ? 'border-red-600/50 shadow-[0_0_30px_rgba(220,38,38,0.05)]' : 'border-gray-900'} rounded-2xl overflow-hidden transition-all duration-300`}>
     <div className="px-6 py-4 bg-[#121212] flex justify-between items-center border-b border-gray-900 shadow-inner">
       <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70">{title}</h3>

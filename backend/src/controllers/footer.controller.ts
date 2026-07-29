@@ -9,7 +9,7 @@ export const getFooter = async (req: Request, res: Response) => {
     return res.status(200).json(footer || {
       description: "",
       socials: {},
-      contacts: { offices: [], email: "", phones: [] },
+      contacts: { offices: [], email: "info@jaikvik.com", phones: [] },
       copyright: ""
     });
   } catch (err) {

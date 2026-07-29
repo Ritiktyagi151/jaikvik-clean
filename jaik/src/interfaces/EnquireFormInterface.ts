@@ -26,8 +26,8 @@ export interface EnquireFormInterface {
   phone: string;
   company: string;
   message: string;
-  city: string;
-  state: string;
+  city?: string;
+  state?: string;
   preferredDate: string;
   preferredTime: string;
   preferredMode: string;

@@ -52,7 +52,7 @@ const ContactForm = () => {
   } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -304,26 +304,19 @@ const ContactForm = () => {
 
         <div className="relative md:col-span-2">
           <div className="input-contain">
-            <input
-              type="text"
+            <select
               id="location"
               name="location"
               value={formData.location}
               onChange={handleChange}
               required
-              placeholder=" "
-              list="contact-location-options"
               aria-label="Location"
-            />
-            <datalist id="contact-location-options">
-              <option value="Online Meeting" />
-              <option value="Office Visit" />
-              <option value="Phone Call" />
-              <option value="Google Meet" />
-            </datalist>
-            <label htmlFor="location" className="placeholder-text">
-              PREFERRED LOCATION
-            </label>
+            >
+              <option value="">PREFERRED LOCATION</option>
+              <option value="Google Meet (Online)">Google Meet (Online)</option>
+              <option value="Office Visit">Office Visit</option>
+              <option value="Phone Call">Phone Call</option>
+            </select>
           </div>
         </div>
 

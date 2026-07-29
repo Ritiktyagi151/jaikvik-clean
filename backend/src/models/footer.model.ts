@@ -42,7 +42,7 @@ const FooterSchema = new Schema<FooterDoc>(
     },
     contacts: {
       offices: [OfficeSchema],
-      email: String,
+      email: { type: String, default: "info@jaikvik.com" },
       phones: [String],
     },
     copyright: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReelTable from "./ReelTable";
 import ReelForm from "./ReelForm";
@@ -10,16 +10,73 @@ import type { Reel, ReelFormData } from "./reel";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5002/api";
 const API_URL = `${API_BASE_URL}/reels`;
 
+type ReelApiResponse = Omit<Reel, "id"> & {
+  _id?: string;
+  id?: string;
+};
+
 const ReelsDashboard = () => {
   const [reels, setReels] = useState<Reel[]>([]);
   const [editingReel, setEditingReel] = useState<Reel | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [scrollToFormKey, setScrollToFormKey] = useState(0);
+  const formSectionRef = useRef<HTMLDivElement>(null);
 
   // 1. Fetch Reels on Load
   useEffect(() => {
     fetchReels();
   }, []);
+
+  const scrollToEditForm = () => {
+    const formSection = formSectionRef.current;
+    if (!formSection) return;
+
+    formSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    const formTop = formSection.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({
+      top: Math.max(formTop, 0),
+      behavior: "smooth",
+    });
+
+    let scrollContainer = formSection.parentElement;
+    while (scrollContainer) {
+      const style = window.getComputedStyle(scrollContainer);
+      const canScroll =
+        /(auto|scroll)/.test(style.overflowY) &&
+        scrollContainer.scrollHeight > scrollContainer.clientHeight;
+
+      if (canScroll) {
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const formRect = formSection.getBoundingClientRect();
+        const targetTop =
+          scrollContainer.scrollTop + formRect.top - containerRect.top - 16;
+
+        scrollContainer.scrollTo({
+          top: Math.max(targetTop, 0),
+          behavior: "smooth",
+        });
+      }
+
+      scrollContainer = scrollContainer.parentElement;
+    }
+  };
+
+  useEffect(() => {
+    if (!editingReel || !showForm || scrollToFormKey === 0) return;
+
+    const firstTimer = window.setTimeout(scrollToEditForm, 80);
+    const secondTimer = window.setTimeout(scrollToEditForm, 300);
+
+    return () => {
+      window.clearTimeout(firstTimer);
+      window.clearTimeout(secondTimer);
+    };
+  }, [editingReel, showForm, scrollToFormKey]);
 
   const fetchReels = async () => {
     try {
@@ -31,7 +88,7 @@ const ReelsDashboard = () => {
       const isSuccess = response.data.success !== undefined ? response.data.success : true;
 
       if (isSuccess && Array.isArray(rawData)) {
-        const formattedData = rawData.map((r: any) => ({
+        const formattedData = rawData.map((r: ReelApiResponse) => ({
           ...r,
           id: r._id || r.id, // MongoDB _id handle karne ke liye
         }));
@@ -104,7 +161,7 @@ const ReelsDashboard = () => {
   const handleEdit = (reel: Reel) => {
     setEditingReel(reel);
     setShowForm(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setScrollToFormKey((prev) => prev + 1);
   };
 
   const toggleForm = () => {
@@ -141,18 +198,14 @@ const ReelsDashboard = () => {
               {loading ? "--" : reels.length}
             </span>
           </div>
-          <div className="h-10 w-[1px] bg-zinc-800"></div>
-          <div className="flex flex-col">
-            <span className="text-xs text-gray-500 uppercase font-bold">Status</span>
-            <span className="text-sm text-green-500 flex items-center gap-1">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Online
-            </span>
-          </div>
         </div>
 
         {/* Form Section */}
         {(showForm || editingReel) && (
-          <div className="bg-zinc-900 rounded-2xl shadow-2xl p-8 mb-12 border border-red-600/30 animate-in fade-in slide-in-from-top-4 duration-500">
+          <div
+            ref={formSectionRef}
+            className="bg-zinc-900 rounded-2xl shadow-2xl p-8 mb-12 border border-red-600/30 animate-in fade-in slide-in-from-top-4 duration-500"
+          >
             <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
               {editingReel ? "✍️ Edit Video Details" : "🎥 Upload New Reel"}
             </h2>

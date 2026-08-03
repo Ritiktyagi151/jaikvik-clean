@@ -4,6 +4,7 @@ export interface IReel extends Document {
   video: string;
   poster: string;
   title?: string;
+  company?: string;
 }
 
 const ReelSchema: Schema = new Schema(
@@ -11,6 +12,7 @@ const ReelSchema: Schema = new Schema(
     video: { type: String, required: true }, // URL string
     poster: { type: String, required: true }, // Poster URL string
     title: { type: String },
+    company: { type: String, trim: true },
   },
   { timestamps: true }
 );

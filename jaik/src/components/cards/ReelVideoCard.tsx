@@ -26,7 +26,6 @@ const ReelVideoCard: React.FC<{
     return `${width} / ${height}`;
   }, [aspectRatio]);
 
-  // ── Mobile: tap to toggle sound ──────────────────────────────────────────
   const handleVideoClick = () => {
     const isMobileViewport =
       typeof window !== "undefined" &&
@@ -42,7 +41,6 @@ const ReelVideoCard: React.FC<{
           setIsMuted(true);
         });
       } else {
-        // Toggle mute on tap when already playing
         const newMuted = !videoRef.current.muted;
         videoRef.current.muted = newMuted;
         setIsMuted(newMuted);
@@ -50,7 +48,6 @@ const ReelVideoCard: React.FC<{
     }
   };
 
-  // ── Desktop: hover to play with sound ────────────────────────────────────
   const handleMouseEnter = async () => {
     if (videoRef.current) {
       try {
@@ -81,7 +78,6 @@ const ReelVideoCard: React.FC<{
     <div
       className={`
         hover:-translate-y-5 hover:z-[1000] transition-all rounded-md overflow-hidden duration-300 relative w-full
-        /* ── Mobile: taller card with reel feel ── */
         max-md:!aspect-auto max-md:min-h-[240px] max-md:rounded-xl
         ${scale} ${classname}
       `}
@@ -97,7 +93,6 @@ const ReelVideoCard: React.FC<{
         poster={poster}
         loop
         preload="metadata"
-        /* Mobile: autoplay muted so feed feels alive */
         autoPlay={
           typeof window !== "undefined" &&
           window.matchMedia("(max-width: 768px)").matches
@@ -109,10 +104,8 @@ const ReelVideoCard: React.FC<{
         Your browser does not support the video tag.
       </video>
 
-      {/* Sound indicator icon — shows current state */}
       <div className="absolute bottom-2 right-2 bg-black bg-opacity-50 rounded-full p-1 z-20">
         {isMuted ? (
-          /* Muted icon */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-white"
@@ -126,7 +119,6 @@ const ReelVideoCard: React.FC<{
             />
           </svg>
         ) : (
-          /* Unmuted / sound-on icon */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-white"
@@ -142,7 +134,6 @@ const ReelVideoCard: React.FC<{
         )}
       </div>
 
-      {/* Mobile-only: tap hint badge on first render */}
       <div className="md:hidden absolute bottom-2 left-2 bg-black/50 text-white text-[10px] px-2 py-0.5 rounded-full z-20 pointer-events-none">
         Tap for sound
       </div>

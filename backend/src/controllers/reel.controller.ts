@@ -16,13 +16,14 @@ export const getAllReels = async (req: Request, res: Response) => {
 // @route   POST /api/reels
 export const createReel = async (req: Request, res: Response) => {
   try {
-    const { video, poster, title } = req.body;
+    const { video, poster, title, company } = req.body;
     
     // Agar frontend se direct URLs aa rahe hain
     const newReel = new Reel({
       video,
       poster,
-      title
+      title,
+      company
     });
 
     const savedReel = await newReel.save();

@@ -45,11 +45,17 @@ const ReelTable = ({
             {reels.map((reel) => (
               <tr key={reel.id} className="hover:bg-gray-750">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <img
-                    src={reel.poster}
-                    alt="Poster"
-                    className="h-16 w-16 object-cover rounded border border-gray-600"
-                  />
+                  {reel.poster ? (
+                    <img
+                      src={reel.poster}
+                      alt="Poster"
+                      className="h-16 w-16 object-cover rounded border border-gray-600"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-16 items-center justify-center rounded border border-dashed border-gray-600 bg-zinc-900 text-center text-[10px] leading-tight text-gray-500">
+                      No thumbnail
+                    </div>
+                  )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button

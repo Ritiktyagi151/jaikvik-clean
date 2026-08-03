@@ -13,7 +13,6 @@ interface VideoItemProps {
   title: string;
   description: string;
 }
-
 // ── Custom hook: stable isMobile check (avoids SSR mismatch) ──
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);

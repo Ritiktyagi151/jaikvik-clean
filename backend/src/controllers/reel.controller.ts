@@ -21,7 +21,7 @@ export const createReel = async (req: Request, res: Response) => {
     // Agar frontend se direct URLs aa rahe hain
     const newReel = new Reel({
       video,
-      poster,
+      poster: poster || undefined,
       title,
       company
     });

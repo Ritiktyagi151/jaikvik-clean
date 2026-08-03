@@ -56,7 +56,12 @@ const ReelForm = ({ onSubmit, initialData, onCancel }: ReelFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    onSubmit({
+      ...formData,
+      video: formData.video.trim(),
+      poster: formData.poster?.trim() || undefined,
+      company: formData.company?.trim() || undefined,
+    });
     if (!initialData) {
       setFormData({ video: "", poster: "", company: "" }); // Reset form after create
     }
@@ -116,10 +121,9 @@ const ReelForm = ({ onSubmit, initialData, onCancel }: ReelFormProps) => {
           <input
             type="text"
             name="poster"
-            value={formData.poster}
+            value={formData.poster || ""}
             onChange={handleChange}
             className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            required
           />
           <button
             type="button"

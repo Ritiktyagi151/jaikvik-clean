@@ -15,6 +15,19 @@ type ReelApiResponse = Omit<Reel, "id"> & {
   id?: string;
 };
 
+const toReel = (reel: ReelApiResponse): Reel | null => {
+  const id = reel._id || reel.id;
+
+  if (!id) {
+    return null;
+  }
+
+  return {
+    ...reel,
+    id,
+  };
+};
+
 const ReelsDashboard = () => {
   const [reels, setReels] = useState<Reel[]>([]);
   const [editingReel, setEditingReel] = useState<Reel | null>(null);
@@ -88,10 +101,9 @@ const ReelsDashboard = () => {
       const isSuccess = response.data.success !== undefined ? response.data.success : true;
 
       if (isSuccess && Array.isArray(rawData)) {
-        const formattedData = rawData.map((r: ReelApiResponse) => ({
-          ...r,
-          id: r._id || r.id, // MongoDB _id handle karne ke liye
-        }));
+        const formattedData = rawData
+          .map((r: ReelApiResponse) => toReel(r))
+          .filter((reel): reel is Reel => reel !== null);
         setReels(formattedData);
       }
     } catch (error) {
@@ -109,10 +121,12 @@ const ReelsDashboard = () => {
       const result = response.data.data || response.data;
 
       if (result) {
-        const newReel = { ...result, id: result._id || result.id };
-        setReels((prev) => [newReel, ...prev]);
-        setShowForm(false);
-        alert("Reel added successfully!");
+        const newReel = toReel(result);
+        if (newReel) {
+          setReels((prev) => [newReel, ...prev]);
+          setShowForm(false);
+          alert("Reel added successfully!");
+        }
       }
     } catch (error) {
       console.error("Error creating reel:", error);
@@ -127,13 +141,15 @@ const ReelsDashboard = () => {
       const result = response.data.data || response.data;
 
       if (result) {
-        const updatedReel = { ...result, id: result._id || result.id };
-        setReels((prev) =>
-          prev.map((reel) => (reel.id === id ? updatedReel : reel))
-        );
-        setEditingReel(null);
-        setShowForm(false);
-        alert("Reel updated successfully!");
+        const updatedReel = toReel(result);
+        if (updatedReel) {
+          setReels((prev) =>
+            prev.map((reel) => (reel.id === id ? updatedReel : reel))
+          );
+          setEditingReel(null);
+          setShowForm(false);
+          alert("Reel updated successfully!");
+        }
       }
     } catch (error) {
       console.error("Error updating reel:", error);

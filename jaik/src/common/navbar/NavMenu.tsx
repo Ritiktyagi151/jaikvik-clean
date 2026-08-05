@@ -28,6 +28,9 @@ const NavMenu: React.FC<navmenuInterface> = ({
                   alt={item.text}
                   className="w-full rounded-md shadow-lg transition-transform duration-300 group-hover/item:scale-105"
                   loading="lazy"
+                  decoding="async"
+                  width={260}
+                  height={150}
                 />
                 <div className="image-text absolute left-0 right-0 top-0 px-1 py-1 text-center text-sm font-medium text-white transition-all duration-300">
                   {item.text}

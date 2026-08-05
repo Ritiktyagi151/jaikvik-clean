@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { FaAnglesUp } from 'react-icons/fa6';
 const ScrollTopToBottom: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -32,7 +31,9 @@ const ScrollTopToBottom: React.FC = () => {
             onClick={scrollToTop}
             aria-label="Scroll to top"
         >
-            <FaAnglesUp className="text-sm transition-transform duration-300" />
+            <span aria-hidden="true" className="text-sm transition-transform duration-300">
+                UP
+            </span>
         </button>
     );
 };

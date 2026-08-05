@@ -1,8 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import AppLayout from "./AppLayout";
-import AdminLayout from "./AdminLayout";
+
+const AppLayout = dynamic(() => import("./AppLayout"), {
+  loading: () => null,
+});
+
+const AdminLayout = dynamic(() => import("./AdminLayout"), {
+  loading: () => null,
+});
 
 export default function ClientLayoutWrapper({
   children,

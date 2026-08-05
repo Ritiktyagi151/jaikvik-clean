@@ -7,8 +7,6 @@ import ScrollTopToBottom from "../components/buttons/ScrollTopToBottom";
 // import ChatBot from "../ai/ChatBot"
 import BrochureButton from "../components/buttons/BrochureButton";
 import ReviewModalGate from "../components/modals/ReviewModalGate";
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
 
 const AppProvider: React.FC<{
   children: React.ReactNode;
@@ -18,14 +16,12 @@ const AppProvider: React.FC<{
 
   return (
     <>
-      <Provider store={store}>
-        <Suspense>
-          {children}
-          {shouldShowScrollToTop && <ScrollTopToBottom />}
-          <BrochureButton />
-          <ReviewModalGate />
-        </Suspense>
-      </Provider>
+      <Suspense>
+        {children}
+        {shouldShowScrollToTop && <ScrollTopToBottom />}
+        <BrochureButton />
+        <ReviewModalGate />
+      </Suspense>
     </>
   );
 };

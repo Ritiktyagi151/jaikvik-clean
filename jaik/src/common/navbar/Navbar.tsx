@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-import { IoClose, IoMenu } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
 import NavLayerTop from "./NavLayerTop";
 import NavLayerBottom from "./NavLayerBottom";
 import {
@@ -36,7 +33,7 @@ const Navbar: React.FC = () => {
       setIsSticky(windowTop > threshold);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Trigger once on mount in case user is already scrolled
     handleScroll();
@@ -275,6 +272,10 @@ const Navbar: React.FC = () => {
               src="https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/logo-1.webp"
               alt="logo"
               className="h-full object-contain"
+              width={96}
+              height={32}
+              decoding="async"
+              fetchPriority="high"
             />
           </Link>
           <div className="flex items-center space-x-3">
@@ -286,7 +287,9 @@ const Navbar: React.FC = () => {
               className="text-white hover:text-red-500 transition-colors p-1"
               aria-label="Open menu"
             >
-              <IoMenu size={24} />
+              <span aria-hidden="true" className="text-lg leading-none">
+                MENU
+              </span>
             </button>
           </div>
         </div>
@@ -298,20 +301,18 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* OffCanvas Overlay */}
-      <div
-        className={`offcanvas-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[999] ${
-          isOffCanvasOpen ? "block" : "hidden"
-        } transition-opacity duration-300`}
-        onClick={toggleOffCanvas}
-      ></div>
+      {isOffCanvasOpen && (
+        <>
+          <div
+            className="offcanvas-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[999] transition-opacity duration-300"
+            onClick={toggleOffCanvas}
+          ></div>
 
-      {/* OffCanvas Menu */}
-      <div
-        id="offcanvas-mobile-menu"
-        className={`offcanvas offcanvas-mobile-menu fixed top-0 left-0 w-[350px] sm:w-[320px] md:w-[350px] h-full bg-gradient-to-b from-gray-900 to-black text-white transform ${
-          isOffCanvasOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-500 z-[1000] shadow-2xl overflow-y-auto customScroll`}
-      >
+          {/* OffCanvas Menu */}
+          <div
+            id="offcanvas-mobile-menu"
+            className="offcanvas offcanvas-mobile-menu fixed top-0 left-0 w-[350px] sm:w-[320px] md:w-[350px] h-full bg-gradient-to-b from-gray-900 to-black text-white transform translate-x-0 transition-transform duration-500 z-[1000] shadow-2xl overflow-y-auto customScroll"
+          >
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-gray-700">
           <p className="text-lg font-bold text-red-500">Menu</p>
@@ -320,7 +321,9 @@ const Navbar: React.FC = () => {
             onClick={toggleOffCanvas}
             aria-label="Close menu"
           >
-            <IoClose size={20} />
+            <span aria-hidden="true" className="text-sm font-bold leading-none">
+              X
+            </span>
           </button>
         </div>
 
@@ -355,12 +358,14 @@ const Navbar: React.FC = () => {
                   className="menu-item-with-arrow w-full text-left px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
                 >
                   Services
-                  <FaChevronDown
+                  <span
+                    aria-hidden="true"
                     className={`menu-arrow ${
                       expandedMenus.services ? "expanded" : ""
                     }`}
-                    size={12}
-                  />
+                  >
+                    v
+                  </span>
                 </button>
 
                 <div
@@ -380,12 +385,14 @@ const Navbar: React.FC = () => {
                         className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
                       >
                         Software Development
-                        <FaChevronDown
+                        <span
+                          aria-hidden="true"
                           className={`menu-arrow ${
                             expandedMenus.software ? "expanded" : ""
                           }`}
-                          size={10}
-                        />
+                        >
+                          v
+                        </span>
                       </button>
                       <ul
                         className={`sub-menu pl-4 ${
@@ -404,6 +411,10 @@ const Navbar: React.FC = () => {
                                   src={item.img}
                                   alt={item.text}
                                   className="w-12 h-12 rounded-md object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={48}
+                                  height={48}
                                 />
                                 <span className="text-gray-200 text-sm font-medium">
                                   {item.text}
@@ -422,12 +433,14 @@ const Navbar: React.FC = () => {
                         className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
                       >
                         Website Development
-                        <FaChevronDown
+                        <span
+                          aria-hidden="true"
                           className={`menu-arrow ${
                             expandedMenus.website ? "expanded" : ""
                           }`}
-                          size={10}
-                        />
+                        >
+                          v
+                        </span>
                       </button>
                       <ul
                         className={`sub-menu pl-4 ${
@@ -446,6 +459,10 @@ const Navbar: React.FC = () => {
                                   src={item.img}
                                   alt={item.text}
                                   className="w-12 h-12 rounded-md object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={48}
+                                  height={48}
                                 />
                                 <span className="text-gray-200 text-sm font-medium">
                                   {item.text}
@@ -464,12 +481,14 @@ const Navbar: React.FC = () => {
                         className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
                       >
                         Digital Marketing
-                        <FaChevronDown
+                        <span
+                          aria-hidden="true"
                           className={`menu-arrow ${
                             expandedMenus.digital ? "expanded" : ""
                           }`}
-                          size={10}
-                        />
+                        >
+                          v
+                        </span>
                       </button>
                       <ul
                         className={`sub-menu ${
@@ -488,6 +507,10 @@ const Navbar: React.FC = () => {
                                   src={item.img}
                                   alt={item.text}
                                   className="w-12 h-12 rounded-md object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={48}
+                                  height={48}
                                 />
                                 <span className="text-gray-200 text-sm font-medium">
                                   {item.text}
@@ -506,12 +529,14 @@ const Navbar: React.FC = () => {
                         className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
                       >
                         Google SEO Services
-                        <FaChevronDown
+                        <span
+                          aria-hidden="true"
                           className={`menu-arrow ${
                             expandedMenus.seo ? "expanded" : ""
                           }`}
-                          size={10}
-                        />
+                        >
+                          v
+                        </span>
                       </button>
                       <ul
                         className={`sub-menu pl-4 ${
@@ -530,6 +555,10 @@ const Navbar: React.FC = () => {
                                   src={item.img}
                                   alt={item.text}
                                   className="w-12 h-12 rounded-md object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={48}
+                                  height={48}
                                 />
                                 <span className="text-gray-200 text-sm font-medium">
                                   {item.text}
@@ -548,12 +577,14 @@ const Navbar: React.FC = () => {
                         className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover-bg-gray-700 hover:text-white transition-all duration-200"
                       >
                         Film Production
-                        <FaChevronDown
+                        <span
+                          aria-hidden="true"
                           className={`menu-arrow ${
                             expandedMenus.film ? "expanded" : ""
                           }`}
-                          size={10}
-                        />
+                        >
+                          v
+                        </span>
                       </button>
                       <ul
                         className={`sub-menu pl-4 ${
@@ -572,6 +603,10 @@ const Navbar: React.FC = () => {
                                   src={item.img}
                                   alt={item.text}
                                   className="w-12 h-12 rounded-md object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={48}
+                                  height={48}
                                 />
                                 <span className="text-gray-200 text-sm font-medium">
                                   {item.text}
@@ -656,7 +691,9 @@ const Navbar: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaFacebookF size={16} />
+                    <span aria-hidden="true" className="text-xs font-bold">
+                      FB
+                    </span>
                   </Link>
                 </li>
                 <li>
@@ -666,7 +703,9 @@ const Navbar: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaTwitter size={16} />
+                    <span aria-hidden="true" className="text-xs font-bold">
+                      X
+                    </span>
                   </Link>
                 </li>
                 <li>
@@ -676,14 +715,18 @@ const Navbar: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaInstagram size={16} />
+                    <span aria-hidden="true" className="text-xs font-bold">
+                      IG
+                    </span>
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -1,18 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
 import { navlinks } from "../../configs/navConfigs";
 import NavLink from "./NavLink";
 import { sendExternalLead } from "@/lib/externalLead";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { FaXTwitter } from "react-icons/fa6";
 
 interface FormData {
   name: string;
@@ -47,6 +38,7 @@ const NavLayerTop = () => {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [buttonText, setButtonText] = useState("Send");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notice, setNotice] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   const toggleQuotePopup = () => {
     setIsQuotePopupOpen(!isQuotePopupOpen);
@@ -156,7 +148,7 @@ const NavLayerTop = () => {
         }
 
         if (response.ok && data?.success) {
-          toast.success("Quote request sent successfully!");
+          setNotice({ type: "success", message: "Quote request sent successfully!" });
           setButtonText("Sent!");
           setFormData({
             name: "",
@@ -182,7 +174,7 @@ const NavLayerTop = () => {
           error instanceof Error
             ? error.message
             : "Something went wrong. Please try again later.";
-        toast.error(errorMessage);
+        setNotice({ type: "error", message: errorMessage });
         setButtonText("Error!");
       } finally {
         setIsSubmitting(false);
@@ -222,7 +214,7 @@ const NavLayerTop = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaFacebookF />
+                <span aria-hidden="true">FB</span>
               </a>
              <a
              className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -230,7 +222,7 @@ const NavLayerTop = () => {
              target="_blank"
              rel="noopener noreferrer"
              >
-              <FaXTwitter />
+              <span aria-hidden="true">X</span>
               </a>
               <a
                 className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -238,7 +230,7 @@ const NavLayerTop = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram />
+                <span aria-hidden="true">IG</span>
               </a>
               <a
                 className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -246,22 +238,21 @@ const NavLayerTop = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaLinkedinIn />
+                <span aria-hidden="true">IN</span>
               </a>
               <a
                 className="text-[#25D366] px-2.5 py-1 text-sm hover:text-red-500"
                 href="#"
                 onClick={toggleWhatsAppPopup}
               >
-                <FaWhatsapp />
+                <span aria-hidden="true">WA</span>
               </a>
 
               {/* WhatsApp Popup */}
+              {isWhatsAppPopupOpen && (
               <div
                 id="whatsapp_popup"
-                className={`popup fixed inset-0 bg-gray-600/60 backdrop-blur-sm z-[1000] ${
-                  isWhatsAppPopupOpen ? "flex" : "hidden"
-                } justify-center items-center`}
+                className="popup fixed inset-0 bg-gray-600/60 backdrop-blur-sm z-[1000] flex justify-center items-center"
               >
                 <div className="popup-content bg-gradient-to-br from-gray-600 to-gray-100 rounded-xl p-6 w-full max-w-md shadow-2xl animate-[slideIn_0.3s_ease-out]">
                   <div className="flex justify-between items-center mb-3">
@@ -272,7 +263,7 @@ const NavLayerTop = () => {
                       onClick={toggleWhatsAppPopup}
                       className="text-2xl text-gray-700 hover:text-red-500"
                     >
-                      ×
+                      X
                     </button>
                   </div>
                   <p className="text-gray-700">Connect with us instantly!</p>
@@ -282,17 +273,17 @@ const NavLayerTop = () => {
                     rel="noopener noreferrer"
                     className="block w-full bg-green-500 text-white text-sm font-medium py-2 rounded-md hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
                   >
-                    <FaWhatsapp /> Start Chat
+                    <span aria-hidden="true">WA</span> Start Chat
                   </a>
                 </div>
               </div>
+              )}
 
               {/* Quote Popup */}
+              {isQuotePopupOpen && (
               <div
                 id="quote_popup"
-                className={`popup fixed inset-0 bg-gray-600/60 backdrop-blur-sm z-[1000] ${
-                  isQuotePopupOpen ? "flex" : "hidden"
-                } justify-center items-center`}
+                className="popup fixed inset-0 bg-gray-600/60 backdrop-blur-sm z-[1000] flex justify-center items-center"
               >
                 <div className="popup-content bg-gradient-to-br from-gray-600 to-gray-100 rounded-xl p-6 w-full max-w-md shadow-2xl animate-[slideIn_0.3s_ease-out]">
                   <div className="flex justify-between items-center mb-4">
@@ -304,7 +295,7 @@ const NavLayerTop = () => {
                       className="text-2xl text-gray-700 hover:text-red-500"
                       disabled={isSubmitting}
                     >
-                      ×
+                      X
                     </button>
                   </div>
                   <form onSubmit={validateForm}>
@@ -464,6 +455,7 @@ const NavLayerTop = () => {
                   </form>
                 </div>
               </div>
+              )}
             </div>
 
             <div className="flex-1 flex justify-end">
@@ -477,18 +469,16 @@ const NavLayerTop = () => {
         </div>
       </div>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      {notice && (
+        <div
+          className={`fixed right-4 top-4 z-[1001] rounded-md px-4 py-2 text-sm text-white shadow-lg ${
+            notice.type === "success" ? "bg-green-600" : "bg-red-600"
+          }`}
+          role="status"
+        >
+          {notice.message}
+        </div>
+      )}
     </>
   );
 };

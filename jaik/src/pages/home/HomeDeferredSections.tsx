@@ -46,7 +46,7 @@ const EnquireSection = withSectionFallback(() => import("./EnquireSection"), 220
 const HomeDeferredSections = () => {
   return (
     <>
-      <LazySection minHeight={350} rootMargin="500px 0px">
+      <LazySection minHeight={350} rootMargin="100px 0px">
         <WebsiteSection />
       </LazySection>
       <LazySection minHeight={260}>

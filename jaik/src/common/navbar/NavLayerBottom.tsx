@@ -62,6 +62,10 @@ const NavLayerBottom: React.FC<{
                   src="https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/logo-1.webp"
                   alt="Logo"
                   className="w-full"
+                  width={130}
+                  height={45}
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </Link>
             </div>

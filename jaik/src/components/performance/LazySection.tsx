@@ -10,7 +10,7 @@ type LazySectionProps = {
 
 const LazySection = ({
   children,
-  rootMargin = "300px 0px",
+  rootMargin = "150px 0px",
   minHeight = 120,
 }: LazySectionProps) => {
   const hostRef = useRef<HTMLDivElement | null>(null);

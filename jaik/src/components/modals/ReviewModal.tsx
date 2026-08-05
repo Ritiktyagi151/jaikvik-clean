@@ -7,9 +7,6 @@ import * as yup from 'yup';
 import { FaStar } from 'react-icons/fa';
 import { FaCircleXmark } from 'react-icons/fa6';
 import "../../styles/enquire-form.css";
-import { useDispatch, useSelector } from 'react-redux';
-import type { AppDispatch, RootState } from '../../redux/store';
-import { setAction } from '../../redux/reducers/action';
 import { sendExternalLead } from '@/lib/externalLead';
 // Yup validation schema
 const schema = yup.object().shape({
@@ -29,12 +26,8 @@ interface FormData {
     msg: string;
 }
 
-const ReviewModal = () => {
-    const dispatch = useDispatch<AppDispatch>();
+const ReviewModal = ({ onClose }: { onClose: () => void }) => {
     const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
-
-    const isOpen = useSelector((state: RootState) => state.action.isReviewModal);
-    const setIsOpen = () => dispatch(setAction({ isReviewModal: false }));
 
     const [hoveredRating, setHoveredRating] = useState<number | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -101,7 +94,7 @@ const ReviewModal = () => {
             setHoveredRating(null);
             setTimeout(() => {
                 setSubmitStatus(null);
-                setIsOpen();
+                onClose();
             }, 1200);
         } catch (error) {
             setSubmitStatus({
@@ -120,15 +113,14 @@ const ReviewModal = () => {
     return (
         <>
             <div
-                className={`fixed w-full top-0 left-0 h-screen flex items-center justify-center bg-black/70 z-[99999] transition-all duration-500 ${isOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'
-                    }`}
+                className="fixed w-full top-0 left-0 h-screen flex items-center justify-center bg-black/70 z-[99999] opacity-100 visible scale-100 transition-all duration-500"
             >
                 <div className="bg-main-secondary max-w-[500px] w-[90%] overflow-hidden">
                     <div className="flex justify-between items-center bg-main-red px-4 py-3">
                         <h3 className="text-white text-lg">Add Your Review</h3>
                         <div
                             className="text-white cursor-pointer hover:rotate-180 transition-transform duration-300"
-                            onClick={setIsOpen}
+                            onClick={onClose}
                         >
                             <FaCircleXmark className="text-[25px] font-light" />
                         </div>

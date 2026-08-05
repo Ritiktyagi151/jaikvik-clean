@@ -7,8 +7,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import "swiper/swiper-bundle.css";
 import reviews from "../../configs/all-reviews";
-import { useDispatch } from "react-redux";
-import { setAction } from "../../redux/reducers/action";
+import { openReviewModal } from "@/components/modals/reviewModalEvents";
 const Arrows: React.FC<{
   direction?: "left" | "right";
   className?: string;
@@ -31,10 +30,8 @@ const Arrows: React.FC<{
 };
 
 const ReviewsSection = () => {
-  const dispatch = useDispatch();
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
   const [reviewItems, setReviewItems] = useState(reviews);
-  const setIsOpen = () => dispatch(setAction({ isReviewModal: true }));
 
   useEffect(() => {
     let isMounted = true;
@@ -76,7 +73,7 @@ const ReviewsSection = () => {
           </h2>
           <button
             className="bg-red-500 text-white border-none outline-none px-4 py-1.5 rounded-md transition-transform duration-300 hover:scale-90 cursor-pointer"
-            onClick={() => setIsOpen()}
+            onClick={openReviewModal}
           >
             Add Review
           </button>

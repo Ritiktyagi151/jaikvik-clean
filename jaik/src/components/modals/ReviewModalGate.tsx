@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
+import { useEffect, useState } from "react";
+import { REVIEW_MODAL_OPEN_EVENT } from "./reviewModalEvents";
 
 const ReviewModal = dynamic(() => import("./ReviewModal"), {
   ssr: false,
@@ -10,9 +10,15 @@ const ReviewModal = dynamic(() => import("./ReviewModal"), {
 });
 
 const ReviewModalGate = () => {
-  const isOpen = useSelector((state: RootState) => state.action.isReviewModal);
+  const [isOpen, setIsOpen] = useState(false);
 
-  return isOpen ? <ReviewModal /> : null;
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener(REVIEW_MODAL_OPEN_EVENT, open);
+    return () => window.removeEventListener(REVIEW_MODAL_OPEN_EVENT, open);
+  }, []);
+
+  return isOpen ? <ReviewModal onClose={() => setIsOpen(false)} /> : null;
 };
 
 export default ReviewModalGate;

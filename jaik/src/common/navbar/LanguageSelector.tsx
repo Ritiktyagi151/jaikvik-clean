@@ -1,60 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  US,
-  FR,
-  DE,
-  ES,
-  IN,
-  CN,
-  JP,
-  RU,
-  IT,
-  BR,
-  SA,
-  KR,
-  TR,
-  IR,
-  PK,
-  BD,
-  CA,
-  MX,
-  ZA,
-  NG,
-  AR,
-  CL,
-  CO,
-  EG,
-  ID,
-  TH,
-  VN,
-  IL,
-  PL,
-  NL,
-  SE,
-  NO,
-  FI,
-  DK,
-  GR,
-  PT,
-  BE,
-  CH,
-  AT,
-  CZ,
-  HU,
-  RO,
-  UA,
-  SK,
-  HR,
-  RS,
-  BG,
-} from "country-flag-icons/react/3x2";
 
 interface CountryType {
   code: string;
   name: string;
-  Flag: React.ComponentType<React.SVGProps<SVGElement>>;
   langCode: string;
 }
 
@@ -67,53 +17,53 @@ declare global {
 }
 
 const countries: CountryType[] = [
-  { code: "US", name: "English", Flag: US, langCode: "en" },
-  { code: "FR", name: "Francais", Flag: FR, langCode: "fr" },
-  { code: "DE", name: "Deutsch", Flag: DE, langCode: "de" },
-  { code: "ES", name: "Espanol", Flag: ES, langCode: "es" },
-  { code: "IN", name: "Hindi", Flag: IN, langCode: "hi" },
-  { code: "CN", name: "Chinese", Flag: CN, langCode: "zh-CN" },
-  { code: "JP", name: "Japanese", Flag: JP, langCode: "ja" },
-  { code: "RU", name: "Russian", Flag: RU, langCode: "ru" },
-  { code: "IT", name: "Italiano", Flag: IT, langCode: "it" },
-  { code: "BR", name: "Portugues (Brasil)", Flag: BR, langCode: "pt" },
-  { code: "SA", name: "Arabic", Flag: SA, langCode: "ar" },
-  { code: "KR", name: "Korean", Flag: KR, langCode: "ko" },
-  { code: "TR", name: "Turkce", Flag: TR, langCode: "tr" },
-  { code: "IR", name: "Persian", Flag: IR, langCode: "fa" },
-  { code: "PK", name: "Urdu", Flag: PK, langCode: "ur" },
-  { code: "BD", name: "Bangla", Flag: BD, langCode: "bn" },
-  { code: "CA", name: "Francais (Canada)", Flag: CA, langCode: "fr" },
-  { code: "MX", name: "Espanol (Mexico)", Flag: MX, langCode: "es" },
-  { code: "ZA", name: "Afrikaans", Flag: ZA, langCode: "af" },
-  { code: "NG", name: "Yoruba", Flag: NG, langCode: "yo" },
-  { code: "AR", name: "Espanol (Argentina)", Flag: AR, langCode: "es" },
-  { code: "CL", name: "Espanol (Chile)", Flag: CL, langCode: "es" },
-  { code: "CO", name: "Espanol (Colombia)", Flag: CO, langCode: "es" },
-  { code: "EG", name: "Arabic (Egypt)", Flag: EG, langCode: "ar" },
-  { code: "ID", name: "Bahasa Indonesia", Flag: ID, langCode: "id" },
-  { code: "TH", name: "Thai", Flag: TH, langCode: "th" },
-  { code: "VN", name: "Vietnamese", Flag: VN, langCode: "vi" },
-  { code: "IL", name: "Hebrew", Flag: IL, langCode: "iw" },
-  { code: "PL", name: "Polski", Flag: PL, langCode: "pl" },
-  { code: "NL", name: "Nederlands", Flag: NL, langCode: "nl" },
-  { code: "SE", name: "Svenska", Flag: SE, langCode: "sv" },
-  { code: "NO", name: "Norsk", Flag: NO, langCode: "no" },
-  { code: "FI", name: "Suomi", Flag: FI, langCode: "fi" },
-  { code: "DK", name: "Dansk", Flag: DK, langCode: "da" },
-  { code: "GR", name: "Greek", Flag: GR, langCode: "el" },
-  { code: "PT", name: "Portugues", Flag: PT, langCode: "pt" },
-  { code: "BE", name: "Nederlands (Belgium)", Flag: BE, langCode: "nl" },
-  { code: "CH", name: "Deutsch (Swiss)", Flag: CH, langCode: "de" },
-  { code: "AT", name: "Deutsch (Austria)", Flag: AT, langCode: "de" },
-  { code: "CZ", name: "Cestina", Flag: CZ, langCode: "cs" },
-  { code: "HU", name: "Magyar", Flag: HU, langCode: "hu" },
-  { code: "RO", name: "Romana", Flag: RO, langCode: "ro" },
-  { code: "UA", name: "Ukrainian", Flag: UA, langCode: "uk" },
-  { code: "SK", name: "Slovencina", Flag: SK, langCode: "sk" },
-  { code: "HR", name: "Hrvatski", Flag: HR, langCode: "hr" },
-  { code: "RS", name: "Srpski", Flag: RS, langCode: "sr" },
-  { code: "BG", name: "Bulgarian", Flag: BG, langCode: "bg" },
+  { code: "US", name: "English", langCode: "en" },
+  { code: "FR", name: "Francais", langCode: "fr" },
+  { code: "DE", name: "Deutsch", langCode: "de" },
+  { code: "ES", name: "Espanol", langCode: "es" },
+  { code: "IN", name: "Hindi", langCode: "hi" },
+  { code: "CN", name: "Chinese", langCode: "zh-CN" },
+  { code: "JP", name: "Japanese", langCode: "ja" },
+  { code: "RU", name: "Russian", langCode: "ru" },
+  { code: "IT", name: "Italiano", langCode: "it" },
+  { code: "BR", name: "Portugues (Brasil)", langCode: "pt" },
+  { code: "SA", name: "Arabic", langCode: "ar" },
+  { code: "KR", name: "Korean", langCode: "ko" },
+  { code: "TR", name: "Turkce", langCode: "tr" },
+  { code: "IR", name: "Persian", langCode: "fa" },
+  { code: "PK", name: "Urdu", langCode: "ur" },
+  { code: "BD", name: "Bangla", langCode: "bn" },
+  { code: "CA", name: "Francais (Canada)", langCode: "fr" },
+  { code: "MX", name: "Espanol (Mexico)", langCode: "es" },
+  { code: "ZA", name: "Afrikaans", langCode: "af" },
+  { code: "NG", name: "Yoruba", langCode: "yo" },
+  { code: "AR", name: "Espanol (Argentina)", langCode: "es" },
+  { code: "CL", name: "Espanol (Chile)", langCode: "es" },
+  { code: "CO", name: "Espanol (Colombia)", langCode: "es" },
+  { code: "EG", name: "Arabic (Egypt)", langCode: "ar" },
+  { code: "ID", name: "Bahasa Indonesia", langCode: "id" },
+  { code: "TH", name: "Thai", langCode: "th" },
+  { code: "VN", name: "Vietnamese", langCode: "vi" },
+  { code: "IL", name: "Hebrew", langCode: "iw" },
+  { code: "PL", name: "Polski", langCode: "pl" },
+  { code: "NL", name: "Nederlands", langCode: "nl" },
+  { code: "SE", name: "Svenska", langCode: "sv" },
+  { code: "NO", name: "Norsk", langCode: "no" },
+  { code: "FI", name: "Suomi", langCode: "fi" },
+  { code: "DK", name: "Dansk", langCode: "da" },
+  { code: "GR", name: "Greek", langCode: "el" },
+  { code: "PT", name: "Portugues", langCode: "pt" },
+  { code: "BE", name: "Nederlands (Belgium)", langCode: "nl" },
+  { code: "CH", name: "Deutsch (Swiss)", langCode: "de" },
+  { code: "AT", name: "Deutsch (Austria)", langCode: "de" },
+  { code: "CZ", name: "Cestina", langCode: "cs" },
+  { code: "HU", name: "Magyar", langCode: "hu" },
+  { code: "RO", name: "Romana", langCode: "ro" },
+  { code: "UA", name: "Ukrainian", langCode: "uk" },
+  { code: "SK", name: "Slovencina", langCode: "sk" },
+  { code: "HR", name: "Hrvatski", langCode: "hr" },
+  { code: "RS", name: "Srpski", langCode: "sr" },
+  { code: "BG", name: "Bulgarian", langCode: "bg" },
 ];
 
 const TRANSLATE_SCRIPT_ID = "google-translate-script";
@@ -257,7 +207,9 @@ const LanguageSelector = () => {
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md shadow hover:bg-black transition"
       >
-        <selected.Flag className="w-6 h-4" />
+        <span className="grid h-5 min-w-7 place-items-center rounded-sm border border-white/40 px-1 text-[10px] font-bold">
+          {selected.code}
+        </span>
         <span>{selected.name}</span>
         <svg
           className={`w-4 h-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
@@ -287,7 +239,9 @@ const LanguageSelector = () => {
                 onClick={() => changeLanguage(country)}
                 className="flex items-center gap-2 px-4 py-2 w-full text-left hover:bg-gray-600"
               >
-                <country.Flag className="w-6 h-4" />
+                <span className="grid h-5 min-w-7 place-items-center rounded-sm border border-white/30 px-1 text-[10px] font-bold">
+                  {country.code}
+                </span>
                 <span>{country.name}</span>
               </button>
             ))}

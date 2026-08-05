@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { Mulish } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import AppProvider from "@/providers/AppProvider";
 import ClientLayoutWrapper from "@/layouts/ClientLayoutWrapper";
 import { pageMetadata } from "@/lib/seo";
+
+const mulish = Mulish({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mulish",
+});
 
 export const metadata: Metadata = {
   ...pageMetadata("/"),
@@ -110,7 +116,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://jaikvik.in" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://jaikvik.in" />
+      </head>
+      <body className={mulish.className} suppressHydrationWarning>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-B99PTB12R1"
           strategy="afterInteractive"

@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
-import axios from "axios";
+import { cachedGet } from "@/lib/clientApiCache";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const API_URL = `${API_BASE}/footer`;
@@ -62,7 +62,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchFooter = async () => {
       try {
-        const res = await axios.get(API_URL);
+        const res = await cachedGet<any>(API_URL);
         setData(res.data?.data || res.data);
       } catch (err) {
         console.error("Footer load error:", err);

@@ -1,10 +1,14 @@
 "use client";
 
-import axios, { type AxiosResponse } from "axios";
+type JsonResponse<T> = {
+  data: T;
+  status: number;
+  ok: boolean;
+};
 
 type CacheEntry<T> = {
   expiresAt: number;
-  promise: Promise<AxiosResponse<T>>;
+  promise: Promise<JsonResponse<T>>;
 };
 
 const apiCache = new Map<string, CacheEntry<unknown>>();
@@ -12,23 +16,38 @@ const apiCache = new Map<string, CacheEntry<unknown>>();
 export const cachedGet = <T = any>(
   url: string,
   ttlMs = 5 * 60 * 1000
-): Promise<AxiosResponse<T>> => {
+): Promise<JsonResponse<T>> => {
   const now = Date.now();
   const cached = apiCache.get(url);
 
   if (cached && cached.expiresAt > now) {
-    return cached.promise as Promise<AxiosResponse<T>>;
+    return cached.promise as Promise<JsonResponse<T>>;
   }
 
-  const promise = axios.get<T>(url);
+  const promise = fetch(url, {
+    headers: { Accept: "application/json" },
+  }).then(async (response) => {
+    const data = (await response.json().catch(() => null)) as T;
+
+    if (!response.ok) {
+      throw new Error(`GET ${url} failed with ${response.status}`);
+    }
+
+    return {
+      data,
+      status: response.status,
+      ok: response.ok,
+    };
+  });
+
   apiCache.set(url, {
     expiresAt: now + ttlMs,
-    promise: promise as Promise<AxiosResponse<unknown>>,
+    promise: promise as Promise<JsonResponse<unknown>>,
   });
 
   promise.catch(() => {
     const latest = apiCache.get(url);
-    if (latest?.promise === (promise as Promise<AxiosResponse<unknown>>)) {
+    if (latest?.promise === (promise as Promise<JsonResponse<unknown>>)) {
       apiCache.delete(url);
     }
   });

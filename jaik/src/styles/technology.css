@@ -133,18 +133,18 @@
 
 .bhakar-technologia-button-prev::after,
 .bhakar-technologia-button-next::after {
-  font-family: FontAwesome;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   color: var(--colorRed);
   transition: all 0.3s linear;
 }
 
 .bhakar-technologia-button-prev::after {
-  content: "\f104";
+  content: "<";
 }
 
 .bhakar-technologia-button-next::after {
-  content: "\f105";
+  content: ">";
 }
 
 .bhakar-technologia-pagination {

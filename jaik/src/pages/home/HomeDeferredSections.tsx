@@ -12,6 +12,16 @@ const withSectionFallback = (
     loading: () => <div style={{ minHeight }} aria-hidden="true" />,
   });
 
+const WebsiteSection = withSectionFallback(() => import("./WebsiteSection"), 350);
+const OurTechnologies = withSectionFallback(() => import("./OurTechnologies"), 260);
+const SocialMediaSection = withSectionFallback(
+  () => import("./SocialMediaSection"),
+  360
+);
+const MobileAppSection = withSectionFallback(
+  () => import("./MobileAppSection"),
+  520
+);
 const SocialMediaPostSection = withSectionFallback(
   () => import("./SocialMediaPostSection"),
   180
@@ -36,6 +46,18 @@ const EnquireSection = withSectionFallback(() => import("./EnquireSection"), 220
 const HomeDeferredSections = () => {
   return (
     <>
+      <LazySection minHeight={350} rootMargin="500px 0px">
+        <WebsiteSection />
+      </LazySection>
+      <LazySection minHeight={260}>
+        <OurTechnologies />
+      </LazySection>
+      <LazySection minHeight={360}>
+        <SocialMediaSection />
+      </LazySection>
+      <LazySection minHeight={520}>
+        <MobileAppSection />
+      </LazySection>
       <LazySection minHeight={180}>
         <SocialMediaPostSection />
       </LazySection>

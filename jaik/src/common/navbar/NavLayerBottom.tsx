@@ -47,7 +47,7 @@ const NavLayerBottom: React.FC<{
   return (
     <>
       <div
-        className={`header-main transition-all shadow-xs shadow-neutral-950 duration-1000 font-poppins ${
+        className={`header-main relative transition-all shadow-xs shadow-neutral-950 duration-1000 font-poppins ${
           isSticky
             ? "fixed top-0 left-0 w-full z-[99] shadow-md bg-gray-900 animate-[sticky_1s]"
             : ""

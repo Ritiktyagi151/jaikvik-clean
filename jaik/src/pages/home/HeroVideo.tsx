@@ -30,6 +30,7 @@ const HeroVideo = () => {
 
   useEffect(() => {
     if (shouldSkipAutoplay()) return;
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const start = () => setCanLoadVideo(true);
     const options: AddEventListenerOptions = { once: true, passive: true };

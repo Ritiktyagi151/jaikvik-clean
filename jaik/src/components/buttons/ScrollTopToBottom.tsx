@@ -5,16 +5,19 @@ const ScrollTopToBottom: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        let frameId = 0;
         const handleScroll = () => {
-            if (window.scrollY > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+            window.cancelAnimationFrame(frameId);
+            frameId = window.requestAnimationFrame(() => {
+                setIsVisible(window.scrollY > 300);
+            });
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.cancelAnimationFrame(frameId);
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     const scrollToTop = () => {

@@ -1,17 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import NavLayerTop from "./NavLayerTop";
-import NavLayerBottom from "./NavLayerBottom";
-import {
-  digitalMarketingItems,
-  filmProductionItems,
-  seoServiceItems,
-  softwareDevelopmentItems,
-  websiteDevelopmentItems,
-} from "../../configs/navConfigs";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import BookingPillButton from "@/components/buttons/BookingPillButton";
+
+const NavLayerTop = dynamic(() => import("./NavLayerTop"), {
+  loading: () => null,
+});
+
+const NavLayerBottom = dynamic(() => import("./NavLayerBottom"), {
+  loading: () => null,
+});
+
+const MobileOffCanvas = dynamic(() => import("./MobileOffCanvas"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const Navbar: React.FC = () => {
   // State for popups and off-canvas menu
@@ -19,6 +24,7 @@ const Navbar: React.FC = () => {
   const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
   // const [isSticky, setIsSticky] = useState(false);
   const [isSticky, setIsSticky] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const [expandedMenus, setExpandedMenus] = useState<{
     [key: string]: boolean;
@@ -26,38 +32,40 @@ const Navbar: React.FC = () => {
 
   // Handle scroll for sticky navbar
   useEffect(() => {
-    const handleScroll = () => {
-      const windowTop = window.scrollY;
-      const threshold = window.innerWidth < 768 ? 0 : 250;
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
 
-      setIsSticky(windowTop > threshold);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    // Trigger once on mount in case user is already scrolled
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  // Close off-canvas when window resizes to desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && isOffCanvasOpen) {
+    const syncViewport = () => {
+      setIsDesktop(desktopQuery.matches);
+      if (desktopQuery.matches) {
         setIsOffCanvasOpen(false);
         document.body.classList.remove("overflow-hidden");
       }
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isOffCanvasOpen]);
+
+    const handleScroll = () => {
+      if (!desktopQuery.matches) return;
+      const windowTop = window.scrollY;
+      setIsSticky(windowTop > 250);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    desktopQuery.addEventListener("change", syncViewport);
+
+    // Trigger once on mount in case user is already scrolled
+    syncViewport();
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      desktopQuery.removeEventListener("change", syncViewport);
+    };
+  }, []);
 
   const toggleOffCanvas = () => {
-    setIsOffCanvasOpen(!isOffCanvasOpen);
-    document.body.classList.toggle("overflow-hidden");
+    setIsOffCanvasOpen((current) => {
+      document.body.classList.toggle("overflow-hidden", !current);
+      return !current;
+    });
   };
   const toggleSubmenu = (menuKey: string) => {
     if (menuKey === "services") {
@@ -259,13 +267,11 @@ const Navbar: React.FC = () => {
   `}
       </style>
 
-      {/* Topbar */}
-      <div className="hidden md:block">
-        <NavLayerTop />
-      </div>
+      {isDesktop && <NavLayerTop />}
 
       {/* Mobile Header - Sticky */}
-      <div className={`block md:hidden mobile-sticky-header`}>
+      {!isDesktop && (
+      <div className="mobile-sticky-header">
         <div className="flex justify-between items-center py-2 px-4">
           <Link href="/" className="w-24 h-8">
             <img
@@ -294,438 +300,18 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+      )}
 
       {/* Desktop Navigation */}
-      <div className="hidden md:block">
-        <NavLayerBottom isSticky={isSticky} />
-      </div>
+      {isDesktop && <NavLayerBottom isSticky={isSticky} />}
 
       {/* OffCanvas Overlay */}
       {isOffCanvasOpen && (
-        <>
-          <div
-            className="offcanvas-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[999] transition-opacity duration-300"
-            onClick={toggleOffCanvas}
-          ></div>
-
-          {/* OffCanvas Menu */}
-          <div
-            id="offcanvas-mobile-menu"
-            className="offcanvas offcanvas-mobile-menu fixed top-0 left-0 w-[350px] sm:w-[320px] md:w-[350px] h-full bg-gradient-to-b from-gray-900 to-black text-white transform translate-x-0 transition-transform duration-500 z-[1000] shadow-2xl overflow-y-auto customScroll"
-          >
-        {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <p className="text-lg font-bold text-red-500">Menu</p>
-          <button
-            className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-            onClick={toggleOffCanvas}
-            aria-label="Close menu"
-          >
-            <span aria-hidden="true" className="text-sm font-bold leading-none">
-              X
-            </span>
-          </button>
-        </div>
-
-        {/* Menu Content */}
-        <div className="inner customScroll flex flex-col">
-          <div className="offcanvas-menu flex-1 p-4">
-            <ul className="list-none m-0 p-0 space-y-1">
-              <li>
-                <Link
-                  href="/"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Home
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/about"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  About Us
-                </Link>
-              </li>
-
-              {/* Services Menu */}
-              <li>
-                <button
-                  onClick={() => toggleSubmenu("services")}
-                  className="menu-item-with-arrow w-full text-left px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                >
-                  Services
-                  <span
-                    aria-hidden="true"
-                    className={`menu-arrow ${
-                      expandedMenus.services ? "expanded" : ""
-                    }`}
-                  >
-                    v
-                  </span>
-                </button>
-
-                <div
-                  className={`sub-menu pl-4 ${
-                    expandedMenus.services ? "expanded" : ""
-                  } customScroll`}
-                  style={{
-                    maxHeight: expandedMenus.services ? "300px" : "0",
-                    overflowY: "auto",
-                  }}
-                >
-                  <ul>
-                    {/* Software Development */}
-                    <li>
-                      <button
-                        onClick={() => toggleSubmenu("software")}
-                        className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
-                      >
-                        Software Development
-                        <span
-                          aria-hidden="true"
-                          className={`menu-arrow ${
-                            expandedMenus.software ? "expanded" : ""
-                          }`}
-                        >
-                          v
-                        </span>
-                      </button>
-                      <ul
-                        className={`sub-menu pl-4 ${
-                          expandedMenus.software ? "expanded" : ""
-                        }`}
-                      >
-                        {softwareDevelopmentItems?.map((item, index) => (
-                          <li key={index} className="my-1">
-                            <Link
-                              href={item.href}
-                              className="block bg-gray-900/70 rounded-lg p-3 hover:bg-gray-800 transition-all duration-200"
-                              onClick={toggleOffCanvas}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <img
-                                  src={item.img}
-                                  alt={item.text}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  width={48}
-                                  height={48}
-                                />
-                                <span className="text-gray-200 text-sm font-medium">
-                                  {item.text}
-                                </span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-
-                    {/* Website Development */}
-                    <li>
-                      <button
-                        onClick={() => toggleSubmenu("website")}
-                        className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
-                      >
-                        Website Development
-                        <span
-                          aria-hidden="true"
-                          className={`menu-arrow ${
-                            expandedMenus.website ? "expanded" : ""
-                          }`}
-                        >
-                          v
-                        </span>
-                      </button>
-                      <ul
-                        className={`sub-menu pl-4 ${
-                          expandedMenus.website ? "expanded" : ""
-                        }`}
-                      >
-                        {websiteDevelopmentItems?.map((item, index) => (
-                          <li key={index} className="my-1">
-                            <Link
-                              href={item.href}
-                              className="block bg-gray-900/70 rounded-lg p-3 grid grid-cols-5 hover:bg-gray-800 transition-all duration-200"
-                              onClick={toggleOffCanvas}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <img
-                                  src={item.img}
-                                  alt={item.text}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  width={48}
-                                  height={48}
-                                />
-                                <span className="text-gray-200 text-sm font-medium">
-                                  {item.text}
-                                </span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-
-                    {/* Digital Marketing */}
-                    <li>
-                      <button
-                        onClick={() => toggleSubmenu("digital")}
-                        className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
-                      >
-                        Digital Marketing
-                        <span
-                          aria-hidden="true"
-                          className={`menu-arrow ${
-                            expandedMenus.digital ? "expanded" : ""
-                          }`}
-                        >
-                          v
-                        </span>
-                      </button>
-                      <ul
-                        className={`sub-menu ${
-                          expandedMenus.digital ? "expanded" : ""
-                        } pl-4`}
-                      >
-                        {digitalMarketingItems?.map((item, index) => (
-                          <li key={index} className="my-1">
-                            <Link
-                              href={item.href}
-                              className="block bg-gray-900/70 rounded-lg p-3 hover:bg-gray-800 transition-all duration-200"
-                              onClick={toggleOffCanvas}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <img
-                                  src={item.img}
-                                  alt={item.text}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  width={48}
-                                  height={48}
-                                />
-                                <span className="text-gray-200 text-sm font-medium">
-                                  {item.text}
-                                </span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-
-                    {/* SEO Services */}
-                    <li>
-                      <button
-                        onClick={() => toggleSubmenu("seo")}
-                        className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover:bg-gray-700 hover:text-white transition-all duration-200"
-                      >
-                        Google SEO Services
-                        <span
-                          aria-hidden="true"
-                          className={`menu-arrow ${
-                            expandedMenus.seo ? "expanded" : ""
-                          }`}
-                        >
-                          v
-                        </span>
-                      </button>
-                      <ul
-                        className={`sub-menu pl-4 ${
-                          expandedMenus.seo ? "expanded" : ""
-                        }`}
-                      >
-                        {seoServiceItems?.map((item, index) => (
-                          <li key={index} className="my-1">
-                            <Link
-                              href={item.href}
-                              className="block bg-gray-900/70 rounded-lg p-3 hover:bg-gray-800 transition-all duration-200"
-                              onClick={toggleOffCanvas}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <img
-                                  src={item.img}
-                                  alt={item.text}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  width={48}
-                                  height={48}
-                                />
-                                <span className="text-gray-200 text-sm font-medium">
-                                  {item.text}
-                                </span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-
-                    {/* Film Production */}
-                    <li>
-                      <button
-                        onClick={() => toggleSubmenu("film")}
-                        className="menu-item-with-arrow w-full text-left px-4 py-2 text-gray-300 text-sm font-medium bg-gray-800/50 rounded-lg my-1 hover-bg-gray-700 hover:text-white transition-all duration-200"
-                      >
-                        Film Production
-                        <span
-                          aria-hidden="true"
-                          className={`menu-arrow ${
-                            expandedMenus.film ? "expanded" : ""
-                          }`}
-                        >
-                          v
-                        </span>
-                      </button>
-                      <ul
-                        className={`sub-menu pl-4 ${
-                          expandedMenus.film ? "expanded" : ""
-                        }`}
-                      >
-                        {filmProductionItems?.map((item, index) => (
-                          <li key={index} className="my-1">
-                            <Link
-                              href={item.href}
-                              className="block bg-gray-900/70 rounded-lg p-3 hover:bg-gray-800 transition-all duration-200"
-                              onClick={toggleOffCanvas}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <img
-                                  src={item.img}
-                                  alt={item.text}
-                                  className="w-12 h-12 rounded-md object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  width={48}
-                                  height={48}
-                                />
-                                <span className="text-gray-200 text-sm font-medium">
-                                  {item.text}
-                                </span>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-              {/* Our Blogs */}
-              <li>
-                <Link
-                  href="/blogs"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Our Blogs
-                </Link>
-              </li>
-
-              {/* Contact */}
-              <li>
-                <Link
-                  href="/contact-us"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Contact
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/book"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 bg-red-600/20 hover:bg-red-600 hover:text-white transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Book a call with us (30 Minute Meeting)
-                </Link>
-              </li>
-
-              {/* Career */}
-              <li>
-                <Link
-                  href="/careers"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Career
-                </Link>
-              </li>
-
-              {/* Admin */}
-              <li>
-                <Link
-                  href="/admin"
-                  className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
-                  onClick={toggleOffCanvas}
-                >
-                  Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social Icons */}
-          <div>
-            <div className="offcanvas-social p-4 border-t border-gray-700">
-              <p className="text-sm font-semibold text-gray-400 mb-3 text-center">
-                Follow Us
-              </p>
-              <ul className="flex space-x-3 justify-center">
-                <li>
-                  <Link
-                    href="https://facebook.com"
-                    className="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 hover:scale-110 transition-all duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span aria-hidden="true" className="text-xs font-bold">
-                      FB
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://twitter.com"
-                    className="bg-blue-400 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span aria-hidden="true" className="text-xs font-bold">
-                      X
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://instagram.com"
-                    className="bg-pink-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-600 hover:scale-110 transition-all duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span aria-hidden="true" className="text-xs font-bold">
-                      IG
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-          </div>
-        </>
+        <MobileOffCanvas
+          expandedMenus={expandedMenus}
+          toggleOffCanvas={toggleOffCanvas}
+          toggleSubmenu={toggleSubmenu}
+        />
       )}
     </>
   );

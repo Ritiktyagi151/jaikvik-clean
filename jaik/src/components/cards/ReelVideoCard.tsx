@@ -19,6 +19,7 @@ const ReelVideoCard: React.FC<{
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   const normalizedAspectRatio = useMemo(() => {
     const [width, height] = aspectRatio.split("/").map(Number);
@@ -32,6 +33,7 @@ const ReelVideoCard: React.FC<{
       window.matchMedia("(max-width: 768px)").matches;
 
     if (isMobileViewport && videoRef.current) {
+      setShouldLoadVideo(true);
       if (videoRef.current.paused) {
         videoRef.current.muted = false;
         setIsMuted(false);
@@ -49,6 +51,8 @@ const ReelVideoCard: React.FC<{
   };
 
   const handleMouseEnter = async () => {
+    setShouldLoadVideo(true);
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     if (videoRef.current) {
       try {
         videoRef.current.muted = false;
@@ -92,15 +96,12 @@ const ReelVideoCard: React.FC<{
         controls={false}
         poster={poster}
         loop
-        preload="metadata"
-        autoPlay={
-          typeof window !== "undefined" &&
-          window.matchMedia("(max-width: 768px)").matches
-        }
+        preload="none"
+        autoPlay={false}
         playsInline
         className="w-full h-full object-cover"
       >
-        <source src={src} type="video/mp4" />
+        {shouldLoadVideo && <source src={src} type="video/mp4" />}
         Your browser does not support the video tag.
       </video>
 

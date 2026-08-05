@@ -59,7 +59,7 @@ const NavLayerBottom: React.FC<{
             <div className="w-1/12 pt-1">
               <Link href="/">
                 <img
-                  src="https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/logo-1.webp"
+                  src="/assets/optimized/logo-1.webp"
                   alt="Logo"
                   className="w-full"
                   width={130}

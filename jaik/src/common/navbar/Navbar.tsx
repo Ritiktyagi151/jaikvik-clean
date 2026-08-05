@@ -275,7 +275,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center py-2 px-4">
           <Link href="/" className="w-24 h-8">
             <img
-              src="https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/logo-1.webp"
+              src="/assets/optimized/logo-1.webp"
               alt="logo"
               className="h-full object-contain"
               width={96}

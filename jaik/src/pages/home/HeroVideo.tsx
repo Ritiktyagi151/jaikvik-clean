@@ -7,7 +7,7 @@ const DESKTOP_VIDEO =
 const MOBILE_VIDEO =
   "https://jaikvik.in/lab/cloud/jaikvik/assets/images/jaikvik.commobile-view.mp4";
 const POSTER_IMAGE =
-  "https://jaikvik.in/lab/cloud/jaikvik/assets/images/banner/logo-1.webp";
+  "/assets/optimized/logo-1.webp";
 
 const shouldSkipAutoplay = () => {
   const nav = navigator as Navigator & {

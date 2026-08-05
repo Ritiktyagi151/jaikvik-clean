@@ -66,30 +66,6 @@ const SocialMediaSection = () => {
     }, 200);
   }, []);
 
-  // Mobile Video Control Logic
-  useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth > 1024 || reelsData.length === 0) return;
-
-    videoRefs.current.forEach((vid, i) => {
-      if (!vid) return;
-      if (i === activeIndex) {
-        vid.muted = true;
-        vid.onended = handleVideoEnded;
-        vid.play()
-          .then(() => startProgressTracking(vid))
-          .catch((err) => console.log("Autoplay prevented:", err));
-      } else {
-        vid.onended = null;
-        vid.pause();
-        vid.currentTime = 0;
-      }
-    });
-
-    return () => {
-      if (progressRafRef.current) cancelAnimationFrame(progressRafRef.current);
-    };
-  }, [activeIndex, reelsData, handleVideoEnded, startProgressTracking]);
-
   const handleSlideChange = useCallback((swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
     setProgress(0);
@@ -149,15 +125,20 @@ const SocialMediaSection = () => {
                       style={{ aspectRatio: "9/16" }}
                       onClick={() => openMobileReel(reel)}
                     >
-                      <video
-                        ref={(el) => { videoRefs.current[index] = el; }}
-                        src={reel.video}
-                        poster={reel.poster}
-                        muted
-                        playsInline
-                        preload="metadata"
+                      <img
+                        src={reel.poster}
+                        alt="Social media reel"
+                        width={270}
+                        height={480}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                        <span className="grid h-12 w-12 place-items-center rounded-full bg-black/55 pl-1 text-white">
+                          Play
+                        </span>
+                      </div>
                       
                       {/* Active Video Overlay */}
                       {isActive && (
@@ -216,6 +197,7 @@ const SocialMediaSection = () => {
             controls
             autoPlay
             playsInline
+            preload="none"
             className="h-full w-full object-contain"
           />
         </div>

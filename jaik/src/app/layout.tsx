@@ -5,6 +5,7 @@ import "./globals.css";
 import AppProvider from "@/providers/AppProvider";
 import ClientLayoutWrapper from "@/layouts/ClientLayoutWrapper";
 import { pageMetadata } from "@/lib/seo";
+import InteractionAnalytics from "@/components/performance/InteractionAnalytics";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -117,22 +118,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://jaikvik.in" crossOrigin="" />
         <link rel="dns-prefetch" href="https://jaikvik.in" />
       </head>
       <body className={mulish.className} suppressHydrationWarning>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-B99PTB12R1"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-B99PTB12R1');
-          `}
-        </Script>
+        <InteractionAnalytics />
         <Script
           id="local-business-schema"
           type="application/ld+json"

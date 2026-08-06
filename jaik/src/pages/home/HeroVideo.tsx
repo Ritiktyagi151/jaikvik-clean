@@ -7,7 +7,7 @@ const DESKTOP_VIDEO =
 const MOBILE_VIDEO =
   "https://jaikvik.in/lab/cloud/jaikvik/assets/images/jaikvik.commobile-view.mp4";
 const POSTER_IMAGE =
-  "/assets/optimized/logo-1.webp";
+  "/assets/optimized/handshake.png";
 
 const shouldSkipAutoplay = () => {
   const nav = navigator as Navigator & {
@@ -54,9 +54,9 @@ const HeroVideo = () => {
         <img
           src={POSTER_IMAGE}
           alt="Jaikvik Technology"
-          width={320}
-          height={110}
-          className="w-44 max-w-[55%] object-contain"
+          width={867}
+          height={522}
+          className="h-full w-full object-cover"
           decoding="async"
           fetchPriority="high"
         />

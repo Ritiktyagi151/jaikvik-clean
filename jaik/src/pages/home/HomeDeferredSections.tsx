@@ -5,7 +5,7 @@ import type { ComponentType } from "react";
 import LazySection from "@/components/performance/LazySection";
 
 const withSectionFallback = (
-  importer: () => Promise<{ default: ComponentType<any> }>,
+  importer: () => Promise<{ default: ComponentType<Record<string, never>> }>,
   minHeight: number
 ) =>
   dynamic(importer, {
@@ -46,7 +46,7 @@ const EnquireSection = withSectionFallback(() => import("./EnquireSection"), 220
 const HomeDeferredSections = () => {
   return (
     <>
-      <LazySection minHeight={350} rootMargin="100px 0px">
+      <LazySection minHeight={390} rootMargin="0px 0px">
         <WebsiteSection />
       </LazySection>
       <LazySection minHeight={260}>

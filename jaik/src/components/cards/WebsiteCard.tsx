@@ -1,101 +1,23 @@
-"use client";
-
-import { useEffect, useRef } from "react";
+export type WebsiteCardItem = {
+  url: string;
+  imageSrc: string;
+  alt?: string;
+};
 
 type WebsiteCardProps = {
-  website: {
-    url: string;
-    imageSrc: string;
-    alt?: string;
-  };
+  website: WebsiteCardItem;
   index: number;
-  scrollActive: boolean;
-  onScrollComplete?: () => void;
+  shouldLoadMedia?: boolean;
 };
 
 const WebsiteCard = ({
   website,
   index,
-  scrollActive,
-  onScrollComplete,
+  shouldLoadMedia = false,
 }: WebsiteCardProps) => {
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const setImagePosition = () => {
-    const image = imageRef.current;
-    const container = containerRef.current;
-
-    if (image && container) {
-      const imageHeight = image.getBoundingClientRect().height;
-      const containerHeight = container.getBoundingClientRect().height;
-
-      if (imageHeight > containerHeight) {
-        image.style.transition = "none";
-        image.style.bottom = `${-(imageHeight - containerHeight)}px`;
-      } else {
-        image.style.bottom = "0px";
-      }
-    }
-  };
-
-  useEffect(() => {
-    const image = imageRef.current;
-
-    const handleTransitionEnd = () => {
-      onScrollComplete?.();
-      image?.removeEventListener("transitionend", handleTransitionEnd);
-    };
-
-    if (scrollActive) {
-      const startScroll = () => {
-        const image = imageRef.current;
-        const container = containerRef.current;
-        if (image && container) {
-          const imageHeight = image.getBoundingClientRect().height;
-          const containerHeight = container.getBoundingClientRect().height;
-
-          if (imageHeight > containerHeight) {
-            image.style.transition = "none";
-            image.style.bottom = `${-(imageHeight - containerHeight)}px`;
-
-            requestAnimationFrame(() => {
-              image.style.transition = "bottom 5000ms linear";
-              image.style.bottom = "0px";
-              image.addEventListener("transitionend", handleTransitionEnd);
-            });
-          } else {
-            onScrollComplete?.();
-          }
-        }
-      };
-
-      if (image?.complete) {
-        startScroll();
-      } else {
-        image?.addEventListener("load", startScroll);
-      }
-
-      return () => {
-        image?.removeEventListener("transitionend", handleTransitionEnd);
-        image?.removeEventListener("load", startScroll);
-      };
-    } else {
-      setImagePosition();
-      image?.removeEventListener("transitionend", handleTransitionEnd);
-    }
-  }, [scrollActive, onScrollComplete]);
-
-  useEffect(() => {
-    const onResize = () => setImagePosition();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
   return (
     <div
-      className="websiteCard h-full"
-      ref={containerRef}
+      className="websiteCard group h-full"
       style={{ position: "relative", overflow: "hidden", height: "100%" }}
     >
       <a
@@ -104,14 +26,25 @@ const WebsiteCard = ({
         rel="noopener noreferrer"
         className="screen block aspect-[19/27] md:aspect-[19/16] overflow-hidden relative mx-auto h-full"
       >
-        <img
-          src={website.imageSrc}
-          alt={website.alt || `Website ${index + 1}`}
-          className="max-w-full h-auto absolute inset-x-0 bottom-0 m-auto p-0 z-0 object-cover w-full"
-          ref={imageRef}
-          draggable={false}
-          // loading="lazy"
-        />
+        {shouldLoadMedia ? (
+          <img
+            src={website.imageSrc}
+            alt={website.alt || `Website ${index + 1}`}
+            className="absolute inset-x-0 top-0 z-0 m-auto min-h-full w-full max-w-full object-cover p-0 motion-safe:transition-transform motion-safe:duration-[5000ms] motion-safe:ease-linear group-hover:-translate-y-1/3 group-focus-within:-translate-y-1/3"
+            draggable={false}
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={640}
+            height={900}
+          />
+        ) : (
+          <div
+            className="absolute inset-0 bg-neutral-900"
+            aria-label={website.alt || `Website ${index + 1}`}
+            role="img"
+          />
+        )}
       </a>
     </div>
   );

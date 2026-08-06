@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { safePosterUrl } from "@/lib/media";
 
 const ReelVideoCard: React.FC<{
   src: string;
@@ -20,6 +21,7 @@ const ReelVideoCard: React.FC<{
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const posterUrl = safePosterUrl(poster);
 
   const normalizedAspectRatio = useMemo(() => {
     const [width, height] = aspectRatio.split("/").map(Number);
@@ -94,7 +96,7 @@ const ReelVideoCard: React.FC<{
         ref={videoRef}
         muted
         controls={false}
-        poster={poster}
+        poster={posterUrl}
         loop
         preload="none"
         autoPlay={false}

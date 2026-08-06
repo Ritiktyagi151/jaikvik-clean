@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, memo } from "react";
 import { cachedGet } from "@/lib/clientApiCache";
+import { safePosterUrl } from "@/lib/media";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -12,14 +13,22 @@ import ReelVideoCard from "../../components/cards/ReelVideoCard";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
+type VideoItem = {
+  _id?: string;
+  src: string;
+  poster: string;
+};
+
+type VideosResponse = {
+  success?: boolean;
+  data?: VideoItem[];
+};
+
 const OurVideosSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const [selectedVideo, setSelectedVideo] = useState<{
-    src: string;
-    poster: string;
-  } | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
-  const [videoList, setVideoList] = useState<any[]>([]);
+  const [videoList, setVideoList] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,8 +36,8 @@ const OurVideosSection = () => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await cachedGet(`${API_URL}/videos`);
-        if (isMounted && response.data.success) {
+        const response = await cachedGet<VideosResponse>(`${API_URL}/videos`);
+        if (isMounted && response.data.success && Array.isArray(response.data.data)) {
           setVideoList(response.data.data);
         }
       } catch (error) {
@@ -45,9 +54,11 @@ const OurVideosSection = () => {
 
   const handleVideoHover = (value: boolean) => {
     if (swiperRef.current?.autoplay) {
-      value
-        ? swiperRef.current.autoplay.stop()
-        : swiperRef.current.autoplay.start();
+      if (value) {
+        swiperRef.current.autoplay.stop();
+      } else {
+        swiperRef.current.autoplay.start();
+      }
     }
   };
 
@@ -119,9 +130,9 @@ const OurVideosSection = () => {
           }}
           className="mySwiper !overflow-visible"
         >
-          {videoList.map((item) => (
+          {videoList.map((item, index) => (
             <SwiperSlide
-              key={item._id}
+              key={item._id || `${item.src}-${index}`}
               className="
                 !overflow-visible transition-all duration-500 ease-in-out
                 max-md:!h-[260px]
@@ -181,7 +192,7 @@ const OurVideosSection = () => {
 
           <video
             src={selectedVideo.src}
-            poster={selectedVideo.poster}
+            poster={safePosterUrl(selectedVideo.poster)}
             controls
             autoPlay
             playsInline

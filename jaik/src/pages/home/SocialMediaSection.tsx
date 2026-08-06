@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { cachedGet } from "@/lib/clientApiCache";
+import { safePosterUrl } from "@/lib/media";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
@@ -15,28 +16,41 @@ import ReelVideoCard from "../../components/cards/ReelVideoCard";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const API_URL = `${API_BASE_URL}/reels`;
 
+type ReelItem = {
+  _id?: string;
+  video: string;
+  poster?: string;
+};
+
+type ReelsResponse =
+  | {
+      success?: boolean;
+      data?: ReelItem[];
+    }
+  | ReelItem[];
+
 const SocialMediaSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const desktopSwiperRef = useRef<SwiperType | null>(null);
-  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [reelsData, setReelsData] = useState<any[]>([]);
-  const [selectedReel, setSelectedReel] = useState<any | null>(null);
+  const [reelsData, setReelsData] = useState<ReelItem[]>([]);
+  const [selectedReel, setSelectedReel] = useState<ReelItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const progressRafRef = useRef<number | null>(null);
 
   // Fetch Data
   useEffect(() => {
     const fetchReels = async () => {
       try {
         setLoading(true);
-        const response = await cachedGet(API_URL);
-        if (response.data.success) {
-          setReelsData(response.data.data);
+        const response = await cachedGet<ReelsResponse>(API_URL);
+        const payload = response.data;
+        if (!Array.isArray(payload) && payload.success && Array.isArray(payload.data)) {
+          setReelsData(payload.data);
+        } else if (Array.isArray(payload)) {
+          setReelsData(payload);
         } else {
-          setReelsData(Array.isArray(response.data) ? response.data : []);
+          setReelsData([]);
         }
       } catch (error) {
         console.error("Error fetching reels:", error);
@@ -47,29 +61,10 @@ const SocialMediaSection = () => {
     fetchReels();
   }, []);
 
-  // Track Video Progress
-  const startProgressTracking = useCallback((vid: HTMLVideoElement) => {
-    if (progressRafRef.current) cancelAnimationFrame(progressRafRef.current);
-    const tick = () => {
-      if (!vid || vid.paused || vid.ended) return;
-      const pct = vid.duration ? (vid.currentTime / vid.duration) * 100 : 0;
-      setProgress(pct);
-      progressRafRef.current = requestAnimationFrame(tick);
-    };
-    progressRafRef.current = requestAnimationFrame(tick);
-  }, []);
-
-  const handleVideoEnded = useCallback(() => {
-    setProgress(100);
-    setTimeout(() => {
-      swiperRef.current?.slideNext();
-    }, 200);
-  }, []);
-
-  const handleSlideChange = useCallback((swiper: SwiperType) => {
+  const handleSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
     setProgress(0);
-  }, []);
+  };
 
   const handleVideoHover = (value: boolean) => {
     if (!desktopSwiperRef.current) return;
@@ -77,7 +72,7 @@ const SocialMediaSection = () => {
     else desktopSwiperRef.current.autoplay.start();
   };
 
-  const openMobileReel = (reel: any) => {
+  const openMobileReel = (reel: ReelItem) => {
     if (typeof window !== "undefined" && window.innerWidth < 1024) {
       setSelectedReel(reel);
     }
@@ -126,7 +121,7 @@ const SocialMediaSection = () => {
                       onClick={() => openMobileReel(reel)}
                     >
                       <img
-                        src={reel.poster}
+                        src={safePosterUrl(reel.poster)}
                         alt="Social media reel"
                         width={270}
                         height={480}
@@ -193,7 +188,7 @@ const SocialMediaSection = () => {
 
           <video
             src={selectedReel.video}
-            poster={selectedReel.poster}
+            poster={safePosterUrl(selectedReel.poster)}
             controls
             autoPlay
             playsInline
@@ -214,8 +209,8 @@ const SocialMediaSection = () => {
             onSwiper={(swiper) => (desktopSwiperRef.current = swiper)}
             className="mySwiper"
           >
-            {reelsData.map((reel) => (
-              <SwiperSlide key={reel._id}>
+            {reelsData.map((reel, index) => (
+              <SwiperSlide key={reel._id || `${reel.video}-${index}`}>
                 <ReelVideoCard
                   src={reel.video}
                   poster={reel.poster}

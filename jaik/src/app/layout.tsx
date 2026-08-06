@@ -119,6 +119,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://jaikvik.in" />
+        <link rel="preconnect" href="https://jaikvik.in" crossOrigin="anonymous" />
       </head>
       <body className={mulish.className} suppressHydrationWarning>
         <InteractionAnalytics />

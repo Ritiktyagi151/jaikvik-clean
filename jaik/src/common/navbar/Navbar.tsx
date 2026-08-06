@@ -173,13 +173,10 @@ const Navbar: React.FC = () => {
     .quote-btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: 2px solid transparent;
+      inset: 0;
+      border: 2px solid #ff4d4d;
       border-radius: 5px;
-      animation: rgbBorder 3s linear infinite;
+      box-shadow: 0 0 10px rgba(255, 77, 77, 0.35);
       z-index: 0;
     }
 

@@ -9,18 +9,22 @@ import { cachedGet } from "@/lib/clientApiCache";
 import "swiper/swiper-bundle.css";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
-import WebsiteCard from "../../components/cards/WebsiteCard";
+import WebsiteCard, { type WebsiteCardItem } from "../../components/cards/WebsiteCard";
 
 // ✅ Blog ki tarah API URL environment variable se liya
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL || ""}/websites`;
 
+type WebsitesResponse = {
+  success?: boolean;
+  data?: WebsiteCardItem[];
+};
+
 const WebsiteSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoSliding, setIsAutoSliding] = useState(true);
 
   // ✅ States for API Data
-  const [websitesList, setWebsitesList] = useState<any[]>([]);
+  const [websitesList, setWebsitesList] = useState<WebsiteCardItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   // ✅ Fetch Data logic same as Blogs
@@ -28,8 +32,8 @@ const WebsiteSection = () => {
     const fetchWebsites = async () => {
       try {
         setLoading(true);
-        const response = await cachedGet(API_URL);
-        if (response.data.success) {
+        const response = await cachedGet<WebsitesResponse>(API_URL);
+        if (response.data.success && Array.isArray(response.data.data)) {
           setWebsitesList(response.data.data);
         }
       } catch (error) {
@@ -43,20 +47,9 @@ const WebsiteSection = () => {
 
   const onSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
-    setIsAutoSliding(true);
-  };
-
-  const handleScrollComplete = () => {
-    if (isAutoSliding) {
-      let timer = setInterval(() => {
-        swiperRef.current?.slideNext();
-        clearInterval(timer);
-      }, 200);
-    }
   };
 
   const handleArrowClick = (direction: "prev" | "next") => {
-    setIsAutoSliding(false);
     if (direction === "prev") swiperRef.current?.slidePrev();
     else swiperRef.current?.slideNext();
   };
@@ -105,8 +98,7 @@ const WebsiteSection = () => {
               <WebsiteCard
                 index={index}
                 website={website}
-                scrollActive={index === activeIndex}
-                onScrollComplete={handleScrollComplete}
+                shouldLoadMedia={index <= 2 || Math.abs(index - activeIndex) <= 2}
               />
             </SwiperSlide>
           ))}

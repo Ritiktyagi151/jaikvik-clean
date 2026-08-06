@@ -213,6 +213,7 @@ const NavLayerTop = () => {
                 href="https://www.facebook.com/jaikviktechnology"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Jaikvik Technology on Facebook"
               >
                 <span aria-hidden="true">FB</span>
               </a>
@@ -221,6 +222,7 @@ const NavLayerTop = () => {
              href="https://twitter.com/jaikvik"
              target="_blank"
              rel="noopener noreferrer"
+             aria-label="Jaikvik Technology on X"
              >
               <span aria-hidden="true">X</span>
               </a>
@@ -229,6 +231,7 @@ const NavLayerTop = () => {
                 href="https://www.instagram.com/jaikviktechnology/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Jaikvik Technology on Instagram"
               >
                 <span aria-hidden="true">IG</span>
               </a>
@@ -237,16 +240,18 @@ const NavLayerTop = () => {
                 href="https://www.linkedin.com/company/jaikviktechnology/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Jaikvik Technology on LinkedIn"
               >
                 <span aria-hidden="true">IN</span>
               </a>
-              <a
+              <button
+                type="button"
                 className="text-[#25D366] px-2.5 py-1 text-sm hover:text-red-500"
-                href="#"
                 onClick={toggleWhatsAppPopup}
+                aria-label="Open WhatsApp chat options"
               >
                 <span aria-hidden="true">WA</span>
-              </a>
+              </button>
 
               {/* WhatsApp Popup */}
               {isWhatsAppPopupOpen && (

@@ -1,4 +1,5 @@
 export type WebsiteCardItem = {
+  _id?: string;
   url: string;
   imageSrc: string;
   alt?: string;

@@ -6,6 +6,7 @@ import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
 import { X, ArrowLeft as BackIcon } from "lucide-react";
 import { cachedGet } from "@/lib/clientApiCache";
+import { useBackButtonModal } from "@/lib/useBackButtonModal";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
@@ -19,6 +20,11 @@ const TeamVideoSlider = () => {
     video: string;
     poster: string;
   } | null>(null);
+  const closeSelectedVideo = useBackButtonModal(
+    Boolean(selectedVideo),
+    () => setSelectedVideo(null),
+    "team-video-player"
+  );
 
   const [teamVideosList, setTeamVideosList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -131,14 +137,14 @@ const TeamVideoSlider = () => {
         <div className="fixed inset-0 z-[9999] bg-black bg-opacity-95 flex items-center justify-center p-4">
           <button
             className="absolute top-4 left-4 text-white p-2 rounded-full bg-black/40"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <BackIcon size={24} />
           </button>
 
           <button
             className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <X size={26} />
           </button>

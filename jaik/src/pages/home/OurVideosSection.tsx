@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, memo } from "react";
 import { cachedGet } from "@/lib/clientApiCache";
 import { safePosterUrl } from "@/lib/media";
+import { useBackButtonModal } from "@/lib/useBackButtonModal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -27,6 +28,11 @@ type VideosResponse = {
 const OurVideosSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
+  const closeSelectedVideo = useBackButtonModal(
+    Boolean(selectedVideo),
+    () => setSelectedVideo(null),
+    "home-video-player"
+  );
 
   const [videoList, setVideoList] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -178,14 +184,14 @@ const OurVideosSection = () => {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200">
           <button
             className="absolute top-5 left-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <BackIcon size={22} />
           </button>
 
           <button
             className="absolute top-5 right-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <X size={22} />
           </button>

@@ -6,6 +6,7 @@ import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
 import { X, ArrowLeft as BackIcon } from "lucide-react";
 import { cachedGet } from "@/lib/clientApiCache";
+import { useBackButtonModal } from "@/lib/useBackButtonModal";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
@@ -18,6 +19,11 @@ const OurTestimonials = () => {
     video: string;
     poster: string;
   } | null>(null);
+  const closeSelectedVideo = useBackButtonModal(
+    Boolean(selectedVideo),
+    () => setSelectedVideo(null),
+    "testimonial-video-player"
+  );
 
   const [testimonialsList, setTestimonialsList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -178,14 +184,14 @@ const OurTestimonials = () => {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200">
           <button
             className="absolute top-5 left-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <BackIcon size={22} />
           </button>
 
           <button
             className="absolute top-5 right-4 text-white p-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md active:scale-95 transition-transform"
-            onClick={() => setSelectedVideo(null)}
+            onClick={closeSelectedVideo}
           >
             <X size={22} />
           </button>

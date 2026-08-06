@@ -320,7 +320,7 @@ export default defineConfig({
                 <pre className="bg-gray-900 p-4 rounded text-sm overflow-x-auto">
                   <code className="text-green-400">
                     {`// .env
-VITE_API_URL=https://api.example.com
+// VITE_API_URL=https://api.example.com
 VITE_DEBUG=true
 
 // Access in code

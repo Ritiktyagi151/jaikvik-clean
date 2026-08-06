@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { cachedGet } from "@/lib/clientApiCache";
 import { safePosterUrl } from "@/lib/media";
+import { useBackButtonModal } from "@/lib/useBackButtonModal";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
@@ -35,6 +36,11 @@ const SocialMediaSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [reelsData, setReelsData] = useState<ReelItem[]>([]);
   const [selectedReel, setSelectedReel] = useState<ReelItem | null>(null);
+  const closeSelectedReel = useBackButtonModal(
+    Boolean(selectedReel),
+    () => setSelectedReel(null),
+    "home-reel-player"
+  );
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -173,7 +179,7 @@ const SocialMediaSection = () => {
           <button
             type="button"
             className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm"
-            onClick={() => setSelectedReel(null)}
+            onClick={closeSelectedReel}
             aria-label="Close reel"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">

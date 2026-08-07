@@ -53,10 +53,10 @@ const NavLayerBottom: React.FC<{
             : ""
         }`}
       >
-        <div className="px-4 py-2 w-full laptop-view flex items-center justify-between">
+        <div className="laptop-view flex w-full items-center justify-between gap-3 px-3 py-2 xl:px-4">
           {/* Left - Logo + Menus */}
-          <div className="main-menu flex gap-2">
-            <div className="w-1/12 pt-1">
+          <div className="main-menu flex min-w-0 flex-1 items-center gap-2">
+            <div className="w-[92px] shrink-0 pt-1 lg:w-[105px] xl:w-[130px]">
               <Link href="/">
                 <img
                   src="/assets/optimized/logo-1.webp"
@@ -69,7 +69,7 @@ const NavLayerBottom: React.FC<{
                 />
               </Link>
             </div>
-            <ul className="flex items-center text-[16px] list-none flex-nowrap">
+            <ul className="flex min-w-0 flex-1 list-none flex-nowrap items-center justify-start text-[clamp(11px,0.86vw,16px)]">
               {dropdowns.map((item, index) => (
                 <NavMenu key={index} {...item} />
               ))}
@@ -77,9 +77,9 @@ const NavLayerBottom: React.FC<{
           </div>
 
           {/* Right - Language Selector with flags */}
-          <ul className="flex items-center list-none relative gap-2">
+          <ul className="relative flex shrink-0 list-none items-center gap-2">
             <li>
-              <BookingPillButton className="h-9 px-3 text-[11px] xl:px-4" />
+              <BookingPillButton className="h-9 px-2 text-[10px] xl:px-4 xl:text-[11px]" />
             </li>
             <li className="ml-auto">
               <LanguageSelector />

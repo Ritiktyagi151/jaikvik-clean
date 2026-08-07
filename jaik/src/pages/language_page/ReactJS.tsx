@@ -48,41 +48,37 @@ const ReactVite: React.FC = () => {
       <div className="container mx-auto px-4 max-w-6xl my-10">
         <div className="flex border-b border-gray-700 overflow-x-auto">
           <button
-            className={`px-6 py-3 font-medium whitespace-nowrap ${
-              activeTab === "basics"
-                ? "text-purple-400 border-b-2 border-purple-400"
-                : "text-gray-400 hover:text-gray-300"
-            }`}
+            className={`px-6 py-3 font-medium whitespace-nowrap ${activeTab === "basics"
+              ? "text-purple-400 border-b-2 border-purple-400"
+              : "text-gray-400 hover:text-gray-300"
+              }`}
             onClick={() => setActiveTab("basics")}
           >
             Vite Basics
           </button>
           <button
-            className={`px-6 py-3 font-medium whitespace-nowrap ${
-              activeTab === "features"
-                ? "text-purple-400 border-b-2 border-purple-400"
-                : "text-gray-400 hover:text-gray-300"
-            }`}
+            className={`px-6 py-3 font-medium whitespace-nowrap ${activeTab === "features"
+              ? "text-purple-400 border-b-2 border-purple-400"
+              : "text-gray-400 hover:text-gray-300"
+              }`}
             onClick={() => setActiveTab("features")}
           >
             Core Features
           </button>
           <button
-            className={`px-6 py-3 font-medium whitespace-nowrap ${
-              activeTab === "examples"
-                ? "text-purple-400 border-b-2 border-purple-400"
-                : "text-gray-400 hover:text-gray-300"
-            }`}
+            className={`px-6 py-3 font-medium whitespace-nowrap ${activeTab === "examples"
+              ? "text-purple-400 border-b-2 border-purple-400"
+              : "text-gray-400 hover:text-gray-300"
+              }`}
             onClick={() => setActiveTab("examples")}
           >
             Examples
           </button>
           <button
-            className={`px-6 py-3 font-medium whitespace-nowrap ${
-              activeTab === "ecosystem"
-                ? "text-purple-400 border-b-2 border-purple-400"
-                : "text-gray-400 hover:text-gray-300"
-            }`}
+            className={`px-6 py-3 font-medium whitespace-nowrap ${activeTab === "ecosystem"
+              ? "text-purple-400 border-b-2 border-purple-400"
+              : "text-gray-400 hover:text-gray-300"
+              }`}
             onClick={() => setActiveTab("ecosystem")}
           >
             Ecosystem

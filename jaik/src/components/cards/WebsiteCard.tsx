@@ -20,6 +20,10 @@ const WebsiteCard = ({
   isActive = false,
   onScrollComplete,
 }: WebsiteCardProps) => {
+  const imageAnimationClass = isActive
+    ? "motion-safe:animate-[website-card-scroll_8s_linear_infinite]"
+    : "";
+
   return (
     <div
       className="websiteCard group h-full"
@@ -36,7 +40,7 @@ const WebsiteCard = ({
             <img
               src={website.imageSrc}
               alt={website.alt || `Website ${index + 1}`}
-              className="absolute inset-x-0 top-0 z-0 m-auto min-h-full w-full max-w-full object-cover p-0 motion-safe:animate-[website-card-scroll_8s_linear_infinite] motion-reduce:animate-none"
+              className={`absolute inset-x-0 top-0 z-0 m-auto min-h-full w-full max-w-full object-cover p-0 motion-reduce:animate-none ${imageAnimationClass}`}
               draggable={false}
               loading="lazy"
               decoding="async"

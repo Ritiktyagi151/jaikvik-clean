@@ -7,10 +7,10 @@ const NavMenu: React.FC<navmenuInterface> = ({
   href = "",
 }) => {
   return (
-    <li className="group text-uppercase">
+    <li className="group text-uppercase shrink-0">
       <Link
         href={href}
-        className="flex items-center px-2.5 py-2.5 font-semibold uppercase text-white transition-colors duration-300 hover:text-red-500"
+        className="flex items-center whitespace-nowrap px-[clamp(0.28rem,0.42vw,0.625rem)] py-2.5 font-semibold uppercase text-white transition-colors duration-300 hover:text-red-500"
       >
         {title}
       </Link>

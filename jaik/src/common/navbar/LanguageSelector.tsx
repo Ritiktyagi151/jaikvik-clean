@@ -68,6 +68,9 @@ const countries: CountryType[] = [
 
 const TRANSLATE_SCRIPT_ID = "google-translate-script";
 
+const getFlagUrl = (countryCode: string) =>
+  `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+
 const ensureTranslateLoaded = async (): Promise<boolean> => {
   if (typeof window === "undefined") return false;
 
@@ -205,12 +208,18 @@ const LanguageSelector = () => {
 
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md shadow hover:bg-black transition"
+        className="flex items-center gap-2 whitespace-nowrap rounded-md bg-red-600 px-2.5 py-2 text-sm text-white shadow transition hover:bg-black xl:px-4"
       >
-        <span className="grid h-5 min-w-7 place-items-center rounded-sm border border-white/40 px-1 text-[10px] font-bold">
-          {selected.code}
-        </span>
-        <span>{selected.name}</span>
+        <img
+          src={getFlagUrl(selected.code)}
+          alt={`${selected.name} flag`}
+          className="h-4 w-6 rounded-sm border border-white/40 object-cover"
+          loading="lazy"
+          decoding="async"
+          width={24}
+          height={16}
+        />
+        <span className="max-w-[82px] truncate xl:max-w-none">{selected.name}</span>
         <svg
           className={`w-4 h-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
           fill="none"
@@ -239,9 +248,15 @@ const LanguageSelector = () => {
                 onClick={() => changeLanguage(country)}
                 className="flex items-center gap-2 px-4 py-2 w-full text-left hover:bg-gray-600"
               >
-                <span className="grid h-5 min-w-7 place-items-center rounded-sm border border-white/30 px-1 text-[10px] font-bold">
-                  {country.code}
-                </span>
+                <img
+                  src={getFlagUrl(country.code)}
+                  alt={`${country.name} flag`}
+                  className="h-4 w-6 shrink-0 rounded-sm border border-white/30 object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width={24}
+                  height={16}
+                />
                 <span>{country.name}</span>
               </button>
             ))}

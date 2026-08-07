@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { navlinks } from "../../configs/navConfigs";
 import NavLink from "./NavLink";
 import { sendExternalLead } from "@/lib/externalLead";
@@ -215,7 +217,7 @@ const NavLayerTop = () => {
                 rel="noopener noreferrer"
                 aria-label="Jaikvik Technology on Facebook"
               >
-                <span aria-hidden="true">FB</span>
+                <FaFacebookF aria-hidden="true" />
               </a>
              <a
              className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -224,7 +226,7 @@ const NavLayerTop = () => {
              rel="noopener noreferrer"
              aria-label="Jaikvik Technology on X"
              >
-              <span aria-hidden="true">X</span>
+              <FaXTwitter aria-hidden="true" />
               </a>
               <a
                 className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -233,7 +235,7 @@ const NavLayerTop = () => {
                 rel="noopener noreferrer"
                 aria-label="Jaikvik Technology on Instagram"
               >
-                <span aria-hidden="true">IG</span>
+                <FaInstagram aria-hidden="true" />
               </a>
               <a
                 className="text-white px-2.5 py-1 text-sm hover:text-red-500"
@@ -242,7 +244,7 @@ const NavLayerTop = () => {
                 rel="noopener noreferrer"
                 aria-label="Jaikvik Technology on LinkedIn"
               >
-                <span aria-hidden="true">IN</span>
+                <FaLinkedinIn aria-hidden="true" />
               </a>
               <button
                 type="button"
@@ -250,7 +252,7 @@ const NavLayerTop = () => {
                 onClick={toggleWhatsAppPopup}
                 aria-label="Open WhatsApp chat options"
               >
-                <span aria-hidden="true">WA</span>
+                <FaWhatsapp aria-hidden="true" />
               </button>
 
               {/* WhatsApp Popup */}
@@ -278,7 +280,7 @@ const NavLayerTop = () => {
                     rel="noopener noreferrer"
                     className="block w-full bg-green-500 text-white text-sm font-medium py-2 rounded-md hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
                   >
-                    <span aria-hidden="true">WA</span> Start Chat
+                    <FaWhatsapp aria-hidden="true" /> Start Chat
                   </a>
                 </div>
               </div>

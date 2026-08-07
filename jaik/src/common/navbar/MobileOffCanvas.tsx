@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import {
   digitalMarketingItems,
   filmProductionItems,
@@ -223,20 +225,34 @@ const MobileOffCanvas = ({
             </p>
             <ul className="flex justify-center space-x-3">
               {[
-                ["FB", "https://facebook.com", "bg-blue-600 hover:bg-blue-700"],
-                ["X", "https://twitter.com", "bg-blue-400 hover:bg-blue-500"],
-                ["IG", "https://instagram.com", "bg-pink-500 hover:bg-pink-600"],
-              ].map(([label, href, className]) => (
-                <li key={label}>
+                {
+                  label: "Facebook",
+                  href: "https://www.facebook.com/jaikviktechnology",
+                  className: "bg-blue-600 hover:bg-blue-700",
+                  icon: <FaFacebookF aria-hidden="true" />,
+                },
+                {
+                  label: "X",
+                  href: "https://twitter.com/jaikvik",
+                  className: "bg-neutral-800 hover:bg-neutral-700",
+                  icon: <FaXTwitter aria-hidden="true" />,
+                },
+                {
+                  label: "Instagram",
+                  href: "https://www.instagram.com/jaikviktechnology/",
+                  className: "bg-pink-500 hover:bg-pink-600",
+                  icon: <FaInstagram aria-hidden="true" />,
+                },
+              ].map((social) => (
+                <li key={social.label}>
                   <Link
-                    href={href}
-                    className={`${className} flex h-10 w-10 items-center justify-center rounded-full text-white transition-transform duration-200 hover:scale-110`}
+                    href={social.href}
+                    className={`${social.className} flex h-10 w-10 items-center justify-center rounded-full text-white transition-transform duration-200 hover:scale-110`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Jaikvik Technology on ${social.label}`}
                   >
-                    <span aria-hidden="true" className="text-xs font-bold">
-                      {label}
-                    </span>
+                    {social.icon}
                   </Link>
                 </li>
               ))}

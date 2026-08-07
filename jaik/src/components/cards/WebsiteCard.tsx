@@ -9,12 +9,16 @@ type WebsiteCardProps = {
   website: WebsiteCardItem;
   index: number;
   shouldLoadMedia?: boolean;
+  isActive?: boolean;
+  onScrollComplete?: () => void;
 };
 
 const WebsiteCard = ({
   website,
   index,
   shouldLoadMedia = false,
+  isActive = false,
+  onScrollComplete,
 }: WebsiteCardProps) => {
   return (
     <div
@@ -39,6 +43,7 @@ const WebsiteCard = ({
               fetchPriority="low"
               width={640}
               height={900}
+              onAnimationIteration={isActive ? onScrollComplete : undefined}
               style={{ willChange: "transform" }}
             />
             <style jsx>{`

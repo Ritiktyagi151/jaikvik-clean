@@ -21,6 +21,7 @@ type WebsitesResponse = {
 
 const WebsiteSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const autoSlideLockRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
   // ✅ States for API Data
@@ -52,6 +53,26 @@ const WebsiteSection = () => {
   const handleArrowClick = (direction: "prev" | "next") => {
     if (direction === "prev") swiperRef.current?.slidePrev();
     else swiperRef.current?.slideNext();
+  };
+
+  const handleWebsiteScrollComplete = (index: number) => {
+    const swiper = swiperRef.current;
+
+    if (
+      !swiper ||
+      websitesList.length <= 1 ||
+      index !== swiper.realIndex ||
+      autoSlideLockRef.current
+    ) {
+      return;
+    }
+
+    autoSlideLockRef.current = true;
+    swiper.slideNext();
+
+    window.setTimeout(() => {
+      autoSlideLockRef.current = false;
+    }, 500);
   };
 
   // Loading state (Style change nahi kiya, bas content control hai)
@@ -99,6 +120,8 @@ const WebsiteSection = () => {
                 index={index}
                 website={website}
                 shouldLoadMedia={index <= 2 || Math.abs(index - activeIndex) <= 2}
+                isActive={index === activeIndex}
+                onScrollComplete={() => handleWebsiteScrollComplete(index)}
               />
             </SwiperSlide>
           ))}
